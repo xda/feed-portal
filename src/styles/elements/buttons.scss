@@ -1,0 +1,34 @@
+
+.btn {
+  @include button;
+  @include shadow-2dp;
+}
+
+.btn-flat {
+  // @include button-effects(white);
+  background-color: white;
+  border: 1px solid $orange;
+  color: $orange;
+}
+
+.btn-orange {
+  @include button-effects($orange);
+}
+
+.btn-grey {
+  @include button-effects($grey-lighter);
+}
+
+.btn-dark {
+  @include button-effects($grey);
+}
+.btn-danger {
+  @include button-effects($danger);
+}
+
+.btn-fab {
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  padding: 1px;
+}

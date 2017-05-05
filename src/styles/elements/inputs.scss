@@ -1,0 +1,93 @@
+// --------basic inputs
+
+.input-group {
+  position: relative;
+  margin-bottom: 45px;
+}
+
+input, textarea, .input {
+  color: $paper;
+  background-color: transparent;
+  font-size: 35px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: $input-width;
+  border: none;
+  border-bottom: 1px solid $grey-lightest;
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid $orange-light;
+    transition: border-bottom .1s linear;
+  }
+  &:focus ~ label,
+  &:valid ~ label {
+    top: -20px;
+    font-size: 16px;
+  }
+  &:focus ~ label {
+    color: $orange-light;
+  }
+}
+
+label {
+  color: $grey-lightest;
+  font-size: 35px;
+  font-weight: normal;
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  cursor: text;
+  transition: 0.2s ease all;
+}
+
+// --------file
+// this stuff requires some javascript to make it good looking
+// just like yo momma
+.file {
+  padding: 2.2rem;
+  width: 28rem;
+  height: auto;
+  overflow: hidden;
+  background: transparent;
+}
+
+input[type="file"] {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+  & ~ label {
+    @include button();
+    @include button-effects($orange-light);
+    top: -20px;
+    cursor:pointer;
+    text-align:center;
+    transition:0.2s ease all;
+    margin: 30px 1px;
+  }
+}
+
+// --------textarea
+
+textarea {
+  resize: none;
+}
+
+// --------select
+
+select {
+  background-color: transparent;
+  &:focus,
+  &:valid {
+    //getting rid of mozilla dotted line outline
+    color: grey-light;
+    color: transparent;
+    text-shadow: 0 0 0 $grey-light;
+  }
+  & > option {
+    background-color: $paper;
+    color: $grey-light;
+  }
+}

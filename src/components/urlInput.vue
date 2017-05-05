@@ -1,7 +1,11 @@
 <template lang="html">
   <div id="enter-url">
-    <input type="text" placeholder="URL" v-model="url">
-    {{url}}
+    <div id="url-input" class="col-lg-10 col-lg-offset-1">
+      <div class="input-group">
+        <input type="text" id="url" required>
+        <label for="url">Enter URL</label>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,8 +19,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-#enter-url {
-  padding: 2rem;
-}
+<style lang="scss" scoped>
+
 </style>

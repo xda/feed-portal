@@ -1,9 +1,9 @@
-@import './flexgrid';
+@import './flexgrid.css';
 @import './variables';
 @import './mixins';
 @import './globals';
 
-@import './buttons';
-@import './card';
-@import './inputs';
-@import './shadows';
+@import './elements/buttons';
+@import './elements/card';
+@import './elements/inputs';
+@import './elements/shadows';

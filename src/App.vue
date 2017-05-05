@@ -1,26 +1,22 @@
 <template>
   <div id="app">
     <header>
-      <h1>XDA FEED</h1>
-    </header>
-    <div class="card shadow-4dp">
-      <header class="card-header shadow-2dp">
-        <h1>something</h1>
-      </header>
-      <div class="card-body">
-        <h2>something else</h2>
-        <h3>eitch three</h3>
-        <h4>eitch foor</h4>
-        <h5>eitch fayve</h5>
-        <h6>eitch siks</h6>
-        <a href="#">Linky</a><br>
-        <button class="btn-orange"> button </button><br>
-        <button class="btn-grey"> button </button><br>
-        <button class="btn-danger"> button </button><br>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      <router-link to="/">
+        <img src="./assets/icons/aQ.png" alt="feed-icon" class="feed-icon">
+        <h1 class="orange-light">xda</h1><h1 class="paper">feed</h1>
+      </router-link>
+      <div class="register">
+        <router-link to="/">
+          <i class="material-icons grey-lightest">lock</i>
+          <span class="grey-lightest continuum login">
+            Login
+          </span>
+        </router-link>
       </div>
-    </div>
-    <router-view></router-view>
+    </header>
+    <main class="col-lg-8 col-lg-offset-2 shadow-4dp">
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
@@ -30,15 +26,38 @@ export default {
 }
 </script>
 
-<style lang="scss">
-#app {
-}
+<style lang="scss" scoped>
 
 header {
-  height: 6rem;
-  background-color: orange;
-  padding: 2rem;
-  margin: 0px;
+  width: 100vw;
+  left: -10px;
+  top: -10px;
+}
+
+h1 {
+  display: inline-block;
+}
+
+a {
+  text-decoration: none;
+}
+
+i, span.login{
+  font-size: 2rem;
+}
+
+.register {
+  margin-left: auto;
+  margin-right: 10rem;
+  display: flex;
+  justify-content: center;
   align-items: center;
+}
+
+.feed-icon {
+  height: 4rem;
+  position: relative;
+  top: .7rem;
+  padding-right: 1rem;
 }
 </style>

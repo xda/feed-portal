@@ -1,15 +1,32 @@
 @import './variables';
 
 body {
-  background-color: $paper;
-  font-family: $Titilium;
-  color: $xda-grey-light;
+  background-color: $darkest-grey;
+  overflow-x: hidden;
 }
 
+* {
+  color: $paper;
+  font-family: $Titillium;
+}
+
+header {
+  @include header($orange, $dark-grey, $nav-height)
+  z-index: 4;
+}
+
+main {
+  background-color: $grey;
+  height: 100vw;
+  top: -20px;
+  padding-top: 5rem;
+  position:relative;
+}
 // --------text stuff
 
 h1 {
-  font-size: 4rem;
+  font-size: 3rem;
+  font-family: $Continuum;
 }
 
 h2 {
@@ -30,4 +47,79 @@ h5 {
 
 h6 {
   font-size: 1.2rem;
+}
+
+.continuum {
+  font-family: $Continuum;
+}
+
+.continuum-med {
+  font-family: $ContinuumMed
+}
+// colours
+.danger {
+  color: $danger;
+}
+
+.dark-orange {
+  color: $dark-orange;
+}
+
+.orange {
+  color: $orange;
+}
+
+.orange-light {
+  color: $orange-light;
+}
+
+.orange-lighter {
+  color: $orange-lighter;
+}
+
+.orange-lightest {
+  color: $orange-lightest;
+}
+
+.dark-grey {
+  color: $dark-grey;
+}
+
+.grey {
+  color: $grey;
+}
+
+.grey-light {
+  color: $grey-light;
+}
+
+.grey-lighter {
+  color: $grey-lighter;
+}
+
+.grey-lightest {
+  color: $grey-lightest;
+}
+
+.paper {
+  color: $paper;
+}
+
+.white {
+  color: white;
+}
+
+// links
+
+a:not([class^="btn"]:not( ~ h1)) {
+  color: $grey-light;
+  text-decoration: none;
+  border-bottom: $orange 2px solid;
+  transition: background-color .2s linear;
+  &:hover {
+    background-color: $orange-light;
+  }
+  &:active {
+    color: darken($orange, 10%);
+  }
 }
