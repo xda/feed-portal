@@ -1,0 +1,14 @@
+// --------fonts
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+$Titilium: 'Titilium Web', sans-serif;
+
+// --------colours
+$paper: #f5f5f6;
+
+$xda-orange: #f59714;
+$xda-orange-light: #ffbe3c;
+$xda-grey: #2e2e2e;
+$xda-grey-light: #4d4d4d;
+$xda-grey-lighter: lighten($xda-grey-light, 10%);
+
+$danger: #b50000;

@@ -1,0 +1,23 @@
+@import './mixins';
+@import './variables';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: white;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 20rem;
+  border-radius: 2px;
+  margin: 1rem;
+}
+
+.card-header {
+  @include header($xda-grey, $xda-orange);
+}
+
+.card-body {
+  padding: 2rem;
+  line-height: 2rem;
+}

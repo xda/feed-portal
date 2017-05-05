@@ -1,0 +1,13 @@
+// --------header
+
+@mixin header($colour, $bg) {
+  color: $colour;
+  background-color: $bg;
+  height: 6rem;
+  padding: 2rem;
+  margin: 0px;
+  display:flex;
+  position: relative;
+  justify-content: flex-start;
+  align-items: center;
+}
