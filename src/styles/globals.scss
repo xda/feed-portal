@@ -12,15 +12,28 @@ body {
 
 header {
   @include header($orange, $dark-grey, $nav-height)
+  @include shadow-2dp;
   z-index: 4;
+  position: fixed;
 }
 
 main {
   background-color: $grey;
-  height: 100vw;
+  min-height: 90vh;
   top: -20px;
-  padding-top: 5rem;
+  padding-top: 9rem;
   position:relative;
+  margin-bottom: -2rem;
+  z-index: 2;
+}
+
+footer {
+  @include footer($orange, $dark-grey, 3rem)
+  @include shadow-6dp;
+  z-index: 4;
+  width: 100vw;
+  left: -10px;
+  bottom: -10px;
 }
 // --------text stuff
 

@@ -17,6 +17,7 @@
     <main class="col-lg-8 col-lg-offset-2 shadow-4dp">
       <router-view></router-view>
     </main>
+    <footer>some stuff about xda</footer>
   </div>
 </template>
 
@@ -28,10 +29,14 @@ export default {
 
 <style lang="scss" scoped>
 
+#app {
+  min-height: 100%;
+}
+
 header {
   width: 100vw;
-  left: -10px;
-  top: -10px;
+  margin-left: -10px;
+  margin-top: -10px;
 }
 
 h1 {
