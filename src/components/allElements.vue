@@ -1,11 +1,8 @@
 <template lang="html">
   <div id="all-elements">
-    <header>
-      <h1>XDA FEED</h1>
-    </header>
     <div class="card">
       <header class="card-header">
-        <h1>something</h1>
+        <h1>Card Header</h1>
       </header>
       <div class="card-body">
         <h2>something else</h2>
@@ -57,7 +54,6 @@
         <button class="btn btn-grey"> button </button><br>
         <button class="btn btn-dark"> button </button><br>
         <button class="btn btn-danger"> button </button><br>
-        <button class="btn btn-flat"> button </button><br>
         <button class="btn btn-fab btn-orange">O</button>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </div>

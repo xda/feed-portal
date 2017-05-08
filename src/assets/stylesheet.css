@@ -5,7 +5,6 @@
   font-family: 'ContinuumLight';
   src: url('./fonts/contl.eot');
   src: url('./fonts/contl.eot?#iefix') format('embedded-opentype'),
-       url('./fonts/contl.woff') format('woff'),
        url('./fonts/contl.ttf') format('truetype'),
        url('./fonts/contl.svg#ContinuumLight') format('svg');
 }
@@ -14,7 +13,6 @@
   font-family: 'ContinuumMedium';
   src: url('./fonts/contm.eot');
   src: url('./fonts/contm.eot?#iefix') format('embedded-opentype'),
-       url('./fonts/contm.woff') format('woff'),
        url('./fonts/contm.ttf') format('truetype'),
        url('./fonts/contm.svg#ContinuumMedium') format('svg');
 }

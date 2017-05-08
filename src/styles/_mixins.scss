@@ -26,7 +26,18 @@
   justify-content: flex-start;
   align-items: center;
 }
+// --------inputs
 
+@mixin label () {
+  color: $grey-lightest;
+  font-size: 20px;
+  font-weight: normal;
+  position: absolute;
+  left: 5px;
+  top: 20px;
+  cursor: text;
+  transition: 0.2s ease all;
+}
 // --------button
 @mixin button() {
   padding: 10px 20px;
@@ -38,6 +49,13 @@
   text-align: center;
   font-size: 1.2rem;
   text-transform: uppercase;
+}
+@mixin button-flat() {
+  border: 1px solid $orange;
+  background-color: $grey;
+  &:hover {
+    background-color: $grey-light;
+  }
 }
 
 @mixin button-effects($colour) {

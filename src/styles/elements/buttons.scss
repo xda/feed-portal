@@ -5,10 +5,7 @@
 }
 
 .btn-flat {
-  // @include button-effects(white);
-  background-color: white;
-  border: 1px solid $orange;
-  color: $orange;
+  @include button-flat();
 }
 
 .btn-orange {

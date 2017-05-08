@@ -2,21 +2,28 @@
 
 .input-group {
   position: relative;
-  margin-bottom: 45px;
+  width: 100%;
+  margin-bottom: 4rem;
+  margin-top: 4rem;
 }
 
-input, textarea, .input {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+textarea,
+.input {
   color: $paper;
   background-color: transparent;
-  font-size: 35px;
-  padding: 10px 10px 10px 5px;
+  font-size: 25px;
+  padding: 10px 0 10px 5px;
   display: block;
-  width: $input-width;
+  width: 100%;
   border: none;
   border-bottom: 1px solid $grey-lightest;
   &:focus {
     outline: none;
-    border-bottom: 2px solid $orange-light;
+    border-bottom: 2px solid $orange;
     transition: border-bottom .1s linear;
   }
   &:focus ~ label,
@@ -25,19 +32,11 @@ input, textarea, .input {
     font-size: 16px;
   }
   &:focus ~ label {
-    color: $orange-light;
+    color: $orange;
   }
-}
-
-label {
-  color: $grey-lightest;
-  font-size: 35px;
-  font-weight: normal;
-  position: absolute;
-  left: 5px;
-  top: 10px;
-  cursor: text;
-  transition: 0.2s ease all;
+  & ~ label {
+    @include label();
+  }
 }
 
 // --------file
@@ -50,7 +49,6 @@ label {
   overflow: hidden;
   background: transparent;
 }
-
 input[type="file"] {
   width: 0.1px;
   height: 0.1px;
@@ -60,7 +58,7 @@ input[type="file"] {
   z-index: -1;
   & ~ label {
     @include button();
-    @include button-effects($orange-light);
+    @include button-flat();
     top: -20px;
     cursor:pointer;
     text-align:center;
@@ -89,5 +87,46 @@ select {
   & > option {
     background-color: $paper;
     color: $grey-light;
+  }
+}
+
+// --------radio
+
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  label {
+    margin: 0 2rem 0 0;
+    cursor: pointer;
+  }
+  input[type="radio"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    z-index: -1;
+    &:checked ~ span.radio-label {
+      color: $paper;
+      &:before {
+        background-color: $orange;
+        box-shadow: inset $grey 0 0 0 4px;
+      }
+    }
+  }
+  span.radio-label {
+    color: $grey-lightest;
+    transition: color ease .300s;
+    display:flex;
+    &:before {
+      display: flex;
+      border: 2px solid $orange;
+      content: '';
+      height: 20px;
+      width: 20px;
+      margin: 0 5px;
+      border-radius: 50%;
+      box-sizing: border-box;
+      transition: all ease .300s;
+      box-shadow: inset $grey 0 0 0 10px;
+    }
   }
 }

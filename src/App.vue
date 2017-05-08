@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <header>
+    <header id="nav">
       <router-link to="/">
         <img src="./assets/icons/aQ.png" alt="feed-icon" class="feed-icon">
-        <h1 class="orange-light">xda</h1><h1 class="paper">feed</h1>
+        <h1 class="orange-light header">xda</h1><h1 class="paper header">feed</h1>
       </router-link>
       <div class="register">
         <router-link to="/">
@@ -33,13 +33,15 @@ export default {
   min-height: 100%;
 }
 
-header {
+header#nav {
   width: 100vw;
   margin-left: -10px;
   margin-top: -10px;
+  z-index: 4;
+  position: fixed;
 }
 
-h1 {
+h1.header {
   display: inline-block;
 }
 
