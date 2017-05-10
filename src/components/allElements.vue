@@ -33,6 +33,16 @@
             <label for="file-input">[icon] File Input</label>
           </div>
         </div>
+        <div class="radio-group">
+          <label for="oneplus">
+            <input type="radio" name="device" value="oneplus" id="oneplus">
+            <span class="radio-label">OnePlus 3/3T</span>
+          </label>
+          <label for="pixel">
+            <input type="radio" name="device" value="pixel" id="pixel">
+            <span class="radio-label">Pixel</span>
+          </label>
+        </div>
         <div class="input-group">
           <select class="input"required>
             <option></option>

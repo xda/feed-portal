@@ -14,7 +14,11 @@
         </router-link>
       </div>
     </header>
-    <main class="col-lg-8 col-lg-offset-2 shadow-4dp">
+    <main class="col-lg-8
+                 col-lg-offset-2
+                 col-sm-12
+                 col-sm-offset-1
+                 shadow-4dp">
       <router-view></router-view>
     </main>
     <footer>some stuff about xda</footer>
