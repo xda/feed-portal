@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="application">
     <header id="nav">
       <router-link to="/">
         <img src="./assets/icons/aQ.png" alt="feed-icon" class="feed-icon">
@@ -27,13 +27,13 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'application'
 }
 </script>
 
 <style lang="scss" scoped>
 
-#app {
+#application {
   min-height: 100%;
 }
 

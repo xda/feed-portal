@@ -2,17 +2,26 @@
   <div id="add-item">
     <h4><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h4>
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1">
+      {{item}}
       <form method="post">
 
         <!-- Device -->
         <span class="grey-lightest">Choose a device</span>
         <div class="radio-group">
           <label for="oneplus">
-            <input type="radio" name="device" value="oneplus" id="oneplus">
+            <input type="radio"
+                   id="oneplus"
+                   name="device"
+                   value="oneplus"
+                   v-model="item.device">
             <span class="radio-label">OnePlus 3/3T</span>
           </label>
           <label for="pixel">
-            <input type="radio" name="device" value="pixel" id="pixel">
+            <input type="radio"
+                   id="pixel"
+                   name="device"
+                   value="pixel"
+                   v-model="item.device">
             <span class="radio-label">Pixel</span>
           </label>
         </div>
@@ -20,25 +29,41 @@
         <span class="grey-lightest">Type of content</span>
         <div class="content-type col-lg-9">
           <div class="row">
-            <div class="type-box" v-for="type in types" :class="type.id">
-              {{type.name}}
+            <div class="type-radio-group" v-for="type in types" ref="type">
+              <label :for="type.id">
+                <input type="radio"
+                       name="type"
+                       :id="type.id"
+                       :value="type.id"
+                       v-model="item.type">
+                <span class="type-box"
+                      :id="'label-' + type.id"
+                      :class="{'not-selected' : item.type !== type.id && item.type !== ''}">
+                  {{type.name}}
+                </span>
+              </label>
             </div>
           </div>
         </div>
         <!-- Title (Inputbox) -->
         <div class="input-group">
-          <input type="text" id="title-input" required>
+          <input type="text" id="title-input" v-model="item.title" required>
           <label for="title-input">Title</label>
         </div>
         <!-- Description (Textarea) -->
         <div class="input-group">
-          <textarea id="description-input" rows="4" cols="60" required></textarea>
+          <textarea id="description-input"
+                    rows="4"
+                    cols="60"
+                    v-model="item.description"
+                    required>
+          </textarea>
           <label for="description-input">Description</label>
         </div>
         <!-- Banner (File selection) (optional) -->
         <div class="input-group">
           <div class="file">
-            <input type="file" id="banner-input">
+            <input type="file" id="banner-input" @change="upload">
             <label for="banner-input">Upload Banner</label>
           </div>
         </div>
@@ -55,6 +80,13 @@
 export default {
   data () {
     return {
+      item: {
+        device: '',
+        type: '',
+        title: '',
+        description: '',
+        banner: ''
+      },
       types: [
         { name: 'Article', id: 'article' },
         { name: 'Thread', id: 'thread' },
@@ -68,11 +100,27 @@ export default {
         { name: 'Video', id: 'video' }
       ]
     }
+  },
+  computed: {
+
+  },
+  methods: {
+
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
+h4 {
+  margin: 0 auto 1rem auto;
+  padding-bottom: 1rem;
+  border-bottom: 1px dotted grey
+}
+
+form {
+  padding-bottom: 4rem;
+}
 
 $type-colours: (
 'app' : #f06292,
@@ -87,22 +135,18 @@ $type-colours: (
 'video' : #ffb74d,
 );
 
-
-h4 {
-  margin: 0 auto 1rem auto;
-  padding-bottom: 1rem;
-  border-bottom: 1px dotted grey
-}
-
-form {
-  padding-bottom: 4rem;
-}
-
 @each $section, $colour in $type-colours {
-  .#{$section} {
+  #label-#{$section} {
     background-color: $colour;
+    opacity: 1;
+    transition: .300s ease all;
     &:hover {
       background-color: lighten($colour, 10%);
+      transition: background-color ease .300s;
+    }
+    &.not-selected {
+      opacity: .4;
+      transition: .300s ease all;
     }
   }
 }
@@ -113,13 +157,22 @@ form {
   flex-wrap: wrap;
 }
 
-.type-box {
-  height: 100px;
-  width: 100px;
-  margin: 2px;
-  display:inline-flex;
-  justify-content: center;
-  align-items:center;
-  font-weight: bold;
+.type-radio-group {
+  input[type="radio"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    z-index: -1;
+    position: absolute;
+  }
+  span.type-box {
+    height: 100px;
+    width: 100px;
+    margin: 2px;
+    display:inline-flex;
+    justify-content: center;
+    align-items:center;
+    font-weight: bold;
+  }
 }
 </style>
