@@ -63,9 +63,14 @@
         <!-- Banner (File selection) (optional) -->
         <div class="input-group">
           <div class="file">
-            <input type="file" id="banner-input" @change="upload">
-            <label for="banner-input">Upload Banner</label>
+            <input type="file" id="banner-input" @change="onFileChange">
+            <label for="banner-input">
+              {{ !item.banner.img ? 'Upload Banner' : item.banner.name }}
+            </label>
           </div>
+        </div>
+        <div class="banner">
+          <img :src="item.banner.img">
         </div>
         <div class="col-lg-8 col-lg-offset-2 end-lg">
           <button class="btn btn-orange">Submit</button>
@@ -85,7 +90,10 @@ export default {
         type: '',
         title: '',
         description: '',
-        banner: ''
+        banner: {
+          name: '',
+          img: ''
+        }
       },
       types: [
         { name: 'Article', id: 'article' },
@@ -102,10 +110,29 @@ export default {
     }
   },
   computed: {
-
   },
   methods: {
+    onFileChange (e) {
+      var files = e.target.files || e.dataTransfer.files
+      if (!files.length) {
+        return
+      }
+      this.item.banner.name = files[0].name
+      this.createImage(files[0])
+      console.log('file', files[0])
+    },
+    createImage (file) {
+      var reader = new FileReader()
 
+      reader.onload = (e) => {
+        this.item.banner.img = e.target.result
+      }
+      reader.readAsDataURL(file)
+      console.log(file)
+    },
+    removeImage: function (e) {
+      this.banner = {name: '', img: ''}
+    }
   }
 }
 </script>

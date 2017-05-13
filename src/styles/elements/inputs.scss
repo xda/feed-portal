@@ -24,7 +24,7 @@ textarea,
   &:focus {
     outline: none;
     border-bottom: 2px solid $orange;
-    transition: border-bottom .1s linear;
+    transition: border-bottom .300s linear;
   }
   &:focus ~ label,
   &:valid ~ label {
@@ -49,6 +49,7 @@ textarea,
   overflow: hidden;
   background: transparent;
 }
+
 input[type="file"] {
   width: 0.1px;
   height: 0.1px;
