@@ -61,17 +61,18 @@
           <label for="description-input">Description</label>
         </div>
         <!-- Banner (File selection) (optional) -->
-        <div class="input-group">
-          <div class="file">
+        <div class="row banner">
+          <div class="file col-lg-5">
             <input type="file" id="banner-input" @change="onFileChange">
-            <label for="banner-input">
-              {{ !item.banner.img ? 'Upload Banner' : item.banner.name }}
+            <label for="banner-input" id="b-i">
+              {{ !item.banner.img ? 'upload banner image' : item.banner.name }}
             </label>
           </div>
+          <div class="col-lg-7 banner-image-container">
+            <img :src="item.banner.img" v-if="item.banner.img" id="banner-img">
+          </div>
         </div>
-        <div class="banner">
-          <img :src="item.banner.img">
-        </div>
+
         <div class="col-lg-8 col-lg-offset-2 end-lg">
           <button class="btn btn-orange">Submit</button>
         </div>
@@ -119,7 +120,6 @@ export default {
       }
       this.item.banner.name = files[0].name
       this.createImage(files[0])
-      console.log('file', files[0])
     },
     createImage (file) {
       var reader = new FileReader()
@@ -128,7 +128,6 @@ export default {
         this.item.banner.img = e.target.result
       }
       reader.readAsDataURL(file)
-      console.log(file)
     },
     removeImage: function (e) {
       this.banner = {name: '', img: ''}
@@ -138,11 +137,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/variables';
 
 h4 {
   margin: 0 auto 1rem auto;
   padding-bottom: 1rem;
-  border-bottom: 1px dotted grey
+  border-bottom: 1px dotted grey;
 }
 
 form {
@@ -201,5 +201,25 @@ $type-colours: (
     align-items:center;
     font-weight: bold;
   }
+}
+
+.banner {
+  display: flex;
+  padding: 0;
+  align-items: flex-start;
+}
+
+.banner-image-container {
+  height: 10rem;
+  width: 100%;
+  border: 1px solid $grey-lightest;
+  border-radius: 2px;
+  background-color: $grey-light;
+}
+
+#banner-img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
 }
 </style>

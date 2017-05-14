@@ -3,8 +3,8 @@
 .input-group {
   position: relative;
   width: 100%;
-  margin-bottom: 4rem;
   margin-top: 4rem;
+  margin-bottom: 4rem;
 }
 
 input[type="text"],
@@ -43,8 +43,6 @@ textarea,
 // this stuff requires some javascript to make it good looking
 // just like yo momma
 .file {
-  padding: 2.2rem;
-  width: 28rem;
   height: auto;
   overflow: hidden;
   background: transparent;
@@ -62,9 +60,9 @@ input[type="file"] {
     @include button-flat();
     top: -20px;
     cursor:pointer;
-    text-align:center;
     transition:0.2s ease all;
-    margin: 30px 1px;
+    display: inline-block;
+    max-width: 100%;
   }
 }
 
@@ -81,7 +79,7 @@ select {
   &:focus,
   &:valid {
     //getting rid of mozilla dotted line outline
-    color: grey-light;
+    color: $grey-light;
     color: transparent;
     text-shadow: 0 0 0 $grey-light;
   }
