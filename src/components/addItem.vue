@@ -1,8 +1,9 @@
 <template lang="html">
   <div id="add-item">
-    <h4><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h4>
+    <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1">
-      {{item}}
+      <!-- placeholder for URL prop -->
+      <h4 id="url">https://forum.xda-developers.com/oneplus-3t/how-to/coming-update-oos-based-7-1-t3564240</h4>
       <form method="post">
 
         <!-- Device -->
@@ -73,7 +74,7 @@
           </div>
         </div>
 
-        <div class="col-lg-8 col-lg-offset-2 end-lg">
+        <div class="end-lg">
           <button class="btn btn-orange">Submit</button>
         </div>
       </form>
@@ -84,6 +85,7 @@
 
 <script>
 export default {
+  props: ['url'],
   data () {
     return {
       item: {
@@ -139,10 +141,17 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/variables';
 
-h4 {
+h3 {
   margin: 0 auto 1rem auto;
   padding-bottom: 1rem;
   border-bottom: 1px dotted grey;
+  font-family: $Continuum;
+}
+
+h4 {
+  margin: 0 auto 1rem auto;
+  padding-bottom: 1rem;
+  font-family: $Continuum;
 }
 
 form {
@@ -207,6 +216,7 @@ $type-colours: (
   display: flex;
   padding: 0;
   align-items: flex-start;
+  margin-bottom: 4rem;
 }
 
 .banner-image-container {
@@ -215,11 +225,20 @@ $type-colours: (
   border: 1px solid $grey-lightest;
   border-radius: 2px;
   background-color: $grey-light;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #banner-img {
   width: 100%;
-  height: 10rem;
+  height: 9rem;
+  border-radius: 2px;
   object-fit: cover;
 }
+
+#url {
+  color: $grey-lightest;
+}
+
 </style>
