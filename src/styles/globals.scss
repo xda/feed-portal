@@ -55,10 +55,17 @@ h2 {
 
 h3 {
   font-size: 2.2rem;
+  margin: 0 auto 1rem auto;
+  padding-bottom: 1rem;
+  border-bottom: 1px dotted grey;
+  font-family: $Continuum;
 }
 
 h4 {
   font-size: 1.8rem;
+  margin: 0 auto 1rem auto;
+  padding-bottom: 1rem;
+  font-family: $Continuum;
 }
 
 h5 {
@@ -129,7 +136,7 @@ h6 {
   color: white;
 }
 
-// links
+// --------links
 
 a:not([class^="btn"]:not( ~ h1)) {
   color: $grey-light;
@@ -142,4 +149,20 @@ a:not([class^="btn"]:not( ~ h1)) {
   &:active {
     color: darken($orange, 10%);
   }
+}
+
+// --------loader
+.loader {
+    border: 2px solid transparent;
+    border-top: 2px solid $orange;
+    border-left: 2px solid $orange;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    animation: spin .7s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

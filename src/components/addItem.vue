@@ -4,8 +4,7 @@
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1">
       <!-- placeholder for URL prop -->
       <h4 id="url">https://forum.xda-developers.com/oneplus-3t/how-to/coming-update-oos-based-7-1-t3564240</h4>
-      <form method="post">
-
+      <form>
         <!-- Device -->
         <span class="grey-lightest">Choose a device</span>
         <div class="radio-group">
@@ -36,6 +35,7 @@
                        name="type"
                        :id="type.id"
                        :value="type.id"
+                       maxLength="255"
                        v-model="item.type">
                 <span class="type-box"
                       :id="'label-' + type.id"
@@ -56,6 +56,7 @@
           <textarea id="description-input"
                     rows="4"
                     cols="60"
+                    maxLength="2000"
                     v-model="item.description"
                     required>
           </textarea>
@@ -66,19 +67,25 @@
           <div class="file col-lg-5">
             <input type="file" id="banner-input" @change="onFileChange">
             <label for="banner-input" id="b-i">
-              {{ !item.banner.img ? 'upload banner image' : item.banner.name }}
+              {{ !item.banner.name ? 'upload banner image' : item.banner.name }}
             </label>
           </div>
           <div class="col-lg-7 banner-image-container">
+            <div class="loader" v-if="item.banner.name && !item.banner.img"></div>
+            <span id="remove-banner" v-show="item.banner.img" @click="removeImage">
+              <i class="material-icons orange">close</i>
+            </span>
             <img :src="item.banner.img" v-if="item.banner.img" id="banner-img">
           </div>
         </div>
 
         <div class="end-lg">
-          <button class="btn btn-orange">Submit</button>
+          <button class="btn btn-orange"
+                  @click="submit">
+            Submit
+          </button>
         </div>
       </form>
-
     </div>
   </div>
 </template>
@@ -116,12 +123,17 @@ export default {
   },
   methods: {
     onFileChange (e) {
+      if (this.item.banner.img) {
+        this.removeImage()
+      }
       var files = e.target.files || e.dataTransfer.files
       if (!files.length) {
         return
       }
       this.item.banner.name = files[0].name
-      this.createImage(files[0])
+      setTimeout(() => {
+        this.createImage(files[0])
+      }, 800)
     },
     createImage (file) {
       var reader = new FileReader()
@@ -132,7 +144,10 @@ export default {
       reader.readAsDataURL(file)
     },
     removeImage: function (e) {
-      this.banner = {name: '', img: ''}
+      this.item.banner = {name: '', img: ''}
+    },
+    submit () {
+      console.log(this.item)
     }
   }
 }
@@ -140,19 +155,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/variables';
-
-h3 {
-  margin: 0 auto 1rem auto;
-  padding-bottom: 1rem;
-  border-bottom: 1px dotted grey;
-  font-family: $Continuum;
-}
-
-h4 {
-  margin: 0 auto 1rem auto;
-  padding-bottom: 1rem;
-  font-family: $Continuum;
-}
 
 form {
   padding-bottom: 4rem;
@@ -228,13 +230,25 @@ $type-colours: (
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 #banner-img {
-  width: 100%;
+  width: 95%;
   height: 9rem;
   border-radius: 2px;
   object-fit: cover;
+  position: absolute;
+  z-index: 4;
+}
+
+#remove-banner {
+  display: absolute;
+  align-self: flex-start;
+  top: 0;
+  margin-left: 95%;
+  left: 0;
+  z-index: 5;
 }
 
 #url {
