@@ -1,3 +1,12 @@
+// --------removing input validation border on FF
+input, textarea {
+  &:required {
+    box-shadow: none;
+  }
+  &:invalid {
+    box-shadow: none;
+  }
+}
 // --------basic inputs
 
 .input-group {

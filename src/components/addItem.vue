@@ -13,7 +13,7 @@
                    id="oneplus"
                    name="device"
                    value="oneplus"
-                   v-model="item.device">
+                   v-model="item.device" required>
             <span class="radio-label">OnePlus 3/3T</span>
           </label>
           <label for="pixel">
@@ -36,7 +36,8 @@
                        :id="type.id"
                        :value="type.id"
                        maxLength="255"
-                       v-model="item.type">
+                       v-model="item.type"
+                       required>
                 <span class="type-box"
                       :id="'label-' + type.id"
                       :class="{'not-selected' : item.type !== type.id && item.type !== ''}">
