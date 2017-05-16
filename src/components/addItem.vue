@@ -156,14 +156,33 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/variables';
+@import '../styles/mixins';
 
 form {
   padding-bottom: 4rem;
 }
+// textarea {
+::-webkit-scrollbar {
+  width: .3rem;
+}
 
+::-webkit-scrollbar-track {
+  background-color: $grey-light;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $dark-grey;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: lighten($orange, 15%);
+  @include shadow-2dp;
+}
+
+// }
 $type-colours: (
 'app' : #f06292,
-'article' : #34b5e2,
+'article' : #388E7D,
 'thread' : #aa66cc,
 'kernel' : #74c353,
 'wallpaper' : #34b5e2,
@@ -205,8 +224,9 @@ $type-colours: (
     position: absolute;
   }
   span.type-box {
-    height: 100px;
-    width: 100px;
+    height: 7.2rem;
+    width: 7.2rem;
+    text-transform: uppercase;
     margin: 2px;
     display:inline-flex;
     justify-content: center;
