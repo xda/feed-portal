@@ -234,21 +234,29 @@ $type-colours: (
 }
 
 #banner-img {
-  width: 95%;
+  width: 90%;
   height: 9rem;
   border-radius: 2px;
   object-fit: cover;
   position: absolute;
   z-index: 4;
+  animation: fadein .8s;
+  @keyframes fadein  {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 }
 
 #remove-banner {
   display: absolute;
   align-self: flex-start;
-  top: 0;
-  margin-left: 95%;
+  top: 98%;
+  margin-left: 98%;
   left: 0;
   z-index: 5;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 #url {
