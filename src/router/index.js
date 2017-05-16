@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import allElements from '../components/allElements'
-import getFeed from '../components/getFeed'
+// import getFeed from '../components/getFeed'
 import urlInput from '../components/urlInput'
 import addItem from '../components/addItem'
 import pendingItem from '../components/pendingItem'
@@ -12,8 +12,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'get-feed',
-      component: getFeed
+      name: 'add',
+      component: addItem
     },
     {
       path: '/url',
