@@ -80,6 +80,8 @@ h5 {
 h6 {
   font-size: 1.2rem;
 }
+
+// sm-to-mid screen font adjustments
 @media screen and (max-width: 600px) {
   header {
     height: 1.5rem;

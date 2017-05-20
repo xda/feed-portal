@@ -28,7 +28,7 @@
         <br><br>
         <!-- Type -->
         <span class="grey-lightest input-title">Type of content</span>
-        <div class="content-type col-lg-9">
+        <div class="content-type col-lg-9 col-sm-12 col-xs-12">
           <div class="row">
             <div class="type-radio-group" v-for="type in types" ref="type">
               <label :for="type.id">
@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <div class="end-lg">
+        <div class="end-lg end-sm" id="submit-button">
           <button class="btn btn-orange"
                   @click="submit">
             Submit
@@ -162,7 +162,7 @@ export default {
 form {
   padding-bottom: 4rem;
 }
-// textarea {
+
 ::-webkit-scrollbar {
   width: .3rem;
 }
@@ -180,7 +180,6 @@ form {
   @include shadow-2dp;
 }
 
-// }
 $type-colours: (
 'app' : #f06292,
 'article' : #388E7D,
@@ -214,35 +213,26 @@ $type-colours: (
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-}
-
-
-.type-radio-group {
-  input[type="radio"] {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    z-index: -1;
-    position: absolute;
+  .type-radio-group {
+    input[type="radio"] {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      z-index: -1;
+      position: absolute;
+    }
+    span.type-box {
+      height: 7.2rem;
+      width: 7.2rem;
+      text-transform: uppercase;
+      margin: 2px;
+      display:inline-flex;
+      justify-content: center;
+      align-items:center;
+      font-weight: bold;
+    }
   }
-  span.type-box {
-    height: 7.2rem;
-    width: 7.2rem;
-    text-transform: uppercase;
-    margin: 2px;
-    display:inline-flex;
-    justify-content: center;
-    align-items:center;
-    font-weight: bold;
-  }
-}
 
-@media screen and (max-width: 320px) {
-  span.type-box {
-    font-size: .7rem;
-    max-height: 5.3rem;
-    max-width: 5.3rem;
-  }
 }
 
 .banner {
@@ -250,33 +240,33 @@ $type-colours: (
   padding: 0;
   align-items: flex-start;
   margin-bottom: 4rem;
-}
-
-.banner-image-container {
-  height: 10rem;
-  width: 100%;
-  border: 1px solid $grey-lightest;
-  border-radius: 2px;
-  background-color: $grey-light;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-#banner-img {
-  width: 90%;
-  height: 9rem;
-  border-radius: 2px;
-  object-fit: cover;
-  position: absolute;
-  z-index: 4;
-  animation: fadein .8s;
-  @keyframes fadein  {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  .banner-image-container {
+    height: 10rem;
+    width: 100%;
+    border: 1px solid $grey-lightest;
+    border-radius: 2px;
+    background-color: $grey-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    #banner-img {
+      width: 90%;
+      height: 9rem;
+      border-radius: 2px;
+      object-fit: cover;
+      position: absolute;
+      z-index: 4;
+      animation: fadein .8s;
+      @keyframes fadein  {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+    }
   }
 }
+
+
 
 #remove-banner {
   display: absolute;
@@ -292,6 +282,29 @@ $type-colours: (
 
 #url {
   color: $grey-lightest;
+}
+
+// tiny screens
+@media screen and (max-width: 360px) {
+  span.type-box {
+    font-size: .7rem;
+    max-height: 5.3rem;
+    max-width: 5.3rem;
+  }
+  .banner {
+    justify-content: center;
+    .banner-image-container {
+      max-width: 90%;
+      align-self: center;
+      #banner-img {
+        max-width: 85%;
+      }
+    }
+  }
+  #submit-button {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 </style>
