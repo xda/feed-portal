@@ -11,8 +11,14 @@ body {
 }
 
 header {
-  @include header($orange, $dark-grey, $nav-height)
+  @include header($orange, $dark-grey, $nav-height);
   @include shadow-2dp;
+}
+//
+@media screen and (max-width: 600px) {
+  header {
+    @include header($orange, $dark-grey, $sm-nav-height);
+  }
 }
 
 main {
@@ -62,10 +68,9 @@ h3 {
 }
 
 h4 {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   margin: 0 auto 1rem auto;
   padding-bottom: 1rem;
-  font-family: $Continuum;
 }
 
 h5 {
@@ -74,6 +79,23 @@ h5 {
 
 h6 {
   font-size: 1.2rem;
+}
+@media screen and (max-width: 600px) {
+  header {
+    height: 1.5rem;
+  }
+  h1 {
+    font-size: 2.2rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  h3 {
+    font-size: 1.7rem;
+  }
+  h4 {
+    font-size: 1.5rem;
+  }
 }
 
 .continuum {

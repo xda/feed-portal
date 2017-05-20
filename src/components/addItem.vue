@@ -1,12 +1,12 @@
 <template lang="html">
   <div id="add-item">
     <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
-    <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1">
+    <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
       <!-- placeholder for URL prop -->
       <h4 id="url">https://forum.xda-developers.com/oneplus-3t/how-to/coming-update-oos-based-7-1-t3564240</h4>
       <form>
         <!-- Device -->
-        <span class="grey-lightest">Choose a device</span>
+        <span class="grey-lightest input-title">Choose a device</span>
         <div class="radio-group">
           <label for="oneplus">
             <input type="radio"
@@ -26,7 +26,8 @@
           </label>
         </div>
         <br><br>
-        <span class="grey-lightest">Type of content</span>
+        <!-- Type -->
+        <span class="grey-lightest input-title">Type of content</span>
         <div class="content-type col-lg-9">
           <div class="row">
             <div class="type-radio-group" v-for="type in types" ref="type">
@@ -38,7 +39,7 @@
                        maxLength="255"
                        v-model="item.type"
                        required>
-                <span class="type-box"
+                <span class="type-box col-sm-12"
                       :id="'label-' + type.id"
                       :class="{'not-selected' : item.type !== type.id && item.type !== ''}">
                   {{type.name}}
@@ -215,6 +216,7 @@ $type-colours: (
   flex-wrap: wrap;
 }
 
+
 .type-radio-group {
   input[type="radio"] {
     width: 0.1px;
@@ -232,6 +234,14 @@ $type-colours: (
     justify-content: center;
     align-items:center;
     font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  span.type-box {
+    font-size: .7rem;
+    max-height: 5.3rem;
+    max-width: 5.3rem;
   }
 }
 

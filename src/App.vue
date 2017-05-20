@@ -16,8 +16,9 @@
     </header>
     <main class="col-lg-8
                  col-lg-offset-2
-                 col-sm-12
+                 col-sm-10
                  col-sm-offset-1
+                 col-xs-12
                  shadow-4dp">
       <router-view></router-view>
     </main>
@@ -57,9 +58,21 @@ i, span.login{
   font-size: 2rem;
 }
 
+@media screen and (max-width: 600px) {
+  i {
+    font-size: 1.5rem;
+    display: block;
+    float: right;
+  }
+  span.login {
+    font-size: 1rem;
+    display: block;
+  }
+}
+
 .register {
   margin-left: auto;
-  margin-right: 10rem;
+  margin-right: 12%;
   display: flex;
   justify-content: center;
   align-items: center;
