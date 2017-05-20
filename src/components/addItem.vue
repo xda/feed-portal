@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <div class="end-lg end-sm" id="submit-button">
+        <div class="end-lg" id="submit-button">
           <button class="btn btn-orange"
                   @click="submit">
             Submit
@@ -266,8 +266,6 @@ $type-colours: (
   }
 }
 
-
-
 #remove-banner {
   display: absolute;
   align-self: flex-start;
@@ -304,6 +302,19 @@ $type-colours: (
   #submit-button {
     display: flex;
     justify-content: center;
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #submit-button {
+    display: flex;
+    justify-content: center;
+    button {
+      width: 100%;
+    }
   }
 }
 
