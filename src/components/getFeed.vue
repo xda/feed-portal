@@ -1,7 +1,9 @@
 <template lang="html">
   <div id="get-feed">
     <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
-    <url-input></url-input>
+    <div class="col-lg-8 col-lg-offset-2">
+      <url-input @submit="checkUrl"></url-input>
+    </div>
     <h3><i class="material-icons orange">add_circle_outline</i> Get feed</h3>
 
     <div class="row col-lg-8 col-lg-offset-2">
@@ -43,6 +45,16 @@ import urlInput from './urlInput'
 export default {
   components: {
     urlInput
+  },
+  data () {
+    return {
+      url: ''
+    }
+  },
+  methods: {
+    checkUrl (url) {
+      console.log(url)
+    }
   }
 }
 </script>

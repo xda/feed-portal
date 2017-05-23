@@ -1,10 +1,11 @@
 <template lang="html">
   <div id="enter-url">
-    <div id="url-input" class="col-lg-10 col-lg-offset-1">
-      <div class="input-group">
-        <input type="text" id="url" required>
-        <label for="url">Enter URL</label>
-      </div>
+    <div class="input-group">
+      <input type="text" id="url" v-model="url" required>
+      <label for="url">Enter URL</label>
+      <button class="btn btn-orange" @click="submit">
+        Go
+      </button>
     </div>
   </div>
 </template>
@@ -14,6 +15,11 @@ export default {
   data () {
     return {
       url: ''
+    }
+  },
+  methods: {
+    submit () {
+      this.$emit('submit', this.url)
     }
   }
 }
