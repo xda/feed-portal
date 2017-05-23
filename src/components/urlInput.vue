@@ -1,10 +1,10 @@
 <template lang="html">
-  <div id="enter-url">
+  <div id="enter-url" class="row">
     <div class="input-group">
-      <input type="text" id="url" v-model="url" required>
+      <input type="text" id="url" v-model="url"  @keyup.enter="submit" required>
       <label for="url">Enter URL</label>
-      <button class="btn btn-orange" @click="submit">
-        Go
+      <button class="btn btn-orange" @click.prevent="submit">
+        Add
       </button>
     </div>
   </div>
@@ -26,5 +26,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .input-group {
+    display: flex;
+    button {
+      margin-left: 1rem;
+    }
+  }
 </style>

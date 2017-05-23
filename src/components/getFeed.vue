@@ -53,7 +53,10 @@ export default {
   },
   methods: {
     checkUrl (url) {
-      console.log(url)
+      // check url status here
+      if (url.length) {
+        this.$router.push({name: 'add-item'})
+      }
     }
   }
 }
