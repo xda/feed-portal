@@ -33,7 +33,7 @@
 
     <div class="row">
       <div class="col-lg-10">
-        slideshow!
+        <carousel></carousel>
       </div>
     </div>
 
@@ -42,9 +42,12 @@
 
 <script>
 import urlInput from './urlInput'
+import carousel from './carousel'
+
 export default {
   components: {
-    urlInput
+    urlInput,
+    carousel
   },
   data () {
     return {
