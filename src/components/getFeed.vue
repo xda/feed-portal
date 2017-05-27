@@ -32,7 +32,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-10">
+      <div class="col-lg-8 col-lg-offset-2">
         <carousel></carousel>
       </div>
     </div>
