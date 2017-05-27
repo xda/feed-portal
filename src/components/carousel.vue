@@ -1,9 +1,9 @@
 <template lang="html">
   <div id="carousel">
     <div class="slide">
-      <img :src="slides[currentIndex -1]" class="side-slide">
-      <img :src="slides[currentIndex]">
-      <img :src="slides[currentIndex + 1]" class="side-slide">
+      <img :src="slides[slideIndex -1] || slides[slides.length -1]" class="side-slide">
+      <img :src="slides[slideIndex]">
+      <img :src="slides[slideIndex + 1] || slides[0]" class="side-slide">
     </div>
   </div>
 </template>
@@ -25,6 +25,11 @@ export default {
   },
   mounted () {
     this.startRotate()
+  },
+  computed: {
+    slideIndex () {
+      return this.currentIndex % this.slides.length
+    }
   },
   methods: {
     startRotate () {
