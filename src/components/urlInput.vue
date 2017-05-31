@@ -32,4 +32,15 @@ export default {
       margin-left: 1rem;
     }
   }
+  @media screen and (max-width: 600px) {
+    .input-group {
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      button {
+        width: 100%;
+        margin: 10px 0 0 0;
+      }
+    }
+  }
 </style>
