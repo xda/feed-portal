@@ -3,6 +3,7 @@
     <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
       <!-- placeholder for URL prop -->
+      <span class="grey-lightest input-title">URL</span>
       <h4 id="url">https://forum.xda-developers.com/oneplus-3t/how-to/coming-update-oos-based-7-1-t3564240</h4>
       <form>
         <!-- Device -->

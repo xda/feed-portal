@@ -2,6 +2,9 @@
 .btn {
   @include button;
   @include shadow-2dp;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .btn-flat {

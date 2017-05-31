@@ -3,8 +3,9 @@
     <div class="slide"
          @mouseover="stopRotate"
          @mouseout="startRotate">
-         <!-- TODO: material-icons in buttons -->
-      <button class="btn btn-flat" @click="clickSide('prev')"><</button>
+      <span class="material-icons orange slide-nav" @click="clickSide('prev')">
+        chevron_left
+      </span>
       <img :src="slides[slideIndex -1] || slides[slides.length -1]"
           @click="clickSide('prev')"
            class="side-slide
@@ -16,7 +17,9 @@
            @click="clickSide('next')"
            class="side-slide
                   shadow-2dp">
-      <button class="btn btn-flat" @click="clickSide('next')">></button>
+        <span class="material-icons orange slide-nav" @click="clickSide('next')">
+          chevron_right
+        </span>
     </div>
   </div>
 </template>
@@ -94,8 +97,12 @@ export default {
       @include focus-shadow;
     }
   }
-  button.btn {
-    margin: .5rem;
+  span.slide-nav {
+    margin: 1rem;
+    font-size: 3rem;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 </style>
