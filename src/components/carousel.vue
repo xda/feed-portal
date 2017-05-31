@@ -1,19 +1,22 @@
 <template lang="html">
   <div id="carousel">
-    <div class="slide">
+    <div class="slide"
+         @mouseover="stopRotate"
+         @mouseout="startRotate">
+         <!-- TODO: material-icons in buttons -->
+      <button class="btn btn-flat" @click="clickSide('prev')"><</button>
       <img :src="slides[slideIndex -1] || slides[slides.length -1]"
           @click="clickSide('prev')"
            class="side-slide
                   shadow-2dp">
       <img :src="slides[slideIndex]"
-           @mouseover="stopRotate"
-           @mouseout="startRotate"
            class="shadow-6dp
                   main-img">
       <img :src="slides[slideIndex + 1] || slides[0]"
            @click="clickSide('next')"
            class="side-slide
                   shadow-2dp">
+      <button class="btn btn-flat" @click="clickSide('next')">></button>
     </div>
   </div>
 </template>
@@ -90,6 +93,9 @@ export default {
       opacity: 1;
       @include focus-shadow;
     }
+  }
+  button.btn {
+    margin: .5rem;
   }
 }
 </style>
