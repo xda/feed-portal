@@ -1,9 +1,19 @@
 <template lang="html">
   <div id="carousel">
     <div class="slide">
-      <img :src="slides[slideIndex -1] || slides[slides.length -1]" class="side-slide">
-      <img :src="slides[slideIndex]">
-      <img :src="slides[slideIndex + 1] || slides[0]" class="side-slide">
+      <img :src="slides[slideIndex -1] || slides[slides.length -1]"
+          @click="clickSide('prev')"
+           class="side-slide
+                  shadow-2dp">
+      <img :src="slides[slideIndex]"
+           @mouseover="stopRotate"
+           @mouseout="startRotate"
+           class="shadow-6dp
+                  main-img">
+      <img :src="slides[slideIndex + 1] || slides[0]"
+           @click="clickSide('next')"
+           class="side-slide
+                  shadow-2dp">
     </div>
   </div>
 </template>
@@ -33,11 +43,22 @@ export default {
   },
   methods: {
     startRotate () {
-      this.timer = setInterval(this.next, 2000)
+      this.timer = setInterval(this.next, 3000)
     },
     stopRotate () {
       clearTimeout(this.timer)
       this.timer = null
+    },
+    clickSide (direction) {
+      if (direction === 'next') {
+        this.next()
+      } else if (direction === 'prev') {
+        this.prev()
+      }
+      this.stopRotate()
+      setTimeout(() => {
+        this.startRotate()
+      }, 2000)
     },
     next () {
       this.currentIndex += 1
@@ -50,6 +71,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/mixins';
+
 .slide {
   max-width: 60rem;
   display: flex;
@@ -57,11 +80,16 @@ export default {
   align-items: center;
   margin-top: 5rem;
   margin-bottom: 5rem;
+  img.side-slide {
+    width: 30%;
+    opacity: .6;
+  }
   img {
     width: 35%;
-  }
-  img.side-slide {
-    width: 25%;
+    &:hover {
+      opacity: 1;
+      @include focus-shadow;
+    }
   }
 }
 </style>
