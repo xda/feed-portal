@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import allElements from '../components/allElements'
 import getFeed from '../components/getFeed'
 import urlInput from '../components/urlInput'
 import addItem from '../components/addItem'
@@ -29,11 +28,6 @@ export default new Router({
       path: '/pending',
       name: 'pending-item',
       component: pendingItem
-    },
-    {
-      path: '/styles',
-      name: 'styles',
-      component: allElements
     }
   ]
 })
