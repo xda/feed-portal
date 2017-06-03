@@ -21,20 +21,30 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    SAVE_ITEM () {
-
+    SAVE_ITEM (state, item) {
+      state.item = {
+        id: '',
+        url: state.item.url,
+        device: item.device,
+        type: item.type,
+        title: item.title,
+        description: item.description,
+        banner: {...item.banner}
+      }
     },
     SET_ITEM () {
 
     },
     SET_URL (state, url) {
-      console.log(url)
       state.item.url = url
     }
   },
   actions: {
     checkUrl (state, url) {
       // check url against APi
+    },
+    saveItem ({commit, state}, item) {
+      commit('SAVE_ITEM', item)
     },
     fetchItem () {
       // fetch from API

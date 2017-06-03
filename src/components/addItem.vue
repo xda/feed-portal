@@ -160,7 +160,7 @@ export default {
       this.item.banner = {name: '', img: ''}
     },
     submit () {
-      console.log(this.item)
+      this.$store.dispatch('saveItem', this.item)
     }
   }
 }
