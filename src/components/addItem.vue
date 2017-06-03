@@ -2,9 +2,16 @@
   <div id="add-item">
     <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-      <!-- placeholder for URL prop -->
-      <span class="grey-lightest input-title">URL</span>
-      <h4 id="url">https://forum.xda-developers.com/oneplus-3t/how-to/coming-update-oos-based-7-1-t3564240</h4>
+      <div v-if="url">
+        <span class="grey-lightest input-title">URL</span>
+        <h4 id="url">
+          <span>
+            {{ url }}
+          </span>
+        </h4>
+      </div>
+
+
       <form>
         <!-- Device -->
         <span class="grey-lightest input-title">Choose a device</span>
@@ -84,7 +91,7 @@
 
         <div class="end-lg" id="submit-button">
           <button class="btn btn-orange"
-                  @click="submit">
+                  @click.prevent="submit">
             Submit
           </button>
         </div>
@@ -94,20 +101,20 @@
 </template>
 
 <script>
+const initialItem = {
+  device: '',
+  type: '',
+  title: '',
+  description: '',
+  banner: {
+    name: '',
+    img: ''
+  }
+}
 export default {
-  props: ['url'],
   data () {
     return {
-      item: {
-        device: '',
-        type: '',
-        title: '',
-        description: '',
-        banner: {
-          name: '',
-          img: ''
-        }
-      },
+      item: initialItem,
       types: [
         { name: 'Article', id: 'article' },
         { name: 'Thread', id: 'thread' },
@@ -123,6 +130,9 @@ export default {
     }
   },
   computed: {
+    url () {
+      return this.$store.getters.item.url
+    }
   },
   methods: {
     onFileChange (e) {
