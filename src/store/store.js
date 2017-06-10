@@ -1,5 +1,12 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import axios from 'axios'
+
+var instance = axios.create({
+  baseURL: 'https://feed-staging.xda-developers.com/',
+  timeout: 1000,
+  headers: {'Authorization': 'Bearer 4GDcWT0gqFoUqBHF8MtKEXgndls50b'}
+})
 
 Vue.use(Vuex)
 
@@ -8,7 +15,6 @@ const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
   state: {
     item: {
-      id: '',
       url: '',
       device: '',
       type: '',
@@ -41,7 +47,19 @@ export default new Vuex.Store({
   },
   actions: {
     checkUrl (state, url) {
-      // check url against APi
+      instance.get('/pending/check', {params: {url: url}})
+              .then((response) => {
+                let check = response.data
+                if (check.exists) {
+                  console.log('exists')
+                  // if not live redirect to page to upvote
+                  // if reusable and live redirect to page to bump version
+                  // if not reusable and live redirect to show page, option to add new URL
+                } else {
+                  this.$router.push({name: 'add-item'})
+                  console.log(response)
+                }
+              })
     },
     saveItem ({commit, state}, item) {
       commit('SAVE_ITEM', item)

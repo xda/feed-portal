@@ -56,10 +56,8 @@ export default {
   },
   methods: {
     checkUrl (url) {
-      // check url status here
       if (url.length) {
-        this.$store.commit('SET_URL', url)
-        this.$router.push({name: 'add-item'})
+        this.$store.dispatch('checkUrl', this.url)
       }
     }
   }
