@@ -116,16 +116,18 @@ export default {
     return {
       item: initialItem,
       types: [
-        { name: 'Article', id: 'article' },
-        { name: 'Thread', id: 'thread' },
-        { name: 'Wallpaper', id: 'wallpaper' },
-        { name: 'Homescreen', id: 'homescreen' },
-        { name: 'ROM', id: 'rom' },
-        { name: 'Kernel', id: 'kernel' },
-        { name: 'Icon Pack', id: 'iconpack' },
-        { name: 'Theme', id: 'theme' },
-        { name: 'App', id: 'app' },
-        { name: 'Video', id: 'video' }
+        // Type of item [0 = News Article. 1 = Thread. 2 = Wallpaper. 3 = Home Screen. 4 = ROM. 5 = Kernel. 6 = Screenshot. 7 = Theme. 8 = Icon pack. 9 = App, 10 = Video]
+
+        { name: 'Article', tag: 'article', id: 0 },
+        { name: 'Thread', tag: 'thread', id: 1 },
+        { name: 'Wallpaper', tag: 'wallpaper', id: 2 },
+        { name: 'Homescreen', tag: 'homescreen', id: 3 },
+        { name: 'ROM', tag: 'rom', id: 4 },
+        { name: 'Kernel', tag: 'kernel', id: 5 },
+        { name: 'Icon Pack', tag: 'iconpack', id: 7 },
+        { name: 'Theme', tag: 'theme', id: 8 },
+        { name: 'App', tag: 'app', id: 9 },
+        { name: 'Video', tag: 'video', id: 10 }
       ]
     }
   },
