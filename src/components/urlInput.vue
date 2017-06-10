@@ -19,7 +19,9 @@ export default {
   },
   methods: {
     submit () {
-      this.$emit('submit', this.url)
+      if (this.url.length) {
+        this.$store.dispatch('checkUrl', this.url)
+      }
     }
   }
 }

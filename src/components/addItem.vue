@@ -42,7 +42,7 @@
               <label :for="type.id">
                 <input type="radio"
                        name="type"
-                       :id="type.id"
+                       :id="type.tag"
                        :value="type.id"
                        maxLength="255"
                        v-model="item.type"
@@ -116,14 +116,13 @@ export default {
     return {
       item: initialItem,
       types: [
-        // Type of item [0 = News Article. 1 = Thread. 2 = Wallpaper. 3 = Home Screen. 4 = ROM. 5 = Kernel. 6 = Screenshot. 7 = Theme. 8 = Icon pack. 9 = App, 10 = Video]
-
         { name: 'Article', tag: 'article', id: 0 },
         { name: 'Thread', tag: 'thread', id: 1 },
         { name: 'Wallpaper', tag: 'wallpaper', id: 2 },
         { name: 'Homescreen', tag: 'homescreen', id: 3 },
         { name: 'ROM', tag: 'rom', id: 4 },
         { name: 'Kernel', tag: 'kernel', id: 5 },
+        // Screenshot: 6
         { name: 'Icon Pack', tag: 'iconpack', id: 7 },
         { name: 'Theme', tag: 'theme', id: 8 },
         { name: 'App', tag: 'app', id: 9 },

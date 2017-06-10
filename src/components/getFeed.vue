@@ -2,7 +2,7 @@
   <div id="get-feed">
     <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
     <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-      <url-input @submit="checkUrl"></url-input>
+      <url-input></url-input>
     </div>
     <h3><i class="material-icons orange">add_circle_outline</i> Get feed</h3>
 
@@ -52,13 +52,6 @@ export default {
   data () {
     return {
       url: ''
-    }
-  },
-  methods: {
-    checkUrl (url) {
-      if (url.length) {
-        this.$store.dispatch('checkUrl', this.url)
-      }
     }
   }
 }
