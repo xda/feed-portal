@@ -48,15 +48,19 @@ export default new Vuex.Store({
   actions: {
     checkUrl ({commit, state}, url) {
       commit('SET_URL', url)
-      console.log(url)
-      instance.get('/pending/check', {params: {url: state.item.url}, timeout: 4000})
+
+      instance.get('/pending/check', {params: {url: state.item.url}, timeout: 3000})
               .then((response) => {
                 let check = response.data
-                if (check.exists === true) {
+                if (check.exists) {
                   console.log('exists', url, response)
-                  // if not live redirect to page to upvote
-                  // if reusable and live redirect to page to bump version
-                  // if not reusable and live redirect to show page, option to add new URL
+                  if (check.live && check.reusable) {
+                    // if reusable and live redirect to page to bump version
+                  } else if (check.live && !check.reusable) {
+                    // if not reusable and live redirect to show page, option to add new URL
+                  } else {
+                    // if not live redirect to page to upvote
+                  }
                 } else {
                   console.log('false', response)
                 }

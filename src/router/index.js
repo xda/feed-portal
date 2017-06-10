@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import getFeed from '../components/getFeed'
 import urlInput from '../components/urlInput'
 import addItem from '../components/addItem'
-import pendingItem from '../components/pendingItem'
+import itemDetails from '../components/itemDetails'
 
 Vue.use(Router)
 
@@ -25,9 +25,9 @@ export default new Router({
       component: addItem
     },
     {
-      path: '/pending',
-      name: 'pending-item',
-      component: pendingItem
+      path: '/item',
+      name: 'item/:id',
+      component: itemDetails
     }
   ]
 })
