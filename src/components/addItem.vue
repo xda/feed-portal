@@ -77,11 +77,11 @@
           <div class="file col-lg-5">
             <input type="file" id="banner-input" @change="onFileChange">
             <label for="banner-input" id="b-i">
-              {{ !item.banner.name ? 'upload banner image' : item.banner.name }}
+              {{ !item.banner.source ? 'upload banner image' : item.banner.source }}
             </label>
           </div>
           <div class="col-lg-7 banner-image-container">
-            <div class="loader" v-if="item.banner.name && !item.banner.img"></div>
+            <div class="loader" v-if="item.banner.source && !item.banner.img"></div>
             <span id="remove-banner" v-show="item.banner.img" @click="removeImage">
               <i class="material-icons orange">close</i>
             </span>
@@ -107,7 +107,7 @@ const initialItem = {
   title: '',
   description: '',
   banner: {
-    name: '',
+    source: '',
     img: ''
   }
 }
