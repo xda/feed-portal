@@ -1,13 +1,20 @@
 <template lang="html">
 	<div id="item-details">
+
     <h3><i class="material-icons orange">add_circle_outline</i>
        {{ item.title }}
        <div class="label-wrap">
          <span :id="'label-' + type" class="label">{{type}}</span>
        </div>
      </h3>
-    <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
 
+     <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1"
+          v-if="reusable === 'reusable-true' &&
+                live === 'live-true'">
+       <url-input></url-input>
+     </div>
+
+    <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
       <div id="banner-container">
         <img :src="item.banner.source" id="banner" class="shadow-2dp">
       </div>
@@ -49,8 +56,13 @@
 </template>
 
 <script>
+import urlInput from './urlInput'
+
 export default {
   props: ['id', 'live', 'reusable'],
+  components: {
+    urlInput
+  },
   computed: {
     item () {
       return this.$store.getters.item

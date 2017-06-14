@@ -13,7 +13,7 @@
 
 <script>
 import instance from '../store/api'
-import {initialItem} from '../store/store'
+// import {initialItem} from '../store/store'
 export default {
   data () {
     return {
@@ -25,9 +25,9 @@ export default {
       return this.$store.getters.item
     }
   },
-  beforeCreate () {
-    this.$store.commit('SET_ITEM', initialItem)
-  },
+  // beforeMount () {
+  //   this.$store.commit('SET_ITEM', initialItem)
+  // },
   methods: {
     submit () {
       if (this.url.length) {
@@ -42,6 +42,7 @@ export default {
         let check = response.data
         if (check.exists) {
           let item = response.data.item
+          console.log(item)
           this.$store.commit('SET_ITEM', item)
           this.$router.push({path: `/item/live-${check.live}/reusable-${check.reusable}/${item.id}`})
         } else {
