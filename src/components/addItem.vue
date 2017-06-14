@@ -11,6 +11,9 @@
         </h4>
       </div>
       <form>
+          <input type="checkbox" id="device-specific" v-model="deviceSpecific">
+          <label for="device-specific" class="checkbox-label">Device Specific</label>
+          <br>
         <!-- Device -->
         <span class="grey-lightest input-title">Choose a device</span>
         <div class="radio-group">
@@ -112,7 +115,8 @@ const initialItem = {
 export default {
   data () {
     return {
-      item: initialItem
+      item: initialItem,
+      deviceSpecific: false
     }
   },
   computed: {
