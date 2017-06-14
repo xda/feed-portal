@@ -1,31 +1,18 @@
 <template lang="html">
-  <div id="carousel">
-    <div class="slide"
-         @mouseover="stopRotate"
-         @mouseout="startRotate">
-      <span class="material-icons orange slide-nav" @click="clickSide('prev')">
-        chevron_left
-      </span>
-      <img :src="slides[slideIndex -1] || slides[slides.length -1]"
-          @click="clickSide('prev')"
-           class="side-slide
-                  shadow-2dp">
-      <img :src="slides[slideIndex]"
-           class="shadow-6dp
-                  main-img">
-      <img :src="slides[slideIndex + 1] || slides[0]"
-           @click="clickSide('next')"
-           class="side-slide
-                  shadow-2dp">
-        <span class="material-icons orange slide-nav" @click="clickSide('next')">
-          chevron_right
-        </span>
-    </div>
-  </div>
+  <carousel-3d :controls-visible="true" :autoplay="true" :height="640" :display="3">
+    <slide v-for="(slide, i) in slides" :index="i"  class="side-slide shadow-2dp">
+      <img :src="slide"/>
+    </slide>
+  </carousel-3d>
 </template>
 
 <script>
+import { Carousel3d, Slide } from 'vue-carousel-3d'
 export default {
+  components: {
+    Carousel3d,
+    Slide
+  },
   data () {
     return {
       slides: [
@@ -38,71 +25,10 @@ export default {
       currentIndex: 1,
       timer: null
     }
-  },
-  mounted () {
-    this.startRotate()
-  },
-  computed: {
-    slideIndex () {
-      return this.currentIndex % this.slides.length
-    }
-  },
-  methods: {
-    startRotate () {
-      this.timer = setInterval(this.next, 3000)
-    },
-    stopRotate () {
-      clearTimeout(this.timer)
-      this.timer = null
-    },
-    clickSide (direction) {
-      if (direction === 'next') {
-        this.next()
-      } else if (direction === 'prev') {
-        this.prev()
-      }
-      this.stopRotate()
-      setTimeout(() => {
-        this.startRotate()
-      }, 2000)
-    },
-    next () {
-      this.currentIndex += 1
-    },
-    prev () {
-      this.currentIndex -= 1
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../styles/mixins';
-
-.slide {
-  max-width: 60rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-  img.side-slide {
-    width: 30%;
-    opacity: .6;
-  }
-  img {
-    width: 35%;
-    &:hover {
-      opacity: 1;
-      @include focus-shadow;
-    }
-  }
-  span.slide-nav {
-    margin: 1rem;
-    font-size: 3rem;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-}
 </style>
