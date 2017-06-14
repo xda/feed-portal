@@ -1,6 +1,12 @@
 <template lang="html">
-  <carousel-3d :controls-visible="true" :autoplay="true" :height="640" :display="3">
-    <slide v-for="(slide, i) in slides" :index="i"  class="side-slide shadow-2dp">
+  <carousel-3d :controls-visible="true"
+               :autoplay="true"
+               :height="640"
+               :display="3"
+               :animationSpeed="1500">
+    <slide v-for="(slide, i) in slides"
+           :index="i"
+           class="side-slide shadow-2dp">
       <img :src="slide"/>
     </slide>
   </carousel-3d>
