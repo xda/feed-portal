@@ -42,9 +42,10 @@ export default {
         let check = response.data
         if (check.exists) {
           let item = response.data.item
-
           this.$store.commit('SET_ITEM', item)
           this.$router.push({path: `/item/live-${check.live}/reusable-${check.reusable}/${item.id}`})
+        } else {
+          this.$router.push({name: 'add-item'})
         }
       })
     }

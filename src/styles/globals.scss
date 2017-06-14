@@ -163,13 +163,14 @@ h6 {
 
 // --------links
 
-a:not([class^="btn"]:not( ~ h1)) {
-  color: $grey-light;
+a.link {
+  color: $paper;
   text-decoration: none;
   border-bottom: $orange 2px solid;
   transition: background-color .2s linear;
   &:hover {
     background-color: $orange-light;
+    color: $dark-grey
   }
   &:active {
     color: darken($orange, 10%);

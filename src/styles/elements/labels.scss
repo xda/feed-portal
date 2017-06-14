@@ -1,0 +1,31 @@
+$type-colours: (
+'app' : #f06292,
+'article' : #388E7D,
+'thread' : #aa66cc,
+'kernel' : #74c353,
+'wallpaper' : #34b5e2,
+'homescreen' : #d39747,
+'rom' : #dd4b39,
+'iconpack' : #9c27b0,
+'theme' : #7d4641,
+'video' : #ffb74d,
+);
+
+.label {
+  display: inline;
+  padding: .1rem .9rem .1rem .9rem;
+  font-size: 1rem;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 2px;
+  background-color: $grey-lighter;
+}
+
+@each $type, $colour in $type-colours {
+  #label-#{$type} {
+    background-color: $colour;
+  }
+}

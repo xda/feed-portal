@@ -278,10 +278,6 @@ $type-colours: (
   }
 }
 
-#url {
-  color: $grey-lightest;
-}
-
 // tiny screens
 @media screen and (max-width: 360px) {
   span.type-box {

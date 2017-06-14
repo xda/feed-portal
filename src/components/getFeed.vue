@@ -5,9 +5,7 @@
       <url-input></url-input>
     </div>
     <h3><i class="material-icons orange">add_circle_outline</i> Get feed</h3>
-
     <div class="row col-lg-8 col-lg-offset-2">
-
       <div class="col-lg-6 phone-box-container">
         <div class="pixel-eg phone-box">
           Pixel
