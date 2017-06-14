@@ -48,11 +48,6 @@ export default {
   components: {
     urlInput,
     carousel
-  },
-  data () {
-    return {
-      url: ''
-    }
   }
 }
 </script>

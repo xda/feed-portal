@@ -25,9 +25,9 @@ export default new Router({
       component: addItem
     },
     {
-      path: '/item',
-      name: 'item/:id',
-      component: itemDetails
+      path: '/item/:reusable/:live/:id',
+      component: itemDetails,
+      props: true
     }
   ]
 })

@@ -7,24 +7,50 @@
         Add
       </button>
     </div>
+    {{item}}
   </div>
 </template>
 
 <script>
+import instance from '../store/api'
+import {initialItem} from '../store/store'
 export default {
   data () {
     return {
       url: ''
     }
   },
+  computed: {
+    item () {
+      return this.$store.getters.item
+    }
+  },
+  beforeCreate () {
+    this.$store.commit('SET_ITEM', initialItem)
+  },
   methods: {
     submit () {
       if (this.url.length) {
-        this.$store.dispatch('checkUrl', this.url)
+        this.checkUrl()
       }
+    },
+    checkUrl (url) {
+      this.$store.commit('SET_URL', this.url)
+
+      instance.get('/pending/check', {params: {url: this.url}, timeout: 3000})
+      .then((response) => {
+        let check = response.data
+        if (check.exists) {
+          let item = response.data.item
+
+          this.$store.commit('SET_ITEM', item)
+          this.$router.push({path: `/item/live-${check.live}/reusable-${check.reusable}/${item.id}`})
+        }
+      })
     }
   }
 }
+
 </script>
 
 <style lang="scss" scoped>

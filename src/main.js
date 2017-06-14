@@ -5,6 +5,9 @@ import App from './App'
 import store from './store/store'
 import router from './router'
 import './styles/styles.scss'
+import { sync } from 'vuex-router-sync'
+
+sync(store, router)
 
 Vue.config.productionTip = false
 

@@ -10,8 +10,6 @@
           </span>
         </h4>
       </div>
-
-
       <form>
         <!-- Device -->
         <span class="grey-lightest input-title">Choose a device</span>
@@ -39,7 +37,7 @@
         <div class="content-type col-lg-9 col-sm-12 col-xs-12">
           <div class="row">
             <div class="type-radio-group" v-for="type in types" ref="type">
-              <label :for="type.id">
+              <label :for="type.tag">
                 <input type="radio"
                        name="type"
                        :id="type.tag"
@@ -48,7 +46,7 @@
                        v-model="item.type"
                        required>
                 <span class="type-box col-sm-12"
-                      :id="'label-' + type.id"
+                      :id="'label-' + type.tag"
                       :class="{'not-selected' : item.type !== type.id && item.type !== ''}">
                   {{type.name}}
                 </span>
@@ -114,25 +112,15 @@ const initialItem = {
 export default {
   data () {
     return {
-      item: initialItem,
-      types: [
-        { name: 'Article', tag: 'article', id: 0 },
-        { name: 'Thread', tag: 'thread', id: 1 },
-        { name: 'Wallpaper', tag: 'wallpaper', id: 2 },
-        { name: 'Homescreen', tag: 'homescreen', id: 3 },
-        { name: 'ROM', tag: 'rom', id: 4 },
-        { name: 'Kernel', tag: 'kernel', id: 5 },
-        // Screenshot: 6
-        { name: 'Icon Pack', tag: 'iconpack', id: 7 },
-        { name: 'Theme', tag: 'theme', id: 8 },
-        { name: 'App', tag: 'app', id: 9 },
-        { name: 'Video', tag: 'video', id: 10 }
-      ]
+      item: initialItem
     }
   },
   computed: {
     url () {
       return this.$store.getters.item.url
+    },
+    types () {
+      return this.$store.getters.types
     }
   },
   methods: {
@@ -144,7 +132,7 @@ export default {
       if (!files.length) {
         return
       }
-      this.item.banner.name = files[0].name
+      this.item.banner.source = files[0].name
       setTimeout(() => {
         this.createImage(files[0])
       }, 800)
@@ -158,7 +146,7 @@ export default {
       reader.readAsDataURL(file)
     },
     removeImage: function (e) {
-      this.item.banner = {name: '', img: ''}
+      this.item.banner = {source: '', img: ''}
     },
     submit () {
       this.$store.dispatch('saveItem', this.item)
