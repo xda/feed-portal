@@ -9,8 +9,10 @@
      </h3>
 
      <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1"
-          v-if="reusable === 'reusable-true' &&
-                live === 'live-true'">
+          v-if="reusable === 'reusable-true' && live === 'live-true'">
+        <span class="orange-lightest">
+          Already exists in feed, try something else!
+        </span>
        <url-input></url-input>
      </div>
 
@@ -50,7 +52,7 @@
 
     </div>
     <pre>
-      {{item}}
+      <!-- {{item}} -->
     </pre>
 	</div>
 </template>
@@ -87,6 +89,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  #item-details {
+    margin-bottom: -3rem;
+  }
+
   #banner-container {
     width: 100%;
     max-height: 10rem;

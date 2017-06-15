@@ -7,7 +7,6 @@
         Add
       </button>
     </div>
-    {{item}}
   </div>
 </template>
 
