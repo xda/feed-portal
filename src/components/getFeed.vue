@@ -34,12 +34,13 @@
         <div class="phone-box">
         </div>
         <div class="download">
-          <a href="https://play.google.com/store/apps/details?id=com.xda.feed">
+          <a href="#" target="_blank">
             <img src="../assets/icons/getonlabs.png"
                  alt="google play download link"
                  class="download-link">
           </a>
-          <a href="https://play.google.com/store/apps/details?id=com.xda.feed">
+          <a href="https://play.google.com/store/apps/details?id=com.xda.feed"
+             target="_blank">
             <img src="../assets/icons/google-play-badge.png"
                  alt="google play download link"
                  class="download-link">
@@ -84,7 +85,6 @@ export default {
     },
     setVideoId (url) {
       this.videoId = this.$youtube.getIdFromURL(url)
-      console.log(this.videoId)
     }
   }
 }
