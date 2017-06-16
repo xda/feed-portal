@@ -6,15 +6,16 @@
   background-color: $grey;
   box-sizing: border-box;
   position: relative;
-  min-height: 20rem;
+  margin: .5rem 0 1.5rem 0;
   border-radius: 2px;
-  margin: 1rem;
-  @include shadow-4dp;
+  @include shadow-2dp;
 }
 
 .card-body {
   padding: 2rem;
   line-height: 2rem;
+  display: flex;
+  align-items: center;
 }
 
 .card-lg {
