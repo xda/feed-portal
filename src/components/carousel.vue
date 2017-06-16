@@ -5,6 +5,7 @@
                :display="3"
                :animationSpeed="1500">
     <slide v-for="(slide, i) in slides"
+           :key="slide"
            :index="i"
            class="side-slide shadow-2dp">
       <img :src="slide"/>
