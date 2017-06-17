@@ -11,26 +11,6 @@
         </h4>
       </div>
       <form>
-        <!-- Device -->
-        <span class="grey-lightest input-title">Item scope</span>
-        <div class="checkbox-group">
-          <input type="checkbox" id="device-specific" v-model="deviceSpecific">
-          <label for="device-specific" class="grey-lightest">Device specific</label>
-        </div>
-
-        <transition name="fade">
-          <div id="device-picker" v-show="deviceSpecific">
-            <div class="input-group">
-              <select class="input"required>
-                <option></option>
-                <option v-for="d in devices">{{d}}</option>
-              </select>
-              <label class="grey-lightest">Choose a device</label>
-            </div>
-          </div>
-        </transition>
-
-        <br><br>
         <!-- Type -->
         <span class="grey-lightest input-title">Type of content</span>
         <div class="content-type col-lg-9 col-sm-12 col-xs-12">
@@ -53,6 +33,25 @@
             </div>
           </div>
         </div>
+        <br><br>
+        <!-- Device -->
+        <span class="grey-lightest input-title">Item scope</span>
+        <div class="checkbox-group">
+          <input type="checkbox" id="device-specific" v-model="deviceSpecific">
+          <label for="device-specific" class="grey-lightest">Device specific</label>
+        </div>
+
+        <transition name="fade">
+          <div id="device-picker" v-show="deviceSpecific">
+            <div class="input-group">
+              <select class="input"required>
+                <option></option>
+                <option v-for="d in devices">{{d}}</option>
+              </select>
+              <label class="grey-lightest">Choose a device</label>
+            </div>
+          </div>
+        </transition>
         <!-- Title (Inputbox) -->
         <div class="input-group">
           <input type="text" id="title-input" v-model="item.title" required>
