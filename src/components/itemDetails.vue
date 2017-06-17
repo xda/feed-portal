@@ -17,6 +17,11 @@
      </div>
 
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+      <div class="date">
+        <span class="grey-lightest input-title">
+          {{ new Date(item.timestamp).toLocaleDateString() }}
+        </span>
+      </div>
       <div id="banner-container">
         <img :src="item.banner.source" id="banner" class="shadow-2dp">
       </div>
