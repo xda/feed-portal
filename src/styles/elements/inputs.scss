@@ -165,6 +165,8 @@ select {
     }
   }
 
+  // --------checkbox
+
   input[type="checkbox"] {
     outline: 0;
     margin-right: 10px;
@@ -186,5 +188,27 @@ select {
       }
     }
   }
+}
 
+// --------submit
+
+@media screen and (max-width: 360px) {
+  #submit-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #submit-button {
+    display: flex;
+    justify-content: center;
+    button {
+      width: 100%;
+    }
+  }
 }

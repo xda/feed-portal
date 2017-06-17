@@ -6,7 +6,11 @@
     cursor: pointer;
   }
 }
-
+.btn-small {
+  max-height: 2rem;
+  padding: .5rem .8rem 1.8rem;
+  font-size: .9rem;
+}
 .btn-flat {
   @include button-flat();
 }
@@ -15,12 +19,20 @@
   @include button-effects($orange);
 }
 
+.btn-orange-light {
+  @include button-effects($orange-light);
+}
+
 .btn-grey {
   @include button-effects($grey-lighter);
 }
 
-.btn-dark {
+.btn-dark-grey {
   @include button-effects($grey);
+}
+
+.btn-darkest-grey {
+  @include button-effects($dark-grey);
 }
 .btn-danger {
   @include button-effects($danger);

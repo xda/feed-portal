@@ -17,16 +17,18 @@
      </div>
 
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-      <div class="date">
-        <span class="grey-lightest input-title">
-          {{ new Date(item.timestamp).toLocaleDateString() }}
-        </span>
-      </div>
+
       <div id="banner-container">
+        <div class="date">
+          <span class="grey-lightest input-title">
+            {{ new Date(item.timestamp).toLocaleDateString() }}
+          </span>
+        </div>
         <img :src="item.banner.source" id="banner" class="shadow-2dp">
       </div>
+
       <div class="row">
-        <div class="col-lg-8 col-xs-12">
+        <div class="col-lg-12 col-xs-12">
           <div class="detail-wrap">
             <span class="grey-lightest input-title">URL</span>
             <div class="detail" id="url">
@@ -37,7 +39,6 @@
           </div>
 
           <div class="detail-wrap">
-          <!-- TODO:if reusable put toggle here -->
             <span class="grey-lightest input-title">Device</span>
             <div class="detail">
               {{item.device.name || 'any' | capitalize }}
@@ -49,21 +50,41 @@
               {{item.description}}
             </div>
           </div>
-        </div>
-        <div class="col-lg-4">
+
           <div class="detail-wrap" v-if="liveReuse">
-            <span class="grey-lightest input-title">Newest Version</span>
-            <div class="detail">
-              {{item.version}}
+            <div v-if="!versionUpdate">
+              <span class="grey-lightest input-title">Newest Version</span>
+              <div class="detail">
+                {{item.version}}
+                <button class="btn btn-flat btn-small"
+                        @click="versionUpdate = true">
+                  update
+                </button>
+              </div>
+            </div>
+
+            <div v-if="versionUpdate">
+              <div class="row new-version">
+                <div class="col-lg-6 col-xs-12">
+                  <div class="input-group">
+                    <input type="text" id="version-number" required>
+                    <label for="version-number">New version</label>
+                  </div>
+                </div>
+                <div class="col-lg-2 col-offset-4 col-xs-12">
+                  <div id="submit-button">
+                    <button class="btn btn-orange"
+                            @click.prevent="submit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
-    <pre>
-      <!-- {{item}} -->
-    </pre>
 	</div>
 </template>
 
@@ -75,16 +96,19 @@ export default {
   components: {
     urlInput
   },
+  data () {
+    return {
+      versionUpdate: false
+    }
+  },
   computed: {
     item () {
       return this.$store.getters.item
     },
-    types () {
-      return this.$store.getters.types
-    },
     type () {
       if (this.item.id) {
-        return this.types.filter(t => t.id === this.item.type)[0].tag
+        let types = this.$store.getters.types
+        return types.filter(t => t.id === this.item.type)[0].tag
       }
     },
     liveNoReuse () {
@@ -108,44 +132,54 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  #item-details {
-    margin-bottom: -3rem;
-  }
 
-  #banner-container {
+.input-group {
+  margin: 0 0 2rem -.2rem;
+}
+
+#item-details {
+  margin-bottom: -3rem;
+}
+
+#banner-container {
+  width: 100%;
+  max-height: 10rem;
+  margin-bottom: 10rem;
+  margin-top: 2rem;
+  #banner {
     width: 100%;
-    max-height: 10rem;
-    margin-bottom: 6rem;
-    #banner {
-      width: 100%;
-      max-height: 15rem;
-      min-height: 5rem;
-      border-radius: 2px;
-      object-fit: cover;
-      position: relative;
-      z-index: 4;
-    }
+    max-height: 15rem;
+    min-height: 5rem;
+    border-radius: 2px;
+    object-fit: cover;
+    position: relative;
+    z-index: 4;
   }
+}
 
-  #url {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    // overflow-hidden kills a tag bottom border
-    border-bottom: orange 2px solid;
+#url {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  // overflow-hidden kills a tag bottom border
+  border-bottom: orange 2px solid;
 
+}
+
+.label-wrap {
+  display: inline;
+  float: right;
+}
+
+.detail-wrap {
+  margin-bottom: 2rem;
+  .detail {
+    font-size: 1.4rem;
   }
-  .label-wrap {
-    display: inline;
-    float: right;
-  }
+}
 
-  .detail-wrap {
-    margin-bottom: 2rem;
-    .detail {
-      font-size: 1.4rem;
-    }
-  }
-
+.btn-small {
+  margin-left: 7rem;
+}
 </style>

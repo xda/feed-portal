@@ -301,23 +301,6 @@ $type-colours: (
       }
     }
   }
-  #submit-button {
-    display: flex;
-    justify-content: center;
-    button {
-      width: 100%;
-    }
-  }
-}
-
-@media screen and (max-width: 800px) {
-  #submit-button {
-    display: flex;
-    justify-content: center;
-    button {
-      width: 100%;
-    }
-  }
 }
 
 </style>
