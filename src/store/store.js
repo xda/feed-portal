@@ -1,6 +1,5 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import instance from './api'
 
 Vue.use(Vuex)
 
@@ -86,11 +85,6 @@ export default new Vuex.Store({
     },
     setItem ({commit}, item) {
       commit('SET_ITEM', item)
-    },
-    fetchItem ({commit}, type, id) {
-      instance.get(`${type}`, {params: {detailId: type}}).then((response) => {
-        commit('SET_ITEM', response)
-      })
     }
   },
   getters: {

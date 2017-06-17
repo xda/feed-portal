@@ -9,7 +9,7 @@
      </h3>
 
      <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1"
-          v-if="reusable === 'reusable-true' && live === 'live-true'">
+          v-if="liveNoReuse">
         <span class="orange-lightest">
           Already exists in feed, try something else!
         </span>
@@ -29,18 +29,18 @@
         <div class="col-lg-8 col-xs-12">
           <div class="detail-wrap">
             <span class="grey-lightest input-title">URL</span>
-            <div class="detail">
+            <div class="detail" id="url">
               <a :href="item.url" class="link" target="_blank">
                 {{ item.url }}
               </a>
             </div>
           </div>
 
-          <!-- TODO:if reusable put toggle here -->
           <div class="detail-wrap">
+          <!-- TODO:if reusable put toggle here -->
             <span class="grey-lightest input-title">Device</span>
             <div class="detail">
-              {{item.device.name | capitalize}}
+              {{item.device.name || 'any' | capitalize }}
             </div>
           </div>
           <div class="detail-wrap">
@@ -51,7 +51,12 @@
           </div>
         </div>
         <div class="col-lg-4">
-
+          <div class="detail-wrap" v-if="liveReuse">
+            <span class="grey-lightest input-title">Newest Version</span>
+            <div class="detail">
+              {{item.version}}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -81,6 +86,15 @@ export default {
       if (this.item.id) {
         return this.types.filter(t => t.id === this.item.type)[0].tag
       }
+    },
+    liveNoReuse () {
+      return this.live === 'live-true' && this.reusable !== 'reusable-true'
+    },
+    liveReuse () {
+      return this.live === 'live-true' && this.reusable === 'reusable-true'
+    },
+    pending () {
+      return this.live !== 'live-true'
     }
   },
   filters: {
@@ -113,6 +127,15 @@ export default {
     }
   }
 
+  #url {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    // overflow-hidden kills a tag bottom border
+    border-bottom: orange 2px solid;
+
+  }
   .label-wrap {
     display: inline;
     float: right;
