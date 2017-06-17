@@ -11,29 +11,25 @@
         </h4>
       </div>
       <form>
-          <input type="checkbox" id="device-specific" v-model="deviceSpecific">
-          <label for="device-specific" class="checkbox-label">Device Specific</label>
-          <br>
         <!-- Device -->
-        <span class="grey-lightest input-title">Choose a device</span>
-        <div class="radio-group">
-          <label for="oneplus">
-            <input type="radio"
-                   id="oneplus"
-                   name="device"
-                   value="oneplus"
-                   v-model="item.device" required>
-            <span class="radio-label">OnePlus 3/3T</span>
-          </label>
-          <label for="pixel">
-            <input type="radio"
-                   id="pixel"
-                   name="device"
-                   value="pixel"
-                   v-model="item.device">
-            <span class="radio-label">Pixel</span>
-          </label>
+        <span class="grey-lightest input-title">Item scope</span>
+        <div class="checkbox-group">
+          <input type="checkbox" id="device-specific" v-model="deviceSpecific">
+          <label for="device-specific" class="grey-lightest">Device specific</label>
         </div>
+
+        <transition name="fade">
+          <div id="device-picker" v-show="deviceSpecific">
+            <div class="input-group">
+              <select class="input"required>
+                <option></option>
+                <option v-for="d in devices">{{d}}</option>
+              </select>
+              <label class="grey-lightest">Choose a device</label>
+            </div>
+          </div>
+        </transition>
+
         <br><br>
         <!-- Type -->
         <span class="grey-lightest input-title">Type of content</span>
@@ -116,7 +112,8 @@ export default {
   data () {
     return {
       item: initialItem,
-      deviceSpecific: false
+      deviceSpecific: false,
+      devices: ['1', '2']
     }
   },
   computed: {
@@ -280,6 +277,10 @@ $type-colours: (
   &:hover {
     cursor: pointer;
   }
+}
+
+#url {
+  color: $grey-lightest;
 }
 
 // tiny screens

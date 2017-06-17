@@ -90,11 +90,11 @@ select {
     //getting rid of mozilla dotted line outline
     color: $grey-light;
     color: transparent;
-    text-shadow: 0 0 0 $grey-light;
+    text-shadow: 0 0 0 $paper;
   }
   & > option {
-    background-color: $paper;
-    color: $grey-light;
+    background-color: $grey-light;
+    color: $grey-lightest;
   }
 }
 
@@ -137,4 +137,54 @@ select {
       box-shadow: inset $grey 0 0 0 10px;
     }
   }
+}
+
+// --------radio
+
+.checkbox-group {
+  position: relative;
+  height: 20px;
+  margin: 16px 0;
+
+  label {
+    cursor: pointer;
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      left:0;
+      top: 0;
+    }
+    &:before {
+      width: 18px;
+      height: 18px;
+      background: $grey;
+      border: 2px solid $orange;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background .3s;
+    }
+  }
+
+  input[type="checkbox"] {
+    outline: 0;
+    margin-right: 10px;
+
+    &:checked {
+       + label:before{
+        background: $orange;
+        border: 2px solid $orange;
+      }
+      + label:after {
+        transform: rotate(-45deg);
+        top: 6px;
+        left: 5px;
+        width: 12px;
+        height: 6px;
+        border: 2px solid $grey;
+        border-top-style: none;
+        border-right-style: none;
+      }
+    }
+  }
+
 }

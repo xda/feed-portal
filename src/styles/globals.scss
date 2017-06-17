@@ -192,3 +192,13 @@ a.link {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+// --------transitions
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.25s ease-out;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
