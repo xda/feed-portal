@@ -10,7 +10,7 @@
           </span>
         </h4>
       </div>
-      <form>
+      <div class="form">
         <!-- Type -->
         <span class="grey-lightest input-title">Type of content</span>
         <div class="content-type col-lg-9 col-sm-12 col-xs-12">
@@ -91,7 +91,7 @@
             Submit
           </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
@@ -111,8 +111,7 @@ export default {
   data () {
     return {
       item: initialItem,
-      deviceSpecific: false,
-      devices: ['1', '2']
+      deviceSpecific: false
     }
   },
   computed: {
@@ -121,6 +120,9 @@ export default {
     },
     types () {
       return this.$store.getters.types
+    },
+    devices () {
+      return this.$store.getters.devices
     }
   },
   methods: {
@@ -159,9 +161,6 @@ export default {
 @import '../styles/variables';
 @import '../styles/mixins';
 
-form {
-  padding-bottom: 4rem;
-}
 
 ::-webkit-scrollbar {
   width: .3rem;
@@ -209,6 +208,9 @@ $type-colours: (
   }
 }
 
+.form {
+  padding-bottom: 4rem;
+}
 .content-type {
   display: flex;
   justify-content: flex-start;

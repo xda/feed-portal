@@ -33,7 +33,8 @@ export default new Vuex.Store({
       { name: 'Theme', tag: 'theme', id: 8 },
       { name: 'App', tag: 'app', id: 9 },
       { name: 'Video', tag: 'video', id: 10 }
-    ]
+    ],
+    devices: []
   },
   mutations: {
     SAVE_ITEM (state, item) {
@@ -65,36 +66,28 @@ export default new Vuex.Store({
         version: item.latest_version
       }
     },
+    SET_DEVICES (state, devices) {
+      let array = []
+      devices.map((d) => {
+        array.push(d.name)
+      })
+      state.devices = array
+    },
     SET_URL (state, url) {
       state.item.url = url
     }
   },
   actions: {
-    checkUrl ({commit, state}, url) {
-      commit('SET_URL', url)
-
-      instance
-      .get('/pending/check', {params: {url: state.item.url}, timeout: 3000})
-      .then((response) => {
-        let check = response.data
-        if (check.exists) {
-          commit('SET_ITEM', check.item)
-
-          if (check.live && check.reusable) {
-            // if reusable and live redirect to page to bump version
-          } else if (check.live && !check.reusable) {
-            // if not reusable and live redirect to show page, option to add new URL
-          } else {
-            // if not live redirect to page to upvote
-          }
-        } else {
-        }
-      })
+    fetchDevices ({commit}, devices) {
+      commit('SET_DEVICES', devices)
     },
     saveItem ({commit, state}, item) {
       commit('SAVE_ITEM', item)
     },
-    setItem ({commit}, type, id) {
+    setItem ({commit}, item) {
+      commit('SET_ITEM', item)
+    },
+    fetchItem ({commit}, type, id) {
       instance.get(`${type}`, {params: {detailId: type}}).then((response) => {
         commit('SET_ITEM', response)
       })
@@ -102,7 +95,8 @@ export default new Vuex.Store({
   },
   getters: {
     item: state => state.item,
-    types: state => state.types
+    types: state => state.types,
+    devices: state => state.devices
   },
   strict: debug
 })
