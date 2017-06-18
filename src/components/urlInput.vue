@@ -37,11 +37,9 @@ export default {
       instance.get('/pending/check', {params: {url: this.url}, timeout: 3000})
       .then((response) => {
         let check = response.data
-
         if (check.exists) {
           let item = response.data.item
           this.setItem(item)
-          console.log(response.data.item)
           this.$router.push({path: `/item/live-${check.live}/reusable-${check.reusable}/${item.id}`})
         } else {
           this.fetchDevices(response.data.devices)

@@ -61,7 +61,6 @@ export default new Vuex.Store({
       })
     },
     SET_ITEM (state, item) {
-      console.log(item)
       state.item = {
         id: item.id,
         type: item.type,
