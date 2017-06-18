@@ -21,7 +21,7 @@
       <div id="banner-container">
         <div class="date">
           <span class="grey-lightest input-title">
-            {{ new Date(item.timestamp).toLocaleDateString() }}
+            {{ item.timestamp | prettyDate }}
           </span>
         </div>
         <img :src="item.banner.img" id="banner" class="shadow-2dp">
@@ -138,6 +138,9 @@ export default {
       if (!val) return ''
       val = val.toString()
       return val.charAt(0).toUpperCase() + val.slice(1)
+    },
+    prettyDate (val) {
+      return new Date(val).toLocaleDateString()
     }
   },
   methods: {
