@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import instance from './api'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export const initialItem = {
   url: '',
   description: '',
   device: '',
+  deviceSpecific: false,
   banner: {},
   version: ''
 }
@@ -36,20 +38,26 @@ export default new Vuex.Store({
     devices: []
   },
   mutations: {
-    SAVE_ITEM (state, item) {
-      state.item = {
-        id: null,
-        type: item.type,
-        timestamp: '',
-        title: item.title,
-        url: state.item.url,
-        description: item.description,
-        device: item.device,
-        banner: {...item.banner},
-        version: ''
-      }
+    SAVE_ITEM (state) {
+      let item = state.item
+      let fd = new FormData()
+
+      fd.append('url', item.url)
+      fd.append('title', item.title)
+      fd.append('description', item.description)
+      fd.append('type', item.type)
+      fd.append('full_image', item.banner.img)
+      fd.append('latest_version', item.version)
+      fd.append('device_specific', item.deviceSpecific)
+
+      instance.post('/pending/create', fd).then((response) => {
+        console.log(response)
+      }).catch((err) => {
+        console.log('errors', err)
+      })
     },
     SET_ITEM (state, item) {
+      console.log(item)
       state.item = {
         id: item.id,
         type: item.type,
@@ -59,8 +67,8 @@ export default new Vuex.Store({
         description: item.description,
         device: {...item.device},
         banner: {
-          source: item.full_image,
-          img: ''
+          source: '',
+          img: item.full_image
         },
         version: item.latest_version
       }
@@ -74,6 +82,9 @@ export default new Vuex.Store({
     },
     SET_URL (state, url) {
       state.item.url = url
+    },
+    UPDATE_VERSION (state, version) {
+      state.item.version = version
     }
   },
   actions: {
@@ -85,6 +96,9 @@ export default new Vuex.Store({
     },
     setItem ({commit}, item) {
       commit('SET_ITEM', item)
+    },
+    updateVersion ({commit}, version) {
+      commit('UPDATE_VERSION', version)
     }
   },
   getters: {

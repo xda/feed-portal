@@ -4,6 +4,7 @@ import getFeed from '../components/getFeed'
 import urlInput from '../components/urlInput'
 import addItem from '../components/addItem'
 import itemDetails from '../components/itemDetails'
+import thanks from '../components/thanks'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/item/:live/:reusable/:id',
       component: itemDetails,
       props: true
+    },
+    {
+      path: '/thanks',
+      name: 'thanks',
+      component: thanks
     }
   ]
 })

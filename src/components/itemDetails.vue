@@ -24,7 +24,7 @@
             {{ new Date(item.timestamp).toLocaleDateString() }}
           </span>
         </div>
-        <img :src="item.banner.source" id="banner" class="shadow-2dp">
+        <img :src="item.banner.img" id="banner" class="shadow-2dp">
       </div>
 
       <div class="row">
@@ -57,6 +57,7 @@
               <div class="detail">
                 {{item.version}}
                 <button class="btn btn-flat btn-small"
+                        id="update-version"
                         @click="versionUpdate = true">
                   update
                 </button>
@@ -64,16 +65,20 @@
             </div>
 
             <div v-if="versionUpdate">
+              {{errors}}
               <div class="row new-version">
                 <div class="col-lg-6 col-xs-12">
                   <div class="input-group">
-                    <input type="text" id="version-number" required>
+                    <input type="text" id="version-number"
+                           v-model="version"
+                           @keyup.enter="submit"
+                           required>
                     <label for="version-number">New version</label>
                   </div>
                 </div>
                 <div class="col-lg-2 col-offset-4 col-xs-12">
                   <div id="submit-button">
-                    <button class="btn btn-orange"
+                    <button class="btn btn-small btn-orange"
                             @click.prevent="submit">
                       Submit
                     </button>
@@ -89,6 +94,8 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 import urlInput from './urlInput'
 
 export default {
@@ -98,7 +105,9 @@ export default {
   },
   data () {
     return {
-      versionUpdate: false
+      version: '',
+      versionUpdate: false,
+      errors: ''
     }
   },
   computed: {
@@ -110,6 +119,9 @@ export default {
         let types = this.$store.getters.types
         return types.filter(t => t.id === this.item.type)[0].tag
       }
+    },
+    oldVersion () {
+      return this.item.version
     },
     liveNoReuse () {
       return this.live === 'live-true' && this.reusable !== 'reusable-true'
@@ -127,6 +139,25 @@ export default {
       val = val.toString()
       return val.charAt(0).toUpperCase() + val.slice(1)
     }
+  },
+  methods: {
+    ...mapActions([
+      'saveItem',
+      'setItem',
+      'updateVersion'
+    ]),
+    submit () {
+      this.updateVersion(this.version).then(() => {
+        this.saveItem(this.item).then(() => {
+          setTimeout(() => {
+            this.$router.push({name: 'thanks'})
+          }, 1000)
+        }).catch(() => {
+          this.updateVersion(this.oldVersion)
+          this.errors = 'something went wrong'
+        })
+      })
+    }
   }
 }
 </script>
@@ -134,7 +165,7 @@ export default {
 <style lang="scss" scoped>
 
 .input-group {
-  margin: 0 0 2rem -.2rem;
+  margin: 0 0 0rem -.2rem;
 }
 
 #item-details {
@@ -167,9 +198,12 @@ export default {
 
 }
 
-.label-wrap {
-  display: inline;
-  float: right;
+#submit-button {
+  margin-top: 1rem;
+}
+
+#update-version {
+  margin-left: 7rem;
 }
 
 .detail-wrap {
@@ -178,8 +212,13 @@ export default {
     font-size: 1.4rem;
   }
 }
-
-.btn-small {
-  margin-left: 7rem;
+.label-wrap {
+  display: inline;
+  float: right;
 }
+
+.new-version {
+  margin-bottom: 6rem;
+}
+
 </style>

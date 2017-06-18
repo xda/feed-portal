@@ -22,6 +22,7 @@ $type-colours: (
   vertical-align: baseline;
   border-radius: 2px;
   background-color: $grey-lighter;
+  text-transform: uppercase;
 }
 
 @each $type, $colour in $type-colours {
