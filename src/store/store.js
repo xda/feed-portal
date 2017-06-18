@@ -38,17 +38,21 @@ export default new Vuex.Store({
     devices: []
   },
   mutations: {
-    SAVE_ITEM (state) {
-      let item = state.item
+    SAVE_ITEM (state, thing) {
+      let item = thing
       let fd = new FormData()
 
       fd.append('url', item.url)
       fd.append('title', item.title)
       fd.append('description', item.description)
       fd.append('type', item.type)
-      fd.append('full_image', item.banner.img)
       fd.append('latest_version', item.version)
       fd.append('device_specific', item.deviceSpecific)
+
+      // only post new pictures
+      if (item.banner && item.banner.img.substring(0, 4) !== 'http') {
+        fd.append('full_image', item.banner.img)
+      }
 
       instance.post('/pending/create', fd).then((response) => {
         console.log(response)
