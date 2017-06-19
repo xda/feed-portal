@@ -65,7 +65,6 @@ export default new Vuex.Store({
       })
     },
     SET_ITEM (state, payload) {
-      console.log(payload)
       let item = payload.item
       let status = payload.status
       state.item = {

@@ -6,7 +6,7 @@
         <span class="grey-lightest input-title">URL</span>
         <h4 id="url">
           <div>
-            <a :href="url" class="link">{{ url }}</a>
+            <a :href="url" class="link" target="_blank">{{ url }}</a>
           </div>
         </h4>
       </div>
