@@ -32,9 +32,12 @@
           <div class="detail-wrap">
             <span class="grey-lightest input-title">URL</span>
             <div class="detail" id="url">
-              <a :href="item.url" class="link" target="_blank">
-                {{ item.url }}
-              </a>
+              <div>
+                <a :href="item.url" class="link" target="_blank">
+                  {{ item.url }}
+                </a>
+              </div>
+
             </div>
           </div>
 
@@ -191,10 +194,9 @@ export default {
 #url {
   white-space: nowrap;
   overflow: hidden;
+  display: inline;
   text-overflow: ellipsis;
   max-width: 100%;
-  // overflow-hidden kills a tag bottom border
-  border-bottom: orange 2px solid;
 
 }
 
