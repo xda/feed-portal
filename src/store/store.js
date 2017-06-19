@@ -113,7 +113,7 @@ export default new Vuex.Store({
       if (item.banner &&
           item.banner.img &&
           item.banner.img.substring(0, 4) !== 'http') {
-        fd.append('full_image', item.banner.img)
+        fd.append('full_image', item.banner.file)
       }
 
       instance.post('/pending/create', fd).then((response) => {

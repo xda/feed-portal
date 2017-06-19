@@ -105,7 +105,8 @@ const initialItem = {
   description: '',
   banner: {
     source: '',
-    img: ''
+    img: '',
+    file: ''
   }
 }
 export default {
@@ -139,6 +140,8 @@ export default {
         return
       }
       this.item.banner.source = files[0].name
+      this.item.banner.file = files[0]
+
       setTimeout(() => {
         this.createImage(files[0])
       }, 800)
