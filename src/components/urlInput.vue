@@ -22,6 +22,9 @@ export default {
   computed: {
     item () {
       return this.$store.getters.item
+    },
+    types () {
+      return this.$store.getters.types
     }
   },
   methods: {
@@ -37,11 +40,15 @@ export default {
       instance.get('/pending/check', {params: {url: this.url}, timeout: 3000})
       .then((response) => {
         let check = response.data
+
         if (check.exists) {
           let item = response.data.item
           let status = {reusable: check.reusable, live: check.live}
+          let type = this.types.filter(t => t.id === item.type)[0].tag
+
           this.setItem({item: item, status: status})
-          this.$router.push({path: `/item/live-${check.live}/reusable-${check.reusable}/${item.id}`})
+
+          this.$router.push({path: `/${type}/${item.id}`})
         } else {
           this.fetchDevices(response.data.devices)
           this.$router.push({name: 'add-item'})

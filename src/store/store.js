@@ -98,7 +98,8 @@ export default new Vuex.Store({
     fetchDevices ({commit}, devices) {
       commit('SET_DEVICES', devices)
     },
-    saveItem (item) {
+    saveItem ({state}, item) {
+      console.log(item)
       let fd = new FormData()
 
       fd.append('url', item.url)
@@ -109,7 +110,9 @@ export default new Vuex.Store({
       fd.append('device_specific', item.deviceSpecific)
 
       // only post new pictures
-      if (item.banner && item.banner.img.substring(0, 4) !== 'http') {
+      if (item.banner &&
+          item.banner.img &&
+          item.banner.img.substring(0, 4) !== 'http') {
         fd.append('full_image', item.banner.img)
       }
 
@@ -129,7 +132,8 @@ export default new Vuex.Store({
   getters: {
     item: state => state.item,
     types: state => state.types,
-    devices: state => state.devices
+    devices: state => state.devices,
+    status: state => state.item.status
   },
   strict: debug
 })

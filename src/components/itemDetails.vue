@@ -99,7 +99,7 @@ import {mapActions} from 'vuex'
 import urlInput from './urlInput'
 
 export default {
-  props: ['id', 'live', 'reusable'],
+  props: ['type', 'id'],
   components: {
     urlInput
   },
@@ -114,23 +114,20 @@ export default {
     item () {
       return this.$store.getters.item
     },
-    type () {
-      if (this.item.id) {
-        let types = this.$store.getters.types
-        return types.filter(t => t.id === this.item.type)[0].tag
-      }
+    status () {
+      return this.$store.getters.status
     },
     oldVersion () {
       return this.item.version
     },
     liveNoReuse () {
-      return this.live === 'live-true' && this.reusable !== 'reusable-true'
+      return this.status.live && !this.status.reusable
     },
     liveReuse () {
-      return this.live === 'live-true' && this.reusable === 'reusable-true'
+      return this.status.live && this.status.reusable
     },
     pending () {
-      return this.live !== 'live-true'
+      return this.status.live
     }
   },
   filters: {
