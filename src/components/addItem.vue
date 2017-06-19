@@ -164,6 +164,7 @@ export default {
         }, 1000)
       }).then(() => {
         this.$store.dispatch('clearItem')
+        this.item = initialItem
       })
     }
   }
