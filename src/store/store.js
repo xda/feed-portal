@@ -133,6 +133,13 @@ export default new Vuex.Store({
     },
     clearItem ({commit}) {
       commit('SET_ITEM', {item: initialItem, status: initialItem.status})
+    },
+    voteForIt ({state}, url) {
+      let fd = new FormData()
+      fd.append('url', url)
+      instance.post('/pending/vote', fd).then((response) => {
+        console.log(response)
+      }).catch(err => console.log(err))
     }
   },
   getters: {

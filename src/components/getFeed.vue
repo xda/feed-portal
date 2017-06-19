@@ -34,7 +34,8 @@
         <div class="phone-box">
         </div>
         <div class="download">
-          <a href="#" target="_blank">
+          <a href="https://labs.xda-developers.com/store/app/com.xda.feed"
+             target="_blank">
             <img src="../assets/icons/getonlabs.png"
                  alt="google play download link"
                  class="download-link">

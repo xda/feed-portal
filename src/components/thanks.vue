@@ -1,5 +1,7 @@
 <template lang="html">
-
+  <div id="thanks">
+    THANKS FOR DOING STUFF
+  </div>
 </template>
 
 <script>

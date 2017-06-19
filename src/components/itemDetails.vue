@@ -1,6 +1,5 @@
 <template lang="html">
 	<div id="item-details">
-    {{this.status}}
     <h3><i class="material-icons orange">add_circle_outline</i>
        {{ item.title }}
        <div class="label-wrap">
@@ -8,6 +7,7 @@
        </div>
      </h3>
 
+     <!-- if thing exists already - -->
      <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1"
           v-if="liveNoReuse">
         <span class="orange-lightest">
@@ -18,6 +18,19 @@
 
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
 
+      <div v-if="pending" class="row">
+        <span>Item status: <strong class="orange">PENDING</strong><br></span>
+        <div class="col-xs-10">
+          <span id="vote">Help get this item approved in feed with a vote!</span>
+        </div>
+        <div class="col-xs-2 end-xs">
+          <button class="btn btn-small btn-orange"
+                  @click="vote">
+            vote
+          </button>
+        </div>
+      </div>
+
       <div id="banner-container">
         <div class="date">
           <span class="grey-lightest input-title">
@@ -26,6 +39,7 @@
         </div>
         <img :src="item.banner.img" id="banner" class="shadow-2dp">
       </div>
+
 
       <div class="row">
         <div class="col-lg-12 col-xs-12">
@@ -147,8 +161,14 @@ export default {
     ...mapActions([
       'saveItem',
       'setItem',
+      'voteForIt',
       'updateVersion'
     ]),
+    vote () {
+      this.voteForIt(this.item.url).then(() => {
+        this.$router.push({name: 'thanks'})
+      })
+    },
     submit () {
       this.updateVersion(this.version).then(() => {
         this.saveItem(this.item).then(() => {
@@ -206,6 +226,10 @@ export default {
 
 #update-version {
   margin-left: 7rem;
+}
+
+#vote {
+  font-size: 1.3rem;
 }
 
 .detail-wrap {
