@@ -1,6 +1,6 @@
 <template lang="html">
 	<div id="item-details">
-
+    {{this.status}}
     <h3><i class="material-icons orange">add_circle_outline</i>
        {{ item.title }}
        <div class="label-wrap">
@@ -130,7 +130,7 @@ export default {
       return this.status.live && this.status.reusable
     },
     pending () {
-      return this.status.live
+      return !this.status.live
     }
   },
   filters: {

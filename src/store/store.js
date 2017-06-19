@@ -17,7 +17,10 @@ export const initialItem = {
   deviceSpecific: false,
   banner: {},
   version: '',
-  status: {}
+  status: {
+    live: false,
+    reusable: false
+  }
 }
 
 export default new Vuex.Store({
@@ -62,6 +65,7 @@ export default new Vuex.Store({
       })
     },
     SET_ITEM (state, payload) {
+      console.log(payload)
       let item = payload.item
       let status = payload.status
       state.item = {
@@ -99,7 +103,6 @@ export default new Vuex.Store({
       commit('SET_DEVICES', devices)
     },
     saveItem ({state}, item) {
-      console.log(item)
       let fd = new FormData()
 
       fd.append('url', item.url)
@@ -127,6 +130,9 @@ export default new Vuex.Store({
     },
     updateVersion ({commit}, version) {
       commit('UPDATE_VERSION', version)
+    },
+    clearItem ({commit}) {
+      commit('SET_ITEM', {item: initialItem, status: initialItem.status})
     }
   },
   getters: {

@@ -155,10 +155,16 @@ export default {
       reader.readAsDataURL(file)
     },
     removeImage: function (e) {
-      this.item.banner = {source: '', img: ''}
+      this.item.banner = {source: '', img: '', file: ''}
     },
     submit () {
-      this.$store.dispatch('saveItem', this.item)
+      this.$store.dispatch('saveItem', this.item).then(() => {
+        setTimeout(() => {
+          this.$router.push({name: 'thanks'})
+        }, 1000)
+      }).then(() => {
+        this.$store.dispatch('clearItem')
+      })
     }
   }
 }
