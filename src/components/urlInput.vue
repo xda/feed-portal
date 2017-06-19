@@ -39,7 +39,8 @@ export default {
         let check = response.data
         if (check.exists) {
           let item = response.data.item
-          this.setItem(item)
+          let status = {reusable: check.reusable, live: check.live}
+          this.setItem({item: item, status: status})
           this.$router.push({path: `/item/live-${check.live}/reusable-${check.reusable}/${item.id}`})
         } else {
           this.fetchDevices(response.data.devices)

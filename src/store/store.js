@@ -16,7 +16,8 @@ export const initialItem = {
   device: '',
   deviceSpecific: false,
   banner: {},
-  version: ''
+  version: '',
+  status: {}
 }
 
 export default new Vuex.Store({
@@ -60,7 +61,9 @@ export default new Vuex.Store({
         console.log('errors', err)
       })
     },
-    SET_ITEM (state, item) {
+    SET_ITEM (state, payload) {
+      let item = payload.item
+      let status = payload.status
       state.item = {
         id: item.id,
         type: item.type,
@@ -73,7 +76,8 @@ export default new Vuex.Store({
           source: '',
           img: item.full_image
         },
-        version: item.latest_version
+        version: item.latest_version,
+        status: status
       }
     },
     SET_DEVICES (state, devices) {
@@ -94,11 +98,29 @@ export default new Vuex.Store({
     fetchDevices ({commit}, devices) {
       commit('SET_DEVICES', devices)
     },
-    saveItem ({commit, state}, item) {
-      commit('SAVE_ITEM', item)
+    saveItem (item) {
+      let fd = new FormData()
+
+      fd.append('url', item.url)
+      fd.append('title', item.title)
+      fd.append('description', item.description)
+      fd.append('type', item.type)
+      fd.append('latest_version', item.version)
+      fd.append('device_specific', item.deviceSpecific)
+
+      // only post new pictures
+      if (item.banner && item.banner.img.substring(0, 4) !== 'http') {
+        fd.append('full_image', item.banner.img)
+      }
+
+      instance.post('/pending/create', fd).then((response) => {
+        console.log(response)
+      }).catch((err) => {
+        console.log('errors', err)
+      })
     },
-    setItem ({commit}, item) {
-      commit('SET_ITEM', item)
+    setItem ({commit}, {item, status}) {
+      commit('SET_ITEM', {item: item, status: status})
     },
     updateVersion ({commit}, version) {
       commit('UPDATE_VERSION', version)
