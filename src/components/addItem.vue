@@ -5,9 +5,9 @@
       <div v-if="url">
         <span class="grey-lightest input-title">URL</span>
         <h4 id="url">
-          <span>
-            {{ url }}
-          </span>
+          <div>
+            <a :href="url" class="link">{{ url }}</a>
+          </div>
         </h4>
       </div>
       <div class="form">
@@ -44,7 +44,7 @@
         <transition name="fade">
           <div id="device-picker" v-show="deviceSpecific">
             <div class="input-group">
-              <select class="input"required>
+              <select class="input"required v-model="item.device">
                 <option></option>
                 <option v-for="d in devices">{{d}}</option>
               </select>
@@ -98,6 +98,7 @@
 
 <script>
 const initialItem = {
+  url: '',
   device: '',
   type: '',
   title: '',
@@ -113,6 +114,9 @@ export default {
       item: initialItem,
       deviceSpecific: false
     }
+  },
+  mounted () {
+    this.item.url = this.url
   },
   computed: {
     url () {

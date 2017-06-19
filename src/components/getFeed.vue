@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 phone-box-container">
+      <div class="col-lg-4 col-md-4 phone-box-container">
         <div class="phone-box">
         </div>
         <div class="download">
@@ -47,8 +47,12 @@
           </a>
         </div>
       </div>
-      <div class="col-lg-8">
-        <youtube :video-id="videoId" id="youtube"></youtube>
+      <div class="col-lg-8 col-md-8 col-xs-12 video-player">
+        <iframe :width="player.width" :height="player.height"
+                src="https://www.youtube.com/embed/2X6iaCW5IXY"
+                frameborder="0"
+                allowfullscreen>
+        </iframe>
       </div>
     </div>
     <div>
@@ -73,19 +77,11 @@ export default {
   data () {
     return {
       url: '',
-      videoId: 'videoId'
+      player: {width: '560', height: '315'}
     }
-  },
-  mounted () {
-    this.setVideoId('https://www.youtube.com/watch?v=2X6iaCW5IXY')
   },
   methods: {
-    ready (player) {
-      this.player = player
-    },
-    setVideoId (url) {
-      this.videoId = this.$youtube.getIdFromURL(url)
-    }
+    // set player width responsively
   }
 }
 </script>
