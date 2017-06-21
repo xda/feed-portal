@@ -2,15 +2,21 @@
   <div id="add-item">
     <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-      <div v-if="url">
-        <span class="grey-lightest input-title">URL</span>
-        <h4 id="url">
-          <div>
-            <a :href="url" class="link" target="_blank">{{ url }}</a>
-          </div>
-        </h4>
-      </div>
       <div class="form">
+        <div v-if="url">
+          <span class="grey-lightest input-title">URL</span>
+          <h4 id="url">
+            <div>
+              <a :href="url" class="link" target="_blank">{{ url }}</a>
+            </div>
+          </h4>
+        </div>
+        <div v-else>
+          <div class="input-group">
+            <input type="text" id="url-input" v-model="item.url" required>
+            <label for="url-input">URL</label>
+          </div>
+        </div>
         <!-- Type -->
         <span class="grey-lightest input-title">Type of content</span>
         <div class="content-type col-lg-9 col-sm-12 col-xs-12">
@@ -84,7 +90,9 @@
             <img :src="item.banner.img" v-if="item.banner.img" id="banner-img">
           </div>
         </div>
-
+        <div v-for="(v, k) in errors">
+          {{k}} : {{v[0]}}
+        </div>
         <div class="end-lg" id="submit-button">
           <button class="btn btn-orange"
                   @click.prevent="submit">
@@ -113,12 +121,15 @@ export default {
   data () {
     return {
       item: initialItem,
-      deviceSpecific: false
+      deviceSpecific: false,
+      formErrors: {}
     }
   },
   mounted () {
     this.item = {...initialItem}
-    this.item.url = this.url
+    if (this.url) {
+      this.item.url = this.url
+    }
   },
   computed: {
     url () {
@@ -129,9 +140,17 @@ export default {
     },
     devices () {
       return this.$store.getters.devices
+    },
+    errors () {
+      // let erray = []
+      let err = this.$store.getters.errors
+      return err.errors
     }
   },
   methods: {
+    outputErrors () {
+
+    },
     onFileChange (e) {
       if (this.item.banner.img) {
         this.removeImage()
@@ -160,9 +179,9 @@ export default {
     },
     submit () {
       this.$store.dispatch('saveItem', this.item).then(() => {
-        setTimeout(() => {
+        if (!this.errors) {
           this.$router.push({name: 'thanks'})
-        }, 1000)
+        }
       }).then(() => {
         this.$store.dispatch('clearItem')
       })

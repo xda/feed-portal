@@ -123,8 +123,7 @@ export default {
   data () {
     return {
       version: '',
-      versionUpdate: false,
-      errors: ''
+      versionUpdate: false
     }
   },
   computed: {
@@ -145,6 +144,9 @@ export default {
     },
     pending () {
       return !this.status.live
+    },
+    errors () {
+      return this.$store.getters.errors
     }
   },
   filters: {
@@ -166,15 +168,19 @@ export default {
     ]),
     vote () {
       this.voteForIt(this.item.url).then(() => {
-        this.$router.push({name: 'thanks'})
+        if (!this.errors) {
+          this.$router.push({name: 'thanks'})
+        } else {
+          console.log(this.errors)
+        }
       })
     },
     submit () {
       this.updateVersion(this.version).then(() => {
         this.saveItem(this.item).then(() => {
-          setTimeout(() => {
+          if (!this.errors) {
             this.$router.push({name: 'thanks'})
-          }, 1000)
+          }
         }).catch(() => {
           this.updateVersion(this.oldVersion)
           this.errors = 'something went wrong'

@@ -39,31 +39,10 @@ export default new Vuex.Store({
       { name: 'App', tag: 'app', id: 9 },
       { name: 'Video', tag: 'video', id: 10 }
     ],
-    devices: []
+    devices: [],
+    errors: {}
   },
   mutations: {
-    SAVE_ITEM (state, thing) {
-      let item = thing
-      let fd = new FormData()
-
-      fd.append('url', item.url)
-      fd.append('title', item.title)
-      fd.append('description', item.description)
-      fd.append('type', item.type)
-      fd.append('latest_version', item.version)
-      fd.append('device_specific', item.deviceSpecific)
-
-      // only post new pictures
-      if (item.banner && item.banner.img.substring(0, 4) !== 'http') {
-        fd.append('full_image', item.banner.img)
-      }
-
-      instance.post('/pending/create', fd).then((response) => {
-        console.log(response)
-      }).catch((err) => {
-        console.log('errors', err)
-      })
-    },
     SET_ITEM (state, payload) {
       let item = payload.item
       let status = payload.status
@@ -95,13 +74,16 @@ export default new Vuex.Store({
     },
     UPDATE_VERSION (state, version) {
       state.item.version = version
+    },
+    SET_ERRORS (state, errors) {
+      state.errors = JSON.parse(errors.request.responseText)
     }
   },
   actions: {
     fetchDevices ({commit}, devices) {
       commit('SET_DEVICES', devices)
     },
-    saveItem ({state}, item) {
+    saveItem ({commit}, item) {
       let fd = new FormData()
 
       fd.append('url', item.url)
@@ -120,8 +102,9 @@ export default new Vuex.Store({
 
       instance.post('/pending/create', fd).then((response) => {
         console.log(response)
-      }).catch((err) => {
-        console.log('errors', err)
+        commit('SET_ERRORS', {})
+      }).catch(err => {
+        commit('SET_ERRORS', err)
       })
     },
     setItem ({commit}, {item, status}) {
@@ -133,17 +116,21 @@ export default new Vuex.Store({
     clearItem ({commit}) {
       commit('SET_ITEM', {item: initialItem, status: initialItem.status})
     },
-    voteForIt ({state}, url) {
+    voteForIt ({commit}, url) {
       let fd = new FormData()
       fd.append('url', url)
       instance.post('/pending/vote', fd).then((response) => {
         console.log(response)
-      }).catch(err => console.log(err))
+        commit('SET_ERRORS', {})
+      }).catch(err => {
+        commit('SET_ERRORS', err)
+      })
     }
   },
   getters: {
     item: state => state.item,
     types: state => state.types,
+    errors: state => state.errors,
     devices: state => state.devices,
     status: state => state.item.status
   },
