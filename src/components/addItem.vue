@@ -180,7 +180,11 @@ export default {
     submit () {
       this.$store.dispatch('saveItem', this.item).then(() => {
         if (!this.errors) {
-          this.$router.push({name: 'thanks'})
+          setTimeout(() => {
+            this.$router.push({name: 'thanks'})
+          }, 1000)
+        } else {
+          console.log(this.errors)
         }
       }).then(() => {
         this.$store.dispatch('clearItem')

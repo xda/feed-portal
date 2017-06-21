@@ -76,7 +76,12 @@ export default new Vuex.Store({
       state.item.version = version
     },
     SET_ERRORS (state, errors) {
-      state.errors = JSON.parse(errors.request.responseText)
+      // console.log(errors.request.responseText)
+      if (errors.request.responseText) {
+        state.errors = JSON.parse(errors.request.responseText)
+      } else {
+        state.errors = {}
+      }
     }
   },
   actions: {
@@ -124,6 +129,7 @@ export default new Vuex.Store({
         commit('SET_ERRORS', {})
       }).catch(err => {
         commit('SET_ERRORS', err)
+        console.log(err)
       })
     }
   },
