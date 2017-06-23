@@ -11,12 +11,6 @@
             </div>
           </h4>
         </div>
-        <div v-else>
-          <div class="input-group">
-            <input type="text" id="url-input" v-model="item.url" required>
-            <label for="url-input">URL</label>
-          </div>
-        </div>
         <!-- Type -->
         <span class="grey-lightest input-title">Type of content</span>
         <div class="content-type col-lg-9 col-sm-12 col-xs-12">
@@ -38,6 +32,7 @@
               </label>
             </div>
           </div>
+          <span v-if="formErrors.type" class="errors">{{ formErrors.type }}</span>
         </div>
         <br><br>
         <!-- Device -->
@@ -62,6 +57,7 @@
         <div class="input-group">
           <input type="text" id="title-input" v-model="item.title" required>
           <label for="title-input">Title</label>
+          <span v-if="formErrors.title" class="errors">{{ formErrors.title }}</span>
         </div>
         <!-- Description (Textarea) -->
         <div class="input-group">
@@ -90,9 +86,7 @@
             <img :src="item.banner.img" v-if="item.banner.img" id="banner-img">
           </div>
         </div>
-        <div v-for="(v, k) in errors">
-          {{k}} : {{v[0]}}
-        </div>
+        {{formErrors}}
         <div class="end-lg" id="submit-button">
           <button class="btn btn-orange"
                   @click.prevent="submit">
@@ -142,14 +136,22 @@ export default {
       return this.$store.getters.devices
     },
     errors () {
-      // let erray = []
       let err = this.$store.getters.errors
-      return err.errors
+      return err
     }
   },
   methods: {
-    outputErrors () {
+    validate () {
+      let errors = {}
+      if (!this.item.type) {
+        errors.type = 'Choose a type'
+      }
+      if (!this.item.title) {
+        errors.title = 'Title is required'
+      }
+      this.formErrors = errors
 
+      return Object.keys(this.formErrors).length === 0
     },
     onFileChange (e) {
       if (this.item.banner.img) {
@@ -178,17 +180,11 @@ export default {
       this.item.banner = {source: '', img: '', file: ''}
     },
     submit () {
-      this.$store.dispatch('saveItem', this.item).then(() => {
-        if (!this.errors) {
-          setTimeout(() => {
-            this.$router.push({name: 'thanks'})
-          }, 1000)
-        } else {
-          console.log(this.errors)
-        }
-      }).then(() => {
-        this.$store.dispatch('clearItem')
-      })
+      if (this.validate()) {
+        this.$store.dispatch('saveItem', this.item).then(() => {
+          this.$router.push({name: 'thanks'})
+        })
+      }
     }
   }
 }

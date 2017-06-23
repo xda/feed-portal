@@ -82,7 +82,6 @@
             </div>
 
             <div v-if="versionUpdate">
-              {{errors}}
               <div class="row new-version">
                 <div class="col-lg-6 col-xs-12">
                   <div class="input-group">
@@ -91,6 +90,7 @@
                            @keyup.enter="submit"
                            required>
                     <label for="version-number">New version</label>
+                    <span class="errors" v-if="formErrors.version">{{formErrors.version}}</span>
                   </div>
                 </div>
                 <div class="col-lg-2 col-offset-4 col-xs-12">
@@ -123,7 +123,8 @@ export default {
   data () {
     return {
       version: '',
-      versionUpdate: false
+      versionUpdate: false,
+      formErrors: {}
     }
   },
   computed: {
@@ -144,9 +145,6 @@ export default {
     },
     pending () {
       return !this.status.live
-    },
-    errors () {
-      return this.$store.getters.errors
     }
   },
   filters: {
@@ -166,26 +164,30 @@ export default {
       'voteForIt',
       'updateVersion'
     ]),
+    validate () {
+      let errors = {}
+      if (this.versionUpdate && !this.version) {
+        errors.version = "Can't be blank"
+      }
+      this.formErrors = errors
+      return Object.keys(this.formErrors).length === 0
+    },
     vote () {
       this.voteForIt(this.item.url).then(() => {
-        if (!this.errors) {
-          this.$router.push({name: 'thanks'})
-        } else {
-          console.log(this.errors)
-        }
+        this.$router.push({name: 'thanks'})
       })
     },
     submit () {
-      this.updateVersion(this.version).then(() => {
-        this.saveItem(this.item).then(() => {
-          if (!this.errors) {
+      if (this.validate()) {
+        this.updateVersion(this.version).then(() => {
+          this.saveItem(this.item).then(() => {
             this.$router.push({name: 'thanks'})
-          }
-        }).catch(() => {
-          this.updateVersion(this.oldVersion)
-          this.errors = 'something went wrong'
+          }).catch(() => {
+            this.updateVersion(this.oldVersion)
+            console.log('something went wrong')
+          })
         })
-      })
+      }
     }
   }
 }

@@ -74,14 +74,6 @@ export default new Vuex.Store({
     },
     UPDATE_VERSION (state, version) {
       state.item.version = version
-    },
-    SET_ERRORS (state, errors) {
-      // console.log(errors.request.responseText)
-      if (errors.request.responseText) {
-        state.errors = JSON.parse(errors.request.responseText)
-      } else {
-        state.errors = {}
-      }
     }
   },
   actions: {
@@ -107,9 +99,8 @@ export default new Vuex.Store({
 
       instance.post('/pending/create', fd).then((response) => {
         console.log(response)
-        commit('SET_ERRORS', {})
       }).catch(err => {
-        commit('SET_ERRORS', err)
+        console.log(err)
       })
     },
     setItem ({commit}, {item, status}) {
@@ -126,9 +117,7 @@ export default new Vuex.Store({
       fd.append('url', url)
       instance.post('/pending/vote', fd).then((response) => {
         console.log(response)
-        commit('SET_ERRORS', {})
       }).catch(err => {
-        commit('SET_ERRORS', err)
         console.log(err)
       })
     }
