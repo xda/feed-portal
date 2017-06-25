@@ -38,12 +38,12 @@
         <!-- Device -->
         <span class="grey-lightest input-title">Item scope</span>
         <div class="checkbox-group">
-          <input type="checkbox" id="device-specific" v-model="deviceSpecific">
+          <input type="checkbox" id="device-specific" v-model="item.deviceSpecific">
           <label for="device-specific" class="grey-lightest">Device specific</label>
         </div>
 
         <transition name="fade">
-          <div id="device-picker" v-show="deviceSpecific">
+          <div id="device-picker" v-show="item.deviceSpecific">
             <div class="input-group">
               <select class="input"required v-model="item.device">
                 <option></option>
@@ -86,7 +86,6 @@
             <img :src="item.banner.img" v-if="item.banner.img" id="banner-img">
           </div>
         </div>
-        {{formErrors}}
         <div class="end-lg" id="submit-button">
           <button class="btn btn-orange"
                   @click.prevent="submit">
@@ -101,6 +100,7 @@
 <script>
 const initialItem = {
   url: '',
+  deviceSpecific: false,
   device: '',
   type: '',
   title: '',
@@ -115,7 +115,6 @@ export default {
   data () {
     return {
       item: initialItem,
-      deviceSpecific: false,
       formErrors: {}
     }
   },
@@ -123,6 +122,13 @@ export default {
     this.item = {...initialItem}
     if (this.url) {
       this.item.url = this.url
+    }
+  },
+  watch: {
+    'item.deviceSpecific': function () {
+      if (!this.item.deviceSpecific) {
+        this.item.device = ''
+      }
     }
   },
   computed: {
@@ -134,10 +140,6 @@ export default {
     },
     devices () {
       return this.$store.getters.devices
-    },
-    errors () {
-      let err = this.$store.getters.errors
-      return err
     }
   },
   methods: {
@@ -181,6 +183,7 @@ export default {
     },
     submit () {
       if (this.validate()) {
+        console.log('validated')
         this.$store.dispatch('saveItem', this.item).then(() => {
           this.$router.push({name: 'thanks'})
         })

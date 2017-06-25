@@ -172,9 +172,15 @@ export default {
       this.formErrors = errors
       return Object.keys(this.formErrors).length === 0
     },
+    checkNetworkErrors () {
+      let errors = this.$store.getters.errors
+      return Object.keys(errors).length === 0
+    },
     vote () {
       this.voteForIt(this.item.url).then(() => {
-        this.$router.push({name: 'thanks'})
+        if (this.checkNetworkErrors()) {
+          this.$router.push({name: 'thanks'})
+        }
       })
     },
     submit () {
@@ -184,7 +190,6 @@ export default {
             this.$router.push({name: 'thanks'})
           }).catch(() => {
             this.updateVersion(this.oldVersion)
-            console.log('something went wrong')
           })
         })
       }

@@ -7,6 +7,9 @@
         Add
       </button>
     </div>
+    <div class="errors" v-if="Object.keys(errors).length">
+      {{errors.response.data.error}}
+    </div>
   </div>
 </template>
 
@@ -25,6 +28,10 @@ export default {
     },
     types () {
       return this.$store.getters.types
+    },
+    errors () {
+      let err = this.$store.getters.errors
+      return err
     }
   },
   methods: {
@@ -40,7 +47,7 @@ export default {
       instance.get('/pending/check', {params: {url: this.url}, timeout: 3000})
       .then((response) => {
         let check = response.data
-
+        console.log(response)
         if (check.exists) {
           let item = response.data.item
           let status = {reusable: check.reusable, live: check.live}
@@ -54,6 +61,10 @@ export default {
           this.$router.push({name: 'add-item'})
         }
       })
+      .catch(err => {
+        this.$store.commit('SET_ERRORS', err)
+        console.log(err)
+      })
     }
   }
 }
@@ -61,12 +72,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  #enter-url {
+    margin-bottom: 4rem;
+  }
+
   .input-group {
     display: flex;
+    margin-bottom: 0;
     button {
       margin-left: 1rem;
     }
   }
+
+
   @media screen and (max-width: 600px) {
     .input-group {
       flex-wrap: wrap;

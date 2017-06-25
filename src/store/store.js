@@ -72,6 +72,9 @@ export default new Vuex.Store({
     SET_URL (state, url) {
       state.item.url = url
     },
+    SET_ERRORS (state, errors) {
+      state.errors = {...errors}
+    },
     UPDATE_VERSION (state, version) {
       state.item.version = version
     }
@@ -87,8 +90,9 @@ export default new Vuex.Store({
       fd.append('title', item.title)
       fd.append('description', item.description)
       fd.append('type', item.type)
-      fd.append('latest_version', item.version)
+      fd.append('latest_version', item.version || '')
       fd.append('device_specific', item.deviceSpecific)
+      fd.append('device', item.device)
 
       // only post new pictures
       if (item.banner &&
@@ -96,10 +100,11 @@ export default new Vuex.Store({
           item.banner.img.substring(0, 4) !== 'http') {
         fd.append('full_image', item.banner.file)
       }
-
       instance.post('/pending/create', fd).then((response) => {
+        commit('SET_ERRORS', {})
         console.log(response)
       }).catch(err => {
+        commit('SET_ERRORS', err)
         console.log(err)
       })
     },
@@ -116,9 +121,11 @@ export default new Vuex.Store({
       let fd = new FormData()
       fd.append('url', url)
       instance.post('/pending/vote', fd).then((response) => {
-        console.log(response)
+        commit('SET_ERRORS', {})
+        // console.log(response)
       }).catch(err => {
-        console.log(err)
+        commit('SET_ERRORS', err)
+        // console.log(err)
       })
     }
   },
