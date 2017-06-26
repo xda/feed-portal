@@ -138,7 +138,7 @@ i, span.login{
 .register {
   margin-left: auto;
   margin-right: 12%;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
