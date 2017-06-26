@@ -122,6 +122,7 @@ export default {
   },
   mounted () {
     this.item = {...initialItem}
+    this.removeImage()
     if (this.url) {
       this.item.url = this.url
     }
@@ -185,7 +186,6 @@ export default {
     },
     submit () {
       if (this.validate()) {
-        console.log('validated')
         this.$store.dispatch('saveItem', this.item).then(() => {
           this.$router.push({name: 'thanks'})
         })

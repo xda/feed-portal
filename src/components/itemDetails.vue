@@ -18,17 +18,22 @@
 
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
 
-      <div v-if="pending" class="row">
-        <span>Item status: <strong class="orange">PENDING</strong><br></span>
-        <div class="col-xs-10">
-          <span id="vote">Help get this item approved in feed with a vote!</span>
+      <div v-if="pending">
+        <div class="row">
+          <span>Item status: <strong class="orange">PENDING</strong><br></span>
         </div>
-        <div class="col-xs-2 end-xs">
-          <button class="btn btn-small btn-orange"
-                  @click="vote">
+        <div class="row">
+          <div class="col-xs-10">
+            <span id="vote">Help get this item approved in feed with a vote!</span>
+          </div>
+          <div class="col-xs-2 end-xs">
+            <button class="btn btn-small btn-orange"
+                    @click="vote">
             vote
           </button>
         </div>
+      </div>
+
       </div>
 
       <div id="banner-container">
@@ -37,7 +42,7 @@
             {{ item.timestamp | prettyDate }}
           </span>
         </div>
-        <img :src="item.banner.img" id="banner" class="shadow-2dp">
+        <img :src="item.banner.img || '../../static/images/xda_500.png'" id="banner" class="shadow-2dp">
       </div>
 
 
@@ -46,12 +51,9 @@
           <div class="detail-wrap">
             <span class="grey-lightest input-title">URL</span>
             <div class="detail" id="url">
-              <div>
-                <a :href="item.url" class="link" target="_blank">
-                  {{ item.url }}
-                </a>
-              </div>
-
+              <a :href="item.url" id="url-link" class="link" target="_blank">
+                {{ item.url }}
+              </a>
             </div>
           </div>
 
@@ -200,6 +202,13 @@ export default {
 
 <style lang="scss" scoped>
 
+a#url-link {
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .input-group {
   margin: 0 0 0rem -.2rem;
 }
@@ -222,15 +231,6 @@ export default {
     position: relative;
     z-index: 4;
   }
-}
-
-#url {
-  white-space: nowrap;
-  overflow: hidden;
-  display: inline;
-  text-overflow: ellipsis;
-  max-width: 100%;
-
 }
 
 #submit-button {

@@ -122,10 +122,10 @@ export default new Vuex.Store({
       fd.append('url', url)
       instance.post('/pending/vote', fd).then((response) => {
         commit('SET_ERRORS', {})
-        // console.log(response)
+        console.log(response)
       }).catch(err => {
         commit('SET_ERRORS', err)
-        // console.log(err)
+        console.log(err)
       })
     }
   },
