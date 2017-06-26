@@ -60,13 +60,13 @@
       <div class="card">
         <div class="row card-body">
           <div class="col-sm-6" id='feed-description'>
-            XDA Feed is a "feed" of the best of the best for the OnePlus 3/3T, updated
-            several times per day. Whether it's a new ROM, kernel, root method, news
-            article, thread, video, or an interesting icon pack, theme, or wallpaper
-            to change things up a little bit, XDA Feed will keep you apprised of the
-            best stuff for your phone, with granular notifications to filter content
-            type and push interval selection -- or disable them altogether, if you
-            don't wish to be disturbed.
+
+            XDA Feed is a "feed" of the best of the best from the XDA forums,
+            updated several times per day. Whether it's a wallpaper, icon pack,
+            news article, interesting thread, video, XDA Feed will keep you
+            apprised of the best stuff for your phone, with granular
+            notifications to filter content type and push interval selection --
+            or disable them altogether, if you don't wish to be disturbed.
           </div>
           <div class="col-sm-6">
             <ul>
