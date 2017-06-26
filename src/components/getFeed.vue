@@ -6,6 +6,17 @@
     </div>
     <h3><i class="material-icons orange">add_circle_outline</i> Get feed</h3>
 
+    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-xs-12 video-player">
+     <div id="iframe-wrap">
+        <iframe width="100%" height="100%"
+                src="https://www.youtube.com/embed/2X6iaCW5IXY"
+                frameborder="0"
+                allowfullscreen>
+        </iframe>
+    </div>
+
+    </div>
+
     <div class="row col-lg-10 col-lg-offset-1">
       <div class="card">
         <div class="row card-body">
@@ -31,8 +42,6 @@
         </div>
       </div>
       <div class="col-lg-4 col-md-4 phone-box-container">
-        <div class="phone-box">
-        </div>
         <div class="download">
           <a href="https://labs.xda-developers.com/store/app/com.xda.feed"
              target="_blank">
@@ -47,13 +56,6 @@
                  class="download-link">
           </a>
         </div>
-      </div>
-      <div class="col-lg-8 col-md-8 col-xs-12 video-player">
-        <iframe :width="player.width" :height="player.height"
-                src="https://www.youtube.com/embed/2X6iaCW5IXY"
-                frameborder="0"
-                allowfullscreen>
-        </iframe>
       </div>
     </div>
     <div>
@@ -77,8 +79,7 @@ export default {
   },
   data () {
     return {
-      url: '',
-      player: {width: '560', height: '315'}
+      url: ''
     }
   },
   methods: {
@@ -132,11 +133,30 @@ ul {
     width: 60%;
   }
 }
-
 .card {
   background-color: $dark-grey;
   margin-bottom: 5rem;
 }
 
+@media screen and (min-width: 1200px) {
+  #iframe-wrap {
+    width: 853px;
+    height: 480px;
+  }
+}
 
+
+@media screen and (min-width: 451px) and (max-width: 1200px) {
+  #iframe-wrap {
+    width: 560px;
+    height: 315px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #iframe-wrap {
+    width: 315px;
+    height: 177px;
+  }
+}
 </style>

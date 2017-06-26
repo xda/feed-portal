@@ -32,7 +32,7 @@ main {
 }
 
 footer {
-  @include footer($orange, $dark-grey, 3rem)
+  @include footer($orange, $dark-grey, auto)
   @include shadow-6dp;
   z-index: 4;
   width: 100vw;
