@@ -47,7 +47,9 @@
             <div class="input-group">
               <select class="input"required v-model="item.device">
                 <option></option>
-                <option v-for="d in devices">{{d}}</option>
+                <option v-for="d in devices" :value="d.model">
+                  {{d.name}}
+                </option>
               </select>
               <label class="grey-lightest">Choose a device</label>
             </div>

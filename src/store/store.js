@@ -65,7 +65,7 @@ export default new Vuex.Store({
     SET_DEVICES (state, devices) {
       let array = []
       devices.map((d) => {
-        array.push(d.name)
+        array.push({name: d.name, model: d.model})
       })
       state.devices = array
     },

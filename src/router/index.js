@@ -33,10 +33,9 @@ export const routes = [
     component: thanks,
     beforeEnter: (to, from, next) => {
       if (Object.keys(store.getters.errors).length > 0) {
-        console.log('router errors true')
         next(false)
       } else {
-        console.log('router errors false')
+        next()
       }
     }
   }
