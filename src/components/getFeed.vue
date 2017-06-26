@@ -1,20 +1,55 @@
 <template lang="html">
   <div id="get-feed">
-    <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
-    <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-      <url-input></url-input>
-    </div>
+    <span v-if="isLoggedIn">
+      <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
+      <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+        <url-input></url-input>
+      </div>
+    </span>
     <h3><i class="material-icons orange">add_circle_outline</i> Get feed</h3>
 
-    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-xs-12 video-player">
-     <div id="iframe-wrap">
-        <iframe width="100%" height="100%"
-                src="https://www.youtube.com/embed/2X6iaCW5IXY"
-                frameborder="0"
-                allowfullscreen>
-        </iframe>
+    <div class="col-xs-12">
+      <div class="download row center-xs">
+        <div class="col-xs-5 end-xs">
+          <div class="text-download-link">
+            <a href="#" class="link">
+              Download on XDA Labs
+            </a>
+          </div>
+
+          <a href="https://labs.xda-developers.com/store/app/com.xda.feed"
+             target="_blank">
+            <img src="../assets/icons/getonlabs.png"
+                 alt="google play download link"
+                 class="download-link">
+          </a>
+        </div>
+        <div class="col-xs-5 start-xs">
+          <div class="text-download-link">
+            <a href="#" class="link text-download-link">
+              Download on Play
+            </a>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.xda.feed"
+            target="_blank">
+            <img src="../assets/icons/google-play-badge.png"
+                 alt="google play download link"
+                 class="download-link">
+          </a>
+        </div>
+      </div>
     </div>
 
+
+    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-xs-12 video-player">
+       <div id="iframe-wrap">
+          <iframe width="100%" height="100%"
+                  src="https://www.youtube.com/embed/2X6iaCW5IXY"
+                  frameborder="0"
+                  allowfullscreen
+                  class="shadow-2dp">
+          </iframe>
+      </div>
     </div>
 
     <div class="row col-lg-10 col-lg-offset-1">
@@ -41,22 +76,6 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 phone-box-container">
-        <div class="download">
-          <a href="https://labs.xda-developers.com/store/app/com.xda.feed"
-             target="_blank">
-            <img src="../assets/icons/getonlabs.png"
-                 alt="google play download link"
-                 class="download-link">
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.xda.feed"
-             target="_blank">
-            <img src="../assets/icons/google-play-badge.png"
-                 alt="google play download link"
-                 class="download-link">
-          </a>
-        </div>
-      </div>
     </div>
     <div>
       <div class="col-lg-8 col-lg-offset-2">
@@ -79,11 +98,9 @@ export default {
   },
   data () {
     return {
-      url: ''
+      url: '',
+      isLoggedIn: false
     }
-  },
-  methods: {
-    // set player width responsively
   }
 }
 </script>
@@ -105,34 +122,21 @@ ul {
   border-left: 1px solid $orange;
 }
 
-.download-link {
-  max-height: 2.5rem;
-  max-width: 100%;
+#iframe-wrap {
+  margin-bottom: 4rem;
 }
 
-.phone-box-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 5rem;
-  .phone-box {
-    display: block;
-    height: 300px;
-    width: 169px;
-    border-radius: 5px;
-    border: 1px solid white;
-    float: none;
-    clear: both;
+.download {
+  margin-bottom: 4rem;
+  .download-link {
+    max-height: 2.5rem;
+    max-width: 100%;
+  }
+  .text-download-link {
     margin-bottom: 1rem;
   }
-  .download {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 60%;
-  }
 }
+
 .card {
   background-color: $dark-grey;
   margin-bottom: 5rem;

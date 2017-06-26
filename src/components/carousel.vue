@@ -1,20 +1,22 @@
 <template lang="html">
   <carousel-3d :controls-visible="true"
                :autoplay="false"
-               :height="640"
+               :height="510"
+               :width="287"
                :display="3"
+               :autoplayHoverPause="true"
                :animationSpeed="1500">
     <slide v-for="(slide, i) in slides"
            :key="slide"
-           :index="i"
-           class="side-slide shadow-2dp">
-      <img :src="slide"/>
+           :index="i">
+      <img :src="slide" class="slide-img">
     </slide>
   </carousel-3d>
 </template>
 
 <script>
 import { Carousel3d, Slide } from 'vue-carousel-3d'
+
 export default {
   components: {
     Carousel3d,
@@ -37,5 +39,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/mixins';
 </style>
