@@ -12,7 +12,9 @@
       <div class="download row center-xs">
         <div class="col-xs-5 end-xs">
           <div class="text-download-link">
-            <a href="#" class="link">
+            <a href="https://labs.xda-developers.com/store/app/com.xda.feed"
+               target="_blank"
+               class="link">
               Download on XDA Labs
             </a>
           </div>
@@ -26,7 +28,9 @@
         </div>
         <div class="col-xs-5 start-xs">
           <div class="text-download-link">
-            <a href="#" class="link text-download-link">
+            <a href="https://play.google.com/store/apps/details?id=com.xda.feed"
+               target="_blank"
+               class="link text-download-link">
               Download on Play
             </a>
           </div>
