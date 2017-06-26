@@ -45,7 +45,7 @@
     </div>
 
 
-    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-xs-12 video-player">
+    <div class="row video-player center-xs">
        <div id="iframe-wrap">
           <iframe width="100%" height="100%"
                   src="https://www.youtube.com/embed/2X6iaCW5IXY"
@@ -146,18 +146,18 @@ ul {
   margin-bottom: 5rem;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 768px) {
   #iframe-wrap {
-    width: 853px;
-    height: 480px;
+    width: 560px;
+    height: 315px;
   }
 }
 
 
-@media screen and (min-width: 451px) and (max-width: 1200px) {
+@media screen and (min-width: 451px) and (max-width: 767px) {
   #iframe-wrap {
-    width: 560px;
-    height: 315px;
+    width: 315px;
+    height: 177px;
   }
 }
 
