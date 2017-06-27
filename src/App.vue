@@ -27,23 +27,23 @@
       </transition>
     </main>
 
-    <footer>
-      <div class="col-xs-10 col-sm-4">
+    <footer class="row">
+      <div class="col-xs-12 center-xs start-sm col-sm-5">
         <div>
-          <img src="../static/images/xdalogo-dark.png" alt="xda-logo">
+          <img src="../static/images/xdalogo-dark.png" alt="xda-logo" id="xda-logo">
         </div>
 
         <div id="footer-text" class="grey-lightest">
           XDA Developers was founded by developers, for developers. It is now a valuable resource for people who want to make the most of their mobile devices, from customizing the look and feel to adding new functionality.
           <br>
           <a id="developer-link"
-            class="orange"
-            href="https://www.xda-developers.com/recognized-developer-program/">
+             class="orange"
+             href="https://www.xda-developers.com/recognized-developer-program/">
             Are you a developer?
           </a>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-7 end-xs">
+      <div class="col-xs-12 col-sm-7 center-xs end-sm">
         <div id="social">
           <strong class="orange-light">We're social</strong>
         </div>
@@ -111,6 +111,7 @@ i, span.login{
 #social {
   margin-bottom: 1rem;
 }
+
 .social-icon {
   max-height: 2rem;
   max-width: auto;
@@ -120,6 +121,24 @@ i, span.login{
   &:hover {
     cursor: pointer;
     opacity: 1;
+  }
+}
+@media screen and (max-width: 800px) {
+  .social-icon {
+    max-height: 1rem;
+  }
+  #social {
+    margin-top: 1rem;
+    font-size: .7rem;
+  }
+  #xda-logo {
+    max-width: 50%;
+  }
+  #footer-text {
+    font-size: .7rem;
+  }
+  #developer-link {
+    font-size: .7rem;
   }
 }
 

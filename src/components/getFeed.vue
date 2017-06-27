@@ -82,7 +82,7 @@
       </div>
     </div>
     <div>
-      <div class="col-lg-8 col-lg-offset-2">
+      <div class="col-lg-6 col-lg-offset-3">
         <carousel></carousel>
       </div>
       <br>
@@ -159,12 +159,21 @@ ul {
     width: 315px;
     height: 177px;
   }
+  #feed-description {
+    padding-left: .6rem;
+  }
 }
 
 @media screen and (max-width: 450px) {
   #iframe-wrap {
     width: 315px;
     height: 177px;
+  }
+  .link {
+    font-size: .7rem;
+  }
+  #feed-description {
+    padding-left: .6rem;
   }
 }
 </style>
