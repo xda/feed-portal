@@ -26,9 +26,6 @@ export default {
     item () {
       return this.$store.getters.item
     },
-    types () {
-      return this.$store.getters.types
-    },
     errors () {
       let err = this.$store.getters.errors
       return err
@@ -51,11 +48,10 @@ export default {
         if (check.exists) {
           let item = response.data.item
           let status = {reusable: check.reusable, live: check.live}
-          let type = this.types.filter(t => t.id === item.type)[0].tag
 
           this.setItem({item: item, status: status})
 
-          this.$router.push({path: `/${type}/${item.id}`})
+          this.$router.push({path: `/suggest/${item.id}`})
         } else {
           this.fetchDevices(response.data.devices)
           this.$router.push({name: 'add-item'})

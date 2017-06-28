@@ -40,7 +40,8 @@ export default new Vuex.Store({
       { name: 'Video', tag: 'video', id: 10 }
     ],
     devices: [],
-    errors: {}
+    errors: {},
+    thanks: 'Thanks buddy'
   },
   mutations: {
     SET_ITEM (state, payload) {
@@ -134,7 +135,8 @@ export default new Vuex.Store({
     types: state => state.types,
     errors: state => state.errors,
     devices: state => state.devices,
-    status: state => state.item.status
+    status: state => state.item.status,
+    thanks: state => state.thanks
   },
   strict: debug
 })

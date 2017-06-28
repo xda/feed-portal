@@ -118,7 +118,6 @@ import {mapActions} from 'vuex'
 import urlInput from './urlInput'
 
 export default {
-  props: ['type', 'id'],
   components: {
     urlInput
   },
@@ -132,6 +131,10 @@ export default {
   computed: {
     item () {
       return this.$store.getters.item
+    },
+    type () {
+      let types = this.$store.getters.types
+      return types.filter(t => t.id === this.item.type)[0].tag
     },
     status () {
       return this.$store.getters.status

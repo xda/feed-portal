@@ -1,5 +1,4 @@
 import getFeed from '../components/getFeed'
-import urlInput from '../components/urlInput'
 import addItem from '../components/addItem'
 import itemDetails from '../components/itemDetails'
 import thanks from '../components/thanks'
@@ -13,19 +12,13 @@ export const routes = [
     component: getFeed
   },
   {
-    path: '/url',
-    name: 'url-input',
-    component: urlInput
-  },
-  {
-    path: '/add',
+    path: '/suggest/add',
     name: 'add-item',
     component: addItem
   },
   {
-    path: '/:type/:id',
-    component: itemDetails,
-    props: true
+    path: '/suggest/:uuid',
+    component: itemDetails
   },
   {
     path: '/thanks',

@@ -103,7 +103,7 @@ export default {
   data () {
     return {
       url: '',
-      isLoggedIn: false
+      isLoggedIn: true
     }
   }
 }
