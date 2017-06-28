@@ -21,7 +21,7 @@ export const routes = [
     component: itemDetails
   },
   {
-    path: '/thanks',
+    path: '/suggest/thanks',
     name: 'thanks',
     component: thanks,
     beforeEnter: (to, from, next) => {

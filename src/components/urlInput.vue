@@ -51,7 +51,7 @@ export default {
 
           this.setItem({item: item, status: status})
 
-          this.$router.push({path: `/suggest/${item.id}`})
+          this.$router.push({path: `/suggest/${item.uuid}`})
         } else {
           this.fetchDevices(response.data.devices)
           this.$router.push({name: 'add-item'})
