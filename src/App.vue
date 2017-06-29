@@ -5,13 +5,11 @@
         <img src="./assets/icons/aQ.png" alt="feed-icon" class="feed-icon">
         <h1 class="orange-light header">xda</h1><h1 class="paper header">feed</h1>
       </router-link>
-      <div class="register">
-        <a :href="'https://api.xda-developers.com/oauth2/authorize?response_type=token&client_id=XDA-FEED-FE&redirect_uri=' + redirectURI">
-          <i class="material-icons grey-lightest">lock</i>
-          <span class="grey-lightest continuum login">
-            Login
-          </span>
-        </a>
+      <div class="login-wrapper" @click.prevent="openLoginPopup">
+        <i class="material-icons grey-lightest">lock</i>
+        <span class="grey-lightest continuum login">
+          Login
+        </span>
       </div>
     </header>
 
@@ -70,7 +68,31 @@ export default {
   name: 'feed-portal',
   data () {
     return {
+      baseLoginURl: 'https://api.xda-developers.com/oauth2/authorize?response_type=token&client_id=XDA-FEED-FE&redirect_uri=',
       redirectURI: ''
+    }
+  },
+  methods: {
+    openLoginPopup () {
+      this.popupCenter(this.baseLoginURl + this.redirectURI, 'Hey fuckers', '550', '400')
+    },
+    popupCenter (url, title, w, h) {
+      let dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left
+      let dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top
+
+      let width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width
+      let height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height
+
+      let left = ((width / 2) - (w / 2)) + dualScreenLeft
+      let top = ((height / 2) - (h / 2)) + dualScreenTop
+      let newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)
+
+      // Puts focus on the newWindow
+      if (window.focus) {
+        newWindow.focus()
+      }
+
+      return newWindow
     }
   }
 }
@@ -109,7 +131,7 @@ a {
   text-decoration: none;
 }
 
-i, span.login{
+i, span.login {
   font-size: 2rem;
 }
 
@@ -159,12 +181,15 @@ i, span.login{
   }
 }
 
-.register {
+.login-wrapper {
   margin-left: auto;
   margin-right: 12%;
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .feed-icon {
