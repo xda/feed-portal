@@ -6,12 +6,12 @@
         <h1 class="orange-light header">xda</h1><h1 class="paper header">feed</h1>
       </router-link>
       <div class="register">
-        <router-link to="/">
+        <a :href="'https://api.xda-developers.com/oauth2/authorize?response_type=token&client_id=XDA-FEED-FE&redirect_uri=' + redirectURI">
           <i class="material-icons grey-lightest">lock</i>
           <span class="grey-lightest continuum login">
             Login
           </span>
-        </router-link>
+        </a>
       </div>
     </header>
 
@@ -67,7 +67,12 @@
 
 <script>
 export default {
-  name: 'application'
+  name: 'feed-portal',
+  data () {
+    return {
+      redirectURI: ''
+    }
+  }
 }
 </script>
 
