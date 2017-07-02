@@ -1,7 +1,6 @@
 var merge = require('webpack-merge')
-var prodEnv = require('./prod.env')
+var stagingEnv = require('./staging.env')
 
-module.exports = merge(prodEnv, {
-  NODE_ENV: '"development"',
-  BASE_URL: '"https://feed-staging.xda-developers.com/"'
+module.exports = merge(stagingEnv, {
+  NODE_ENV: '"development"'
 })
