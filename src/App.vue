@@ -5,7 +5,7 @@
         <img src="./assets/icons/aQ.png" alt="feed-icon" class="feed-icon">
         <h1 class="orange-light header">xda</h1><h1 class="paper header">feed</h1>
       </router-link>
-      <div class="login-wrapper" @click.prevent="openLoginPopup">
+      <div class="login-wrapper" @click.prevent="handleLogin">
         <i class="material-icons grey-lightest">lock</i>
         <span class="grey-lightest continuum login">
           Login
@@ -64,16 +64,14 @@
 </template>
 
 <script>
+import {login} from './utils/auth'
 
 export default {
   name: 'feed-portal',
-  data () {
-    return {
-      baseLoginURl: 'https://api.xda-developers.com/oauth2/authorize?response_type=token&client_id=XDA-FEED-USP-STAGING&redirect_uri=',
-      redirectURI: process.env.BASE_URL
-    }
-  },
   methods: {
+    handleLogin () {
+      login()
+    }
   }
 }
 </script>
