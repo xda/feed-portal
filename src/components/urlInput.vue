@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import instance from '../store/api'
+import instance from '../utils/api'
 import {mapActions} from 'vuex'
 export default {
   data () {

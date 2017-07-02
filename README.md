@@ -14,6 +14,10 @@ npm run dev
 # build for production with minification
 npm run build
 
+# build for staging with minification'
+# only difference from production is some base url vars
+npm run build-staging
+
 # build for production and view the bundle analyzer report
 npm run build --report
 

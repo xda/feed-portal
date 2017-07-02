@@ -64,36 +64,16 @@
 </template>
 
 <script>
+
 export default {
   name: 'feed-portal',
   data () {
     return {
-      baseLoginURl: 'https://api.xda-developers.com/oauth2/authorize?response_type=token&client_id=XDA-FEED-FE&redirect_uri=',
-      redirectURI: ''
+      baseLoginURl: 'https://api.xda-developers.com/oauth2/authorize?response_type=token&client_id=XDA-FEED-USP-STAGING&redirect_uri=',
+      redirectURI: process.env.BASE_URL
     }
   },
   methods: {
-    openLoginPopup () {
-      this.popupCenter(this.baseLoginURl + this.redirectURI, 'Hey fuckers', '550', '400')
-    },
-    popupCenter (url, title, w, h) {
-      let dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left
-      let dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top
-
-      let width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width
-      let height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height
-
-      let left = ((width / 2) - (w / 2)) + dualScreenLeft
-      let top = ((height / 2) - (h / 2)) + dualScreenTop
-      let newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)
-
-      // Puts focus on the newWindow
-      if (window.focus) {
-        newWindow.focus()
-      }
-
-      return newWindow
-    }
   }
 }
 </script>
