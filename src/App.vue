@@ -5,14 +5,14 @@
         <img src="./assets/icons/aQ.png" alt="feed-icon" class="feed-icon">
         <h1 class="orange-light header">xda</h1><h1 class="paper header">feed</h1>
       </router-link>
-      <div class="login-wrapper" @click.prevent="handleLogin" v-if=isLoggedIn>
-        <i class="material-icons grey-lightest">lock</i>
+      <div class="login-wrapper" @click.prevent="handleLogin" v-if='!isLoggedIn'>
+        <i class="material-icons grey-lightest">lock_outline</i>
         <span class="grey-lightest continuum login">
           Login
         </span>
       </div>
       <div class="login-wrapper" @click.prevent="handleLogout" v-else>
-        <i class="material-icons grey-lightest">lock</i>
+        <i class="material-icons grey-lightest">lock_open</i>
         <span class="grey-lightest continuum login">
           Logout
         </span>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import {login, logout, getAccessToken, setConvertToken} from './utils/auth'
+import {checkLogin, login, logout, getAccessToken, setConvertToken} from './utils/auth'
 export default {
   name: 'feed-portal',
   computed: {
@@ -78,11 +78,16 @@ export default {
       return this.$store.getters.user.isLoggedIn
     }
   },
+  beforeMount () {
+    checkLogin()
+  },
   mounted () {
     if (window.location.hash.substring(13) === '#access_token') {
       new Promise((resolve, reject) => {
         resolve(getAccessToken())
-      }).then(r => setConvertToken(r))
+      }).then(r => setConvertToken()).then(
+        this.$router.push('/')
+      )
     }
   },
   methods: {

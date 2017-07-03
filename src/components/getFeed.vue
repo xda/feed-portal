@@ -102,8 +102,12 @@ export default {
   },
   data () {
     return {
-      url: '',
-      isLoggedIn: true
+      url: ''
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.getters.user.isLoggedIn
     }
   }
 }
