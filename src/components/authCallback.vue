@@ -5,7 +5,7 @@ export default {
     this.$nextTick(() => {
       new Promise((resolve, reject) => {
         resolve(getAccessToken())
-      }).then(r => setConvertToken(r))
+      }).then(response => setConvertToken(response))
     })
   }
 }

@@ -1,5 +1,8 @@
 
 import VueRouter from 'vue-router'
+
+import store from '../store/store'
+
 import instance from './api'
 
 const CLIENT_ID = process.env.CLIENT_ID
@@ -10,12 +13,13 @@ const router = new VueRouter({
 })
 
 export function login () {
-  window.location = `https://api.xda-developers.com/oauth2/authorize?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}/authCallback`
+  window.location = `https://api.xda-developers.com/oauth2/authorize?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`
 }
 
 export function logout () {
   // clearidtoken
   // clearaccesstoken
+  store.commit('LOGIN_STATUS', false)
   router.go('/')
 }
 //
@@ -30,7 +34,7 @@ export function logout () {
 //   }
 // }
 
-function getParam (param) {
+export function getParam (param) {
   let match = decodeURIComponent(RegExp('[#&]' + param + '=([^&]*)').exec(window.location.hash)[1].replace(/\+/g, ' '))
   return match
 }
@@ -40,30 +44,31 @@ export function getAccessToken () {
   return token
 }
 
-// TODO:
-// in component:
-// const promise = new Promise((resolve, reject) => {
-//   resolve(getAccessToken())
-// }).then(r => setConvertToken(r))
-
-export function getToken () {
+export function grabToken () {
   return localStorage.getItem('USER_ACCESS_TOKEN')
 }
 
-export function setTOKEN (accessToken) {
-  localStorage.setItem('USER_ACCESS_TOKEN', accessToken)
+export function setLoginToken (token) {
+  localStorage.setItem('USER_ACCESS_TOKEN', token)
+}
+
+export function isLoggedIn () {
+  if (grabToken()) {
+    store.commit('LOGIN_STATUS', true)
+  }
 }
 
 export function setConvertToken (accessToken) {
   let data = {
     'grant_type': 'convert_token',
-    'client_id': 'afenj61ioukD5owZuWvnhBDFPmZdtZu0qNzQKm3T',
-    'client_secret': 'TLMy1NkNI81mvR7PSctBCFrKyo6ta28b4eR5m7YXbeg7379Ena9EAVhhpvZ7wRXAVrh5lDiASnmcxav2OuMtzmizBO3P5z1fOPNVhFLXKz41WsiG25lBcZAjQ4sziwni',
+    'client_id': process.env.CONVERT_TOKEN_CLIENT_ID,
+    'client_secret': process.env.CONVERT_TOKEN_CLIENT_SECRET,
     'backend': 'xda',
     'token': accessToken
   }
-
+  console.log(data)
   instance.post('/auth/convert-token', data).then(response => {
     console.log(response)
-  }).catch(err => console.log(err))
+    setLoginToken(response.data.access_token)
+  }).then(isLoggedIn()).catch(err => console.log(err))
 }

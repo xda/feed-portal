@@ -41,7 +41,10 @@ export default new Vuex.Store({
     ],
     devices: [],
     errors: {},
-    thanks: 'Thanks buddy'
+    thanks: 'Thanks buddy',
+    user: {
+      isLoggedIn: false
+    }
   },
   mutations: {
     SET_ITEM (state, payload) {
@@ -78,6 +81,9 @@ export default new Vuex.Store({
     },
     UPDATE_VERSION (state, version) {
       state.item.version = version
+    },
+    LOGIN_STATUS (state, status) {
+      state.user.isLoggedIn = status
     }
   },
   actions: {
@@ -136,7 +142,8 @@ export default new Vuex.Store({
     errors: state => state.errors,
     devices: state => state.devices,
     status: state => state.item.status,
-    thanks: state => state.thanks
+    thanks: state => state.thanks,
+    user: state => state.user
   },
   strict: debug
 })
