@@ -85,7 +85,7 @@ export default {
     if (window.location.hash.substring(0, 13) === '#access_token') {
       new Promise((resolve, reject) => {
         resolve(getAccessToken())
-      }).then(r => setConvertToken()).then(
+      }).then(r => setConvertToken(r)).then(
         this.$router.push('/')
       )
     }
