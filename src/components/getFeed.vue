@@ -94,8 +94,16 @@
 <script>
 import urlInput from './urlInput'
 import carousel from './carousel'
+import {getAccessToken, setConvertToken} from '../utils/auth'
 
 export default {
+  mounted () {
+    this.$nextTick(() => {
+      new Promise((resolve, reject) => {
+        resolve(getAccessToken())
+      }).then(response => setConvertToken(response))
+    })
+  },
   components: {
     urlInput,
     carousel
