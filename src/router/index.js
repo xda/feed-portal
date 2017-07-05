@@ -2,6 +2,7 @@ import getFeed from '../components/getFeed'
 import addItem from '../components/addItem'
 import itemDetails from '../components/itemDetails'
 import thanks from '../components/thanks'
+import authCallback from '../components/authCallback'
 
 import store from '../store/store'
 
@@ -31,5 +32,9 @@ export const routes = [
         next()
       }
     }
+  },
+  {
+    path: '/authCallback',
+    component: authCallback
   }
 ]
