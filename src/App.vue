@@ -82,7 +82,7 @@ export default {
     checkLogin()
   },
   mounted () {
-    if (window.location.hash.substring(13) === '#access_token') {
+    if (window.location.hash.substring(0, 13) === '#access_token') {
       new Promise((resolve, reject) => {
         resolve(getAccessToken())
       }).then(r => setConvertToken()).then(
