@@ -1,6 +1,6 @@
 <template lang="html">
   <carousel-3d :controls-visible="true"
-               :autoplay="false"
+               :autoplay="true"
                :height="510"
                :width="287"
                :display="3"
