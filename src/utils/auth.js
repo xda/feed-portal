@@ -49,8 +49,9 @@ export function setConvertToken (accessToken) {
   }
   instance.post('/auth/convert-token', data).then(response => {
     setLoginToken(response.data.access_token)
+    store.commit('LOGIN_STATUS', true)
     console.log(response)
-  }).then(checkLogin()).catch(err => {
+  }).catch(err => {
     console.log(err)
     store.commit('LOGIN_STATUS', false)
   })

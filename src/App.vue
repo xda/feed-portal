@@ -78,14 +78,11 @@ export default {
       return this.$store.getters.user.isLoggedIn
     }
   },
-  beforeMount () {
-    checkLogin()
-  },
   mounted () {
     if (window.location.hash.substring(0, 13) === '#access_token') {
       new Promise((resolve, reject) => {
         resolve(getAccessToken())
-      }).then(r => setConvertToken(r)).then(
+      }).then(accessToken => setConvertToken(accessToken)).then(
         this.$router.push('/')
       )
     }
@@ -95,6 +92,7 @@ export default {
       login()
     },
     handleLogout () {
+      checkLogin()
       logout()
     }
   }
