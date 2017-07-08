@@ -1,9 +1,10 @@
 import axios from 'axios'
+import {grabToken} from './auth'
 
 const instance = axios.create({
   baseURL: process.env.BASE_URL + '/',
   timeout: 6000,
-  headers: {'Authorization': 'Bearer 4GDcWT0gqFoUqBHF8MtKEXgndls50b'}
+  headers: {'Authorization': `Bearer ${grabToken()}`}
 })
 
 export default instance
