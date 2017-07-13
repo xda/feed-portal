@@ -116,16 +116,6 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/variables';
 
-ul {
-  li {
-    list-style: circle;
-    color: $orange;
-    & ~span.list-text {
-      color: $paper;
-    }
-  }
-}
-
 #feed-description {
   border-left: 1px solid $orange;
 }
