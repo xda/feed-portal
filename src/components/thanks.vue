@@ -7,7 +7,7 @@
       <div class="thanks-message">
         <span class="paper">{{thanks}}</span>
       </div>
-      <div class="col-xs-6 col-xs-offset-3">
+      <div class="col-sm-6 col-sm-offset-3">
         In the meantime, check out:
         <ul>
           <li>
