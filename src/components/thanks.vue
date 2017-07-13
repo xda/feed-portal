@@ -30,7 +30,7 @@
           </li>
         </ul>
       </div>
-      <div class="center-xs">
+      <div class="center-xs thumb">
         <i class="material-icons dark-grey">thumb_up</i>
       </div>
     </div>
@@ -63,5 +63,9 @@ ul {
 
 .thanks-message {
   margin-bottom: 4rem;
+}
+
+.thumb {
+  padding-bottom: 4rem;
 }
 </style>
