@@ -3,6 +3,22 @@
     <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
     <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
       <div class="form">
+        <transition name="fade">
+          <div class="card" v-if="infoBox">
+            <div class="row card-body">
+              <span class="remove" id="info-box" @click="infoBox = false">
+                <i class="material-icons dark-orange">close</i>
+              </span>
+              <div>
+                <i class="material-icons orange">lightbulb_outline</i> Suggestions have a better chance of being approved quickly if they're filled out completely and accurately!
+              </div>
+              <div>
+                <i class="material-icons orange">create</i>Content should be high quality and in line with what you already see in Feed.
+              </div>
+            </div>
+          </div>
+        </transition>
+
         <div v-if="url">
           <span class="grey-lightest input-title">URL</span>
           <h4 id="url">
@@ -82,7 +98,7 @@
           </div>
           <div class="col-lg-7 banner-image-container">
             <div class="loader" v-if="item.banner.source && !item.banner.img"></div>
-            <span id="remove-banner" v-show="item.banner.img" @click="removeImage">
+            <span class='remove' v-show="item.banner.img" @click="removeImage">
               <i class="material-icons orange">close</i>
             </span>
             <img :src="item.banner.img" v-if="item.banner.img" id="banner-img">
@@ -117,7 +133,8 @@ export default {
   data () {
     return {
       item: initialItem,
-      formErrors: {}
+      formErrors: {},
+      infoBox: true
     }
   },
   mounted () {
@@ -246,9 +263,18 @@ $type-colours: (
   }
 }
 
+.card {
+  background-color: $grey-light;
+  margin-bottom: 2rem;
+  .card-body {
+    padding-top: .3rem;
+  }
+}
+
 .form {
   padding-bottom: 4rem;
 }
+
 .content-type {
   display: flex;
   justify-content: flex-start;
@@ -306,8 +332,7 @@ $type-colours: (
   }
 }
 
-#remove-banner {
-  display: absolute;
+.remove {
   align-self: flex-start;
   top: 98%;
   margin-left: 98%;
@@ -315,6 +340,9 @@ $type-colours: (
   z-index: 5;
   &:hover {
     cursor: pointer;
+  }
+  &#info-box {
+    top: 120%;
   }
 }
 
