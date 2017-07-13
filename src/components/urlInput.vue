@@ -7,9 +7,14 @@
         Add
       </button>
     </div>
+    <div class="errors" v-if="lengthError">
+      {{ lengthError }}
+    </div>
     <div class="errors" v-if="Object.keys(errors).length">
       {{errors.response.data.error}}
     </div>
+    <br>
+    ROM, Kernel, Wallpaper and Homescreen urls are typically a link to the XDA thread where they're posted. App, Theme or Icon Packs often link to Google Play™ or XDA Labs.
   </div>
 </template>
 
@@ -19,7 +24,8 @@ import {mapActions} from 'vuex'
 export default {
   data () {
     return {
-      url: ''
+      url: '',
+      lengthError: ''
     }
   },
   computed: {
@@ -36,6 +42,8 @@ export default {
     submit () {
       if (this.url.length) {
         this.checkUrl()
+      } else {
+        this.lengthError = 'Can\'t be blank'
       }
     },
     checkUrl (url) {
