@@ -84,6 +84,9 @@ export default new Vuex.Store({
     },
     LOGIN_STATUS (state, status) {
       state.user.isLoggedIn = status
+    },
+    THANKS (state, message) {
+      state.thanks = message
     }
   },
   actions: {
@@ -108,6 +111,11 @@ export default new Vuex.Store({
         fd.append('full_image', item.banner.file)
       }
       instance.post('/pending/create', fd).then((response) => {
+        let thanksMessage = `Thanks for suggesting content to XDA Feed, ${item.title}
+                             and any other suggestions help to make the app even
+                             better for everyone. Keep an eye out for ${item.title}
+                             in the app!`
+        commit('THANKS', thanksMessage)
         commit('SET_ERRORS', {})
         console.log(response)
       }).catch(err => {
@@ -124,10 +132,15 @@ export default new Vuex.Store({
     clearItem ({commit}) {
       commit('SET_ITEM', {item: initialItem, status: initialItem.status})
     },
-    voteForIt ({commit}, url) {
+    voteForIt ({commit, state}, url) {
       let fd = new FormData()
       fd.append('url', url)
       instance.post('/pending/vote', fd).then((response) => {
+        let thanksMessage = `Thank you for voting for ${state.item.title},
+                             the more votes it gets the more likely it is to
+                             go live.
+                             Keep an eye out for it in the XDA Feed app!`
+        commit('THANKS', thanksMessage)
         commit('SET_ERRORS', {})
         console.log(response)
       }).catch(err => {
