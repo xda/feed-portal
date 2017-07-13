@@ -46,7 +46,7 @@
       </div>
 
 
-      <div class="row">
+      <div class="row item-stuff">
         <div class="col-lg-12 col-xs-12">
           <div class="detail-wrap">
             <span class="grey-lightest input-title">URL</span>
@@ -206,10 +206,11 @@ export default {
 <style lang="scss" scoped>
 
 a#url-link {
-  display: block;
+  display: inline-block;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  max-width: 100%;
 }
 
 .input-group {
@@ -243,7 +244,7 @@ a#url-link {
 #update-version {
   margin-left: 7rem;
 }
-
+margin
 #vote {
   font-size: 1.3rem;
 }
@@ -261,6 +262,10 @@ a#url-link {
 
 .new-version {
   margin-bottom: 6rem;
+}
+
+.item-stuff {
+  padding-bottom: 4rem;
 }
 
 </style>
