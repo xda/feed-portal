@@ -9,7 +9,7 @@
     </div>
     <div class="errors" v-if="lengthError">
       {{ lengthError }}
-    <div class="errors" v-if="errors.response.data.detail">
+    </div>
     <div class="errors"
          v-if="errors.response &&
                errors.response.data &&
