@@ -9,6 +9,8 @@
     </div>
     <div class="errors" v-if="lengthError">
       {{ lengthError }}
+    <div class="errors" v-if="errors.response.data.detail">
+      {{errors.response.data.detail}}
     </div>
     <div class="errors" v-if="Object.keys(errors).length">
       {{errors.response.data.error}}
