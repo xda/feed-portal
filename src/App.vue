@@ -26,7 +26,11 @@
                  col-xs-12
                  shadow-4dp">
 
-      <transition name="fade">
+      <div id="loading-container" v-if="isLoading">
+        <div class="loader" id="loading-spinner"></div>
+      </div>
+
+      <transition name="fade" v-else>
         <router-view></router-view>
       </transition>
     </main>
@@ -73,9 +77,23 @@
 import {checkLogin, login, logout, getAccessToken, setConvertToken} from './utils/auth'
 export default {
   name: 'feed-portal',
+  data () {
+    return {
+      isLoading: false
+    }
+  },
   computed: {
     isLoggedIn () {
       return this.$store.getters.user.isLoggedIn
+    }
+  },
+  watch: {
+    '$route' () {
+      let self = this
+      self.isLoading = true
+      setTimeout(() => {
+        self.isLoading = false
+      }, 1000)
     }
   },
   beforeMount () {
@@ -96,6 +114,11 @@ export default {
     },
     handleLogout () {
       logout()
+    },
+    loader () {
+      Promise((resolve) => {
+        setTimeout(resolve(this.isLoading = true), 1000)
+      })
     }
   }
 }
@@ -124,6 +147,11 @@ header#nav {
   &:hover {
     color: white;
   }
+}
+
+#loading-container {
+  margin: 15% 44%;
+  margin-bottom: -2rem;
 }
 
 h1.header {
