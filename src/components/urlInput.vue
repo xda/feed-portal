@@ -1,5 +1,17 @@
 <template lang="html">
   <div id="enter-url" class="row">
+    <transition name="fade">
+      <div class="card" v-if="infoBox">
+        <div class="row card-body">
+          <span class="remove" id="info-box" @click="infoBox = false">
+            <i class="material-icons dark-orange">close</i>
+          </span>
+          <div>
+            <i class="material-icons orange">lightbulb_outline</i>    ROM, Kernel, Wallpaper and Homescreen urls are typically a link to the XDA thread where they're posted. App, Theme or Icon Packs often link to Google Play™ or XDA Labs.
+          </div>
+        </div>
+      </div>
+    </transition>
     <div class="input-group">
       <input type="text" id="url" v-model="url"  @keyup.enter="submit" required>
       <label for="url">Enter URL</label>
@@ -19,8 +31,6 @@
     <div class="errors" v-if="Object.keys(errors).length">
       {{errors.response.data.error}}
     </div>
-    <br>
-    ROM, Kernel, Wallpaper and Homescreen urls are typically a link to the XDA thread where they're posted. App, Theme or Icon Packs often link to Google Play™ or XDA Labs.
   </div>
 </template>
 
@@ -31,7 +41,8 @@ export default {
   data () {
     return {
       url: '',
-      lengthError: ''
+      lengthError: '',
+      infoBox: true
     }
   },
   computed: {
@@ -82,6 +93,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/variables';
+
   #enter-url {
     margin-bottom: 4rem;
   }
@@ -94,6 +107,24 @@ export default {
     }
   }
 
+  .card {
+    background-color: $grey-light;
+    margin-top: 2rem;
+    margin-bottom: -1rem;
+    .card-body {
+      padding-top: .3rem;
+    }
+    .remove {
+      align-self: flex-start;
+      top: 120%;
+      margin-left: 98%;
+      left: 0;
+      z-index: 5;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 
   @media screen and (max-width: 600px) {
     .input-group {
