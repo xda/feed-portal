@@ -1,7 +1,6 @@
 
 import store from '../store/store'
-
-import instance from './api'
+import axios from 'axios'
 
 const CLIENT_ID = process.env.CLIENT_ID
 const REDIRECT_URI = process.env.BASE_URL
@@ -47,7 +46,8 @@ export function setConvertToken (accessToken) {
     'backend': 'xda',
     'token': accessToken
   }
-  instance.post('/auth/convert-token', data).then(response => {
+
+  axios.post(process.env.BASE_URL + '/auth/convert-token', data).then(response => {
     setLoginToken(response.data.access_token)
     store.commit('LOGIN_STATUS', true)
     console.log(response)
