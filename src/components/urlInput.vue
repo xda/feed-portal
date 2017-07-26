@@ -35,8 +35,9 @@
 </template>
 
 <script>
+import { grabToken } from '../utils/auth'
 import instance from '../utils/api'
-import {mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -66,7 +67,7 @@ export default {
     checkUrl (url) {
       this.$store.commit('SET_URL', this.url)
 
-      instance.get('/pending/check', {params: {url: this.url}, timeout: 3000})
+      instance.get('/pending/check', {params: {url: this.url}, timeout: 3000, headers: {'Authorization': `Bearer ${grabToken()}`}})
       .then((response) => {
         let check = response.data
         console.log(response)
