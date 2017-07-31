@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import instance from '../utils/api'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -25,6 +25,7 @@ export const initialItem = {
 
 export default new Vuex.Store({
   state: {
+    instance: null,
     item: {...initialItem},
     types: [
       { name: 'Article', tag: 'article', id: 0 },
@@ -47,6 +48,13 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    SET_INSTANCE (state, token) {
+      state.instance = axios.create({
+        baseURL: process.env.BASE_URL + '/',
+        timeout: 6000,
+        headers: {'Authorization': `Bearer ${token}`}
+      })
+    },
     SET_ITEM (state, payload) {
       let item = payload.item
       let status = payload.status
@@ -90,10 +98,18 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    login ({commit}) {
+      commit('LOGIN_STATUS', true)
+      commit('SET_INSTANCE', localStorage.getItem('USER_ACCESS_TOKEN'))
+    },
+    logout ({commit}) {
+      commit('LOGIN_STATUS', false)
+      commit('SET_INSTANCE', null)
+    },
     fetchDevices ({commit}, devices) {
       commit('SET_DEVICES', devices)
     },
-    saveItem ({commit}, item) {
+    saveItem ({commit, state}, item) {
       let fd = new FormData()
 
       fd.append('url', item.url)
@@ -110,7 +126,7 @@ export default new Vuex.Store({
           item.banner.img.substring(0, 4) !== 'http') {
         fd.append('full_image', item.banner.file)
       }
-      instance.post('/pending/create', fd).then((response) => {
+      state.instance.post('/pending/create', fd).then((response) => {
         let thanksMessage = `Thanks for suggesting content to XDA Feed, ${item.title}
                              and any other suggestions help to make the app even
                              better for everyone. Keep an eye out for ${item.title}
@@ -135,7 +151,7 @@ export default new Vuex.Store({
     voteForIt ({commit, state}, url) {
       let fd = new FormData()
       fd.append('url', url)
-      instance.post('/pending/vote', fd).then((response) => {
+      state.instance.post('/pending/vote', fd).then((response) => {
         let thanksMessage = `Thank you for voting for ${state.item.title},
                              the more votes it gets the more likely it is to
                              go live.
@@ -150,6 +166,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    instance: state => state.instance,
     item: state => state.item,
     types: state => state.types,
     errors: state => state.errors,

@@ -11,7 +11,7 @@ export function login () {
 
 export function logout () {
   localStorage.removeItem('USER_ACCESS_TOKEN')
-  store.commit('LOGIN_STATUS', false)
+  store.dispatch('logout')
 }
 
 export function getParam (param) {
@@ -30,11 +30,12 @@ export function grabToken () {
 
 export function setLoginToken (token) {
   localStorage.setItem('USER_ACCESS_TOKEN', token)
+  store.dispatch('login')
 }
 
 export function checkLogin () {
   if (grabToken()) {
-    store.commit('LOGIN_STATUS', true)
+    store.dispatch('login')
   }
 }
 
@@ -49,10 +50,9 @@ export function setConvertToken (accessToken) {
 
   axios.post(process.env.BASE_URL + '/auth/convert-token', data).then(response => {
     setLoginToken(response.data.access_token)
-    store.commit('LOGIN_STATUS', true)
     console.log(response)
   }).catch(err => {
     console.log(err)
-    store.commit('LOGIN_STATUS', false)
+    store.logout()
   })
 }
