@@ -24,17 +24,28 @@ export function getAccessToken () {
   return token
 }
 
-export function grabToken () {
-  return localStorage.getItem('USER_ACCESS_TOKEN')
-}
-
 export function setLoginToken (token) {
   localStorage.setItem('USER_ACCESS_TOKEN', token)
   store.dispatch('login')
 }
 
+export function grabToken () {
+  return localStorage.getItem('USER_ACCESS_TOKEN')
+}
+
+export function setExpiryDate (expiry) {
+  let date = new Date()
+  date.setUTCSeconds(expiry)
+  localStorage.setItem('EXPIRY_DATE', date)
+}
+
+function checkTokenExpiry () {
+  let expiryDate = localStorage.getItem('EXPIRY_DATE')
+  return Date.parse(expiryDate) > new Date()
+}
+
 export function checkLogin () {
-  if (grabToken()) {
+  if (grabToken() && checkTokenExpiry()) {
     store.dispatch('login')
   }
 }
@@ -50,6 +61,7 @@ export function setConvertToken (accessToken) {
 
   axios.post(process.env.BASE_URL + '/auth/convert-token', data).then(response => {
     setLoginToken(response.data.access_token)
+    setExpiryDate(response.data.expires_in)
     console.log(response)
   }).catch(err => {
     console.log(err)
