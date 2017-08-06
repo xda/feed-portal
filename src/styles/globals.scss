@@ -75,7 +75,8 @@ h4 {
 }
 
 h5 {
-  font-size: 1.5rem;
+  font-family: $Titillium;
+  font-size: 1.4rem;
 }
 
 h6 {
@@ -174,7 +175,8 @@ a.link {
   transition: background-color .2s linear;
   &:hover {
     background-color: $orange-light;
-    color: $dark-grey
+    color: $dark-grey;
+    cursor: pointer;
   }
   &:active {
     color: darken($orange, 10%);

@@ -1,11 +1,16 @@
 <template lang="html">
   <div id="get-feed">
-    <span v-if="isLoggedIn">
       <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
       <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-        <url-input></url-input>
+        <span v-if="isLoggedIn">
+          <url-input></url-input>
+        </span>
+        <div v-else>
+          <h6><a class="link" @click="handleLogin">Login</a>,
+            then add a link to something you want to see in XDA Feed
+          </h6>
+        </div>
       </div>
-    </span>
     <h3><i class="material-icons orange">add_circle_outline</i> Get feed</h3>
 
     <div class="col-xs-12">
@@ -94,6 +99,7 @@
 <script>
 import urlInput from './urlInput'
 import carousel from './carousel'
+import { login } from '../utils/auth'
 
 export default {
   components: {
@@ -109,6 +115,11 @@ export default {
     isLoggedIn () {
       return this.$store.getters.user.isLoggedIn
     }
+  },
+  methods: {
+    handleLogin () {
+      login()
+    }
   }
 }
 </script>
@@ -122,6 +133,10 @@ export default {
 
 #iframe-wrap {
   margin-bottom: 4rem;
+}
+
+.feed-icon {
+  height: 1.6rem;
 }
 
 .download {
