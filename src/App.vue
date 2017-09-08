@@ -1,26 +1,21 @@
 <template>
   <div id="application">
     <header id="nav">
-      <div class="header-wrapper
-                  col-lg-8 col-lg-offset-2
-                  col-sm-10 col-sm-offset-1
-                  col-xs-12">
-        <router-link to="/">
-          <img src="./assets/icons/aQ.png" alt="feed-icon" class="feed-icon">
-          <h1 class="orange-light header">xda</h1><h1 class="paper header">feed</h1>
-        </router-link>
-        <div class="login-wrapper" @click.prevent="handleLogin" v-if='!isLoggedIn'>
-          <i class="material-icons grey-lightest">lock_outline</i>
-          <span class="grey-lightest continuum login">
-            Login
-          </span>
-        </div>
-        <div class="login-wrapper" @click.prevent="handleLogout" v-else>
-          <i class="material-icons grey-lightest">lock_open</i>
-          <span class="grey-lightest continuum login">
-            Logout
-          </span>
-        </div>
+      <router-link to="/">
+        <img src="./assets/icons/aQ.png" alt="feed-icon" class="feed-icon">
+        <h1 class="orange-light header">xda</h1><h1 class="paper header">feed</h1>
+      </router-link>
+      <div class="login-wrapper" @click.prevent="handleLogin" v-if='!isLoggedIn'>
+        <i class="material-icons grey-lightest">lock_outline</i>
+        <span class="grey-lightest continuum login">
+          Login
+        </span>
+      </div>
+      <div class="login-wrapper" @click.prevent="handleLogout" v-else>
+        <i class="material-icons grey-lightest">lock_open</i>
+        <span class="grey-lightest continuum login">
+          Logout
+        </span>
       </div>
     </header>
 
@@ -217,14 +212,9 @@ i, span.login {
   }
 }
 
-.header-wrapper {
-  width: 100vh;
-  display: flex;
-}
-
 .login-wrapper {
   margin-left: auto;
-  margin-right: 5%;
+  margin-right: 12%;
   display: flex;
   justify-content: center;
   align-items: center;
