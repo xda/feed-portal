@@ -15,6 +15,8 @@ if (process.env.NODE_ENV === 'testing') {
   env = require('../config/test.env')
 } else if (process.env.NODE_ENV === 'staging') {
   env = require('../config/staging.env')
+} else if (process.env.NODE_ENV === 'docker') {
+  env = require('../config/docker.env')
 } else {
   env = config.build.env
 }
