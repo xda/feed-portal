@@ -5,13 +5,17 @@
         <img src="./assets/icons/aQ.png" alt="feed-icon" class="feed-icon">
         <h1 class="orange-light header">xda</h1><h1 class="paper header">feed</h1>
       </router-link>
-      <div class="register">
-        <router-link to="/">
-          <i class="material-icons grey-lightest">lock</i>
-          <span class="grey-lightest continuum login">
-            Login
-          </span>
-        </router-link>
+      <div class="login-wrapper" @click.prevent="handleLogin" v-if='!isLoggedIn'>
+        <i class="material-icons grey-lightest">lock_outline</i>
+        <span class="grey-lightest continuum login">
+          Login
+        </span>
+      </div>
+      <div class="login-wrapper" @click.prevent="handleLogout" v-else>
+        <i class="material-icons grey-lightest">lock_open</i>
+        <span class="grey-lightest continuum login">
+          Logout
+        </span>
       </div>
     </header>
 
@@ -22,7 +26,11 @@
                  col-xs-12
                  shadow-4dp">
 
-      <transition name="fade">
+      <div id="loading-container" v-if="isLoading">
+        <div class="loader" id="loading-spinner"></div>
+      </div>
+
+      <transition name="fade" v-else>
         <router-view></router-view>
       </transition>
     </main>
@@ -66,8 +74,53 @@
 </template>
 
 <script>
+import {checkLogin, login, logout, getAccessToken, setConvertToken} from './utils/auth'
 export default {
-  name: 'application'
+  name: 'feed-portal',
+  data () {
+    return {
+      isLoading: false
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.getters.user.isLoggedIn
+    }
+  },
+  watch: {
+    '$route' () {
+      let self = this
+      self.isLoading = true
+      setTimeout(() => {
+        self.isLoading = false
+      }, 1000)
+    }
+  },
+  beforeMount () {
+    checkLogin()
+  },
+  mounted () {
+    if (window.location.hash.substring(0, 13) === '#access_token') {
+      new Promise((resolve, reject) => {
+        resolve(getAccessToken())
+      }).then(accessToken => setConvertToken(accessToken)).then(
+        this.$router.push('/')
+      )
+    }
+  },
+  methods: {
+    handleLogin () {
+      login()
+    },
+    handleLogout () {
+      logout()
+    },
+    loader () {
+      Promise((resolve) => {
+        setTimeout(resolve(this.isLoading = true), 1000)
+      })
+    }
+  }
 }
 </script>
 
@@ -96,6 +149,11 @@ header#nav {
   }
 }
 
+#loading-container {
+  margin: 15% 44%;
+  margin-bottom: -2rem;
+}
+
 h1.header {
   display: inline-block;
 }
@@ -104,7 +162,7 @@ a {
   text-decoration: none;
 }
 
-i, span.login{
+i, span.login {
   font-size: 2rem;
 }
 
@@ -154,12 +212,15 @@ i, span.login{
   }
 }
 
-.register {
+.login-wrapper {
   margin-left: auto;
   margin-right: 12%;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .feed-icon {

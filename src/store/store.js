@@ -1,6 +1,13 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import instance from './api'
+import axios from 'axios'
+
+const localStoragePlugin = store => {
+  store.subscribe((mutation, state) => {
+    window.localStorage.setItem('ITEM', JSON.stringify(state.item))
+    window.localStorage.setItem('DEVICES', JSON.stringify(state.devices))
+  })
+}
 
 Vue.use(Vuex)
 
@@ -20,12 +27,14 @@ export const initialItem = {
   status: {
     live: false,
     reusable: false
-  }
+  },
+  checked: false
 }
 
 export default new Vuex.Store({
   state: {
-    item: {...initialItem},
+    instance: null,
+    item: JSON.parse(localStorage.getItem('ITEM')) || {...initialItem},
     types: [
       { name: 'Article', tag: 'article', id: 0 },
       { name: 'Thread', tag: 'thread', id: 1 },
@@ -39,13 +48,25 @@ export default new Vuex.Store({
       { name: 'App', tag: 'app', id: 9 },
       { name: 'Video', tag: 'video', id: 10 }
     ],
-    devices: [],
-    errors: {}
+    devices: JSON.parse(localStorage.getItem('DEVICES')) || [],
+    errors: {},
+    thanks: 'Thanks buddy',
+    user: {
+      isLoggedIn: false
+    }
   },
   mutations: {
+    SET_INSTANCE (state, token) {
+      state.instance = axios.create({
+        baseURL: process.env.BASE_URL + '/',
+        timeout: 6000,
+        headers: {'Authorization': `Bearer ${token}`}
+      })
+    },
     SET_ITEM (state, payload) {
       let item = payload.item
       let status = payload.status
+
       state.item = {
         id: item.id,
         type: item.type,
@@ -77,13 +98,27 @@ export default new Vuex.Store({
     },
     UPDATE_VERSION (state, version) {
       state.item.version = version
+    },
+    LOGIN_STATUS (state, status) {
+      state.user.isLoggedIn = status
+    },
+    THANKS (state, message) {
+      state.thanks = message
     }
   },
   actions: {
+    login ({commit}) {
+      commit('LOGIN_STATUS', true)
+      commit('SET_INSTANCE', localStorage.getItem('USER_ACCESS_TOKEN'))
+    },
+    logout ({commit}) {
+      commit('LOGIN_STATUS', false)
+      commit('SET_INSTANCE', null)
+    },
     fetchDevices ({commit}, devices) {
       commit('SET_DEVICES', devices)
     },
-    saveItem ({commit}, item) {
+    saveItem ({commit, dispatch, state}, item) {
       let fd = new FormData()
 
       fd.append('url', item.url)
@@ -100,16 +135,27 @@ export default new Vuex.Store({
           item.banner.img.substring(0, 4) !== 'http') {
         fd.append('full_image', item.banner.file)
       }
-      instance.post('/pending/create', fd).then((response) => {
-        commit('SET_ERRORS', {})
-        console.log(response)
+      state.instance.post('/pending/create', fd).then((response) => {
+        let thanksMessage = `Thanks for suggesting content to XDA Feed, ${item.title}
+                             and any other suggestions help to make the app even
+                             better for everyone. Keep an eye out for ${item.title}
+                             in the app!`
+        commit('THANKS', thanksMessage)
+        dispatch('setErrors', {}).then(() => {
+          dispatch('clearItem')
+        })
       }).catch(err => {
-        commit('SET_ERRORS', err)
+        dispatch('setErrors', err)
+        commit('THANKS', `Thanks for trying, but this didn't work because:
+                          ${err.response.data}`)
         console.log(err)
       })
     },
-    setItem ({commit}, {item, status}) {
+    setItem ({commit}, {item, status, checked}) {
       commit('SET_ITEM', {item: item, status: status})
+    },
+    setErrors ({commit}, err) {
+      commit('SET_ERRORS', err)
     },
     updateVersion ({commit}, version) {
       commit('UPDATE_VERSION', version)
@@ -117,24 +163,34 @@ export default new Vuex.Store({
     clearItem ({commit}) {
       commit('SET_ITEM', {item: initialItem, status: initialItem.status})
     },
-    voteForIt ({commit}, url) {
+    voteForIt ({commit, dispatch, state}, url) {
       let fd = new FormData()
       fd.append('url', url)
-      instance.post('/pending/vote', fd).then((response) => {
-        commit('SET_ERRORS', {})
-        console.log(response)
+      state.instance.post('/pending/vote', fd).then((response) => {
+        let thanksMessage = `Thank you fors voting for ${state.item.title},
+                             the more votes it gets the more likely it is to
+                             go live.
+                             Keep an eye out for it in the XDA Feed app!`
+        commit('THANKS', thanksMessage)
+        dispatch('setErrors', {}).then(() => {
+          dispatch('clearItem')
+        })
       }).catch(err => {
-        commit('SET_ERRORS', err)
+        dispatch('setErrors', err)
         console.log(err)
       })
     }
   },
   getters: {
+    instance: state => state.instance,
     item: state => state.item,
     types: state => state.types,
     errors: state => state.errors,
     devices: state => state.devices,
-    status: state => state.item.status
+    status: state => state.item.status,
+    thanks: state => state.thanks,
+    user: state => state.user
   },
+  plugins: [localStoragePlugin],
   strict: debug
 })
