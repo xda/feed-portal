@@ -62,7 +62,6 @@ export function setConvertToken (accessToken) {
   axios.post(process.env.BASE_URL + '/auth/convert-token', data).then(response => {
     setLoginToken(response.data.access_token)
     setExpiryDate(response.data.expires_in)
-    console.log(response)
   }).catch(err => {
     console.log(err)
     store.logout()

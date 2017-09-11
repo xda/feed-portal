@@ -39,6 +39,7 @@
                        :value="type.id"
                        maxLength="255"
                        v-model="item.type"
+                       @change="setLocalStorage"
                        required>
                 <span class="type-box col-sm-12"
                       :id="'label-' + type.tag"
@@ -54,14 +55,16 @@
         <!-- Device -->
         <span class="grey-lightest input-title">Item scope</span>
         <div class="checkbox-group">
-          <input type="checkbox" id="device-specific" v-model="item.deviceSpecific">
+          <input type="checkbox" id="device-specific"
+                 v-model="item.deviceSpecific"
+                 @blur="setLocalStorage">
           <label for="device-specific" class="grey-lightest">Device specific</label>
         </div>
 
         <transition name="fade">
           <div id="device-picker" v-show="item.deviceSpecific">
             <div class="input-group">
-              <select class="input"required v-model="item.device">
+              <select class="input"required v-model="item.device" @blur="setLocalStorage">
                 <option></option>
                 <option v-for="d in devices" :value="d.model">
                   {{d.name}}
@@ -73,7 +76,10 @@
         </transition>
         <!-- Title (Inputbox) -->
         <div class="input-group">
-          <input type="text" id="title-input" v-model="item.title" required>
+          <input type="text" id="title-input"
+                 v-model="item.title"
+                 @blur="setLocalStorage"
+                 required>
           <label for="title-input">Title</label>
           <span v-if="formErrors.title" class="errors">{{ formErrors.title }}</span>
         </div>
@@ -84,6 +90,7 @@
                     cols="60"
                     maxLength="2000"
                     v-model="item.description"
+                    @blur="setLocalStorage"
                     required>
           </textarea>
           <label for="description-input">Description</label>
@@ -132,13 +139,12 @@ const initialItem = {
 export default {
   data () {
     return {
-      item: initialItem,
+      item: JSON.parse(localStorage.getItem('ITEM')) || initialItem,
       formErrors: {},
       infoBox: true
     }
   },
   mounted () {
-    this.item = {...initialItem}
     this.removeImage()
     if (this.url) {
       this.item.url = this.url
@@ -163,9 +169,12 @@ export default {
     }
   },
   methods: {
+    setLocalStorage () {
+      localStorage.setItem('ITEM', JSON.stringify({...this.item}))
+    },
     validate () {
       let errors = {}
-      if (!this.item.type) {
+      if (this.item.type === '') {
         errors.type = 'Choose a type'
       }
       if (!this.item.title) {

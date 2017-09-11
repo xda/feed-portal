@@ -44,6 +44,9 @@ export default {
       infoBox: true
     }
   },
+  beforeMount () {
+    this.clearItem()
+  },
   computed: {
     ...mapGetters([
       'item',
@@ -52,7 +55,7 @@ export default {
     ])
   },
   methods: {
-    ...mapActions(['setItem', 'fetchDevices']),
+    ...mapActions(['setItem', 'setErrors', 'fetchDevices', 'clearItem']),
     submit () {
       if (this.url.length) {
         this.checkUrl()
@@ -66,10 +69,9 @@ export default {
       this.instance.get('/pending/check', {params: {url: this.url}, timeout: 3000})
       .then((response) => {
         let check = response.data
-        console.log(response)
         if (check.exists) {
           let item = response.data.item
-          let status = {reusable: check.reusable, live: check.live}
+          let status = {reusable: true, live: true}
 
           this.setItem({item: item, status: status})
 
@@ -80,7 +82,8 @@ export default {
         }
       })
       .catch(err => {
-        this.$store.commit('SET_ERRORS', err)
+        this.setErrors(err)
+        this.clearItem()
         console.log(err)
       })
     }

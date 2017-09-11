@@ -2,6 +2,13 @@ import Vuex from 'vuex'
 import Vue from 'vue'
 import axios from 'axios'
 
+const localStoragePlugin = store => {
+  store.subscribe((mutation, state) => {
+    window.localStorage.setItem('ITEM', JSON.stringify(state.item))
+    window.localStorage.setItem('DEVICES', JSON.stringify(state.devices))
+  })
+}
+
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -20,13 +27,14 @@ export const initialItem = {
   status: {
     live: false,
     reusable: false
-  }
+  },
+  checked: false
 }
 
 export default new Vuex.Store({
   state: {
     instance: null,
-    item: {...initialItem},
+    item: JSON.parse(localStorage.getItem('ITEM')) || {...initialItem},
     types: [
       { name: 'Article', tag: 'article', id: 0 },
       { name: 'Thread', tag: 'thread', id: 1 },
@@ -40,7 +48,7 @@ export default new Vuex.Store({
       { name: 'App', tag: 'app', id: 9 },
       { name: 'Video', tag: 'video', id: 10 }
     ],
-    devices: [],
+    devices: JSON.parse(localStorage.getItem('DEVICES')) || [],
     errors: {},
     thanks: 'Thanks buddy',
     user: {
@@ -58,6 +66,7 @@ export default new Vuex.Store({
     SET_ITEM (state, payload) {
       let item = payload.item
       let status = payload.status
+
       state.item = {
         id: item.id,
         type: item.type,
@@ -109,7 +118,7 @@ export default new Vuex.Store({
     fetchDevices ({commit}, devices) {
       commit('SET_DEVICES', devices)
     },
-    saveItem ({commit, state}, item) {
+    saveItem ({commit, dispatch, state}, item) {
       let fd = new FormData()
 
       fd.append('url', item.url)
@@ -132,15 +141,21 @@ export default new Vuex.Store({
                              better for everyone. Keep an eye out for ${item.title}
                              in the app!`
         commit('THANKS', thanksMessage)
-        commit('SET_ERRORS', {})
-        console.log(response)
+        dispatch('setErrors', {}).then(() => {
+          dispatch('clearItem')
+        })
       }).catch(err => {
-        commit('SET_ERRORS', err)
+        dispatch('setErrors', err)
+        commit('THANKS', `Thanks for trying, but this didn't work because:
+                          ${err.response.data}`)
         console.log(err)
       })
     },
-    setItem ({commit}, {item, status}) {
+    setItem ({commit}, {item, status, checked}) {
       commit('SET_ITEM', {item: item, status: status})
+    },
+    setErrors ({commit}, err) {
+      commit('SET_ERRORS', err)
     },
     updateVersion ({commit}, version) {
       commit('UPDATE_VERSION', version)
@@ -148,19 +163,20 @@ export default new Vuex.Store({
     clearItem ({commit}) {
       commit('SET_ITEM', {item: initialItem, status: initialItem.status})
     },
-    voteForIt ({commit, state}, url) {
+    voteForIt ({commit, dispatch, state}, url) {
       let fd = new FormData()
       fd.append('url', url)
       state.instance.post('/pending/vote', fd).then((response) => {
-        let thanksMessage = `Thank you for voting for ${state.item.title},
+        let thanksMessage = `Thank you fors voting for ${state.item.title},
                              the more votes it gets the more likely it is to
                              go live.
                              Keep an eye out for it in the XDA Feed app!`
         commit('THANKS', thanksMessage)
-        commit('SET_ERRORS', {})
-        console.log(response)
+        dispatch('setErrors', {}).then(() => {
+          dispatch('clearItem')
+        })
       }).catch(err => {
-        commit('SET_ERRORS', err)
+        dispatch('setErrors', err)
         console.log(err)
       })
     }
@@ -175,5 +191,6 @@ export default new Vuex.Store({
     thanks: state => state.thanks,
     user: state => state.user
   },
+  plugins: [localStoragePlugin],
   strict: debug
 })
