@@ -2,7 +2,11 @@ require('./check-versions')()
 
 var config = require('../config')
 if (!process.env.NODE_ENV) {
-  process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
+  if (process.argv.length === 3 && process.argv[2] === "docker") {
+    process.env.NODE_ENV = JSON.parse(config.dev_docker.env.NODE_ENV)
+  } else {
+    process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
+  }
 }
 
 var opn = require('opn')
@@ -71,7 +75,7 @@ var readyPromise = new Promise(resolve => {
   _resolve = resolve
 })
 
-console.log('> Starting dev server...')
+console.log('> Starting ' + process.env.NODE_ENV + ' server...')
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
   // when env is testing, don't need open it

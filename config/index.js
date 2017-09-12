@@ -35,6 +35,9 @@ module.exports = {
     // just be aware of this issue when enabling this option.
     cssSourceMap: false
   },
+  dev_docker: {
+    env: require('./dev_docker.env'),
+  },
   staging:{
     env: require('./staging.env'),
     index: path.resolve(__dirname, '../../django-feed/usp/templates/index.html'),

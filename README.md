@@ -8,8 +8,11 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8050
 npm run dev
+
+# hot reload using docker dev backend
+npm run dev-docker
 
 # build for production with minification
 npm run build
