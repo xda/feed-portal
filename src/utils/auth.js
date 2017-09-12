@@ -3,7 +3,7 @@ import store from '../store/store'
 import axios from 'axios'
 
 const CLIENT_ID = process.env.CLIENT_ID
-const REDIRECT_URI = process.env.BASE_URL
+const REDIRECT_URI = process.env.REDIRECT_URL || process.env.BASE_URL
 
 export function login () {
   window.location = `https://api.xda-developers.com/oauth2/authorize?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`
