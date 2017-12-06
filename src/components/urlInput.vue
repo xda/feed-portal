@@ -7,7 +7,10 @@
             <i class="material-icons dark-orange">close</i>
           </span>
           <div>
-            <i class="material-icons orange">lightbulb_outline</i>    ROM, Kernel, Wallpaper and Homescreen urls are typically a link to the XDA thread where they're posted. App, Theme or Icon Packs often link to Google Play™ or XDA Labs.
+            <i class="material-icons orange">lightbulb_outline</i>
+            ROM, Kernel, Wallpaper and Homescreen urls are typically a link to
+            the XDA thread where they're posted. App, Theme or Icon Packs often
+            link to Google Play™ or XDA Labs.
           </div>
         </div>
       </div>
@@ -77,7 +80,7 @@ export default {
 
           this.$router.push({path: `/suggest/${item.uuid}`})
         } else {
-          this.fetchDevices(response.data.devices)
+          this.fetchDevices()
           this.$router.push({name: 'add-item'})
         }
       })

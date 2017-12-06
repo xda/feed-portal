@@ -28,6 +28,7 @@ export const initialItem = {
     live: false,
     reusable: false
   },
+  devices: [],
   checked: false
 }
 
@@ -84,11 +85,7 @@ export default new Vuex.Store({
       }
     },
     SET_DEVICES (state, devices) {
-      let array = []
-      devices.map((d) => {
-        array.push({name: d.name, model: d.model})
-      })
-      state.devices = array
+      state.devices = devices
     },
     SET_URL (state, url) {
       state.item.url = url
@@ -115,8 +112,13 @@ export default new Vuex.Store({
       commit('LOGIN_STATUS', false)
       commit('SET_INSTANCE', null)
     },
-    fetchDevices ({commit}, devices) {
-      commit('SET_DEVICES', devices)
+    fetchDevices ({state, commit, dispatch}) {
+      state.instance.get('/device/list').then(response => {
+        commit('SET_DEVICES', response.data)
+      }).catch(err => {
+        console.log(err)
+        dispatch('setErrors', err)
+      })
     },
     saveItem ({commit, dispatch, state}, item) {
       let fd = new FormData()
