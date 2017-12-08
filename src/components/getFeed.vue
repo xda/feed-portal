@@ -178,9 +178,6 @@ export default {
     width: 315px;
     height: 177px;
   }
-  .link {
-    font-size: .7rem;
-  }
   #feed-description {
     padding-left: .6rem;
   }

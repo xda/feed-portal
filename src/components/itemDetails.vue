@@ -241,10 +241,6 @@ a#url-link {
   margin-top: 1rem;
 }
 
-#update-version {
-  margin-left: 7rem;
-}
-margin
 #vote {
   font-size: 1.3rem;
 }

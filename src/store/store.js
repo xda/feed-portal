@@ -172,7 +172,7 @@ export default new Vuex.Store({
       }).catch(err => {
         dispatch('setErrors', err)
         commit('THANKS', `Thanks for trying, but this didn't work because:
-                          ${err.response.data}`)
+                          ${err.response.data.error}`)
         console.log(err)
       })
     },

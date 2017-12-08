@@ -3,7 +3,7 @@
     <transition name="fade">
       <div class="card" v-if="infoBox">
         <div class="row card-body">
-          <span class="remove" id="info-box" @click="infoBox = false">
+          <span class="remove" id="info-box" @click="closeInfoBox">
             <i class="material-icons dark-orange">close</i>
           </span>
           <div>
@@ -44,7 +44,7 @@ export default {
     return {
       url: '',
       lengthError: '',
-      infoBox: true
+      infoBox: localStorage.getItem('URL_INFOBOX') === null ? 1 : parseInt(localStorage.getItem('URL_INFOBOX'))
     }
   },
   beforeMount () {
@@ -74,13 +74,17 @@ export default {
     },
     checkUrl (url) {
       this.$store.commit('SET_URL', this.url)
-      this.$store.dispatch('fetchItem', {url: this.url}).then(() => {
+      this.fetchItem({ url: this.url }).then(() => {
         if (this.item.status.live) {
           this.$router.push({path: `/suggest/${this.item.uuid}`})
         } else {
           this.$router.push({name: 'add-item'})
         }
       })
+    },
+    closeInfoBox () {
+      this.infoBox = 0
+      localStorage.setItem('URL_INFOBOX', this.infoBox)
     }
   }
 }

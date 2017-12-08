@@ -6,7 +6,7 @@
         <transition name="fade">
           <div class="card" v-if="infoBox">
             <div class="row card-body">
-              <span class="remove" id="info-box" @click="infoBox = false">
+              <span class="remove" id="info-box" @click="closeInfoBox">
                 <i class="material-icons dark-orange">close</i>
               </span>
               <div>
@@ -37,13 +37,12 @@
                        name="type"
                        :id="type.tag"
                        :value="type.id"
-                       maxLength="255"
                        v-model="item.type"
                        @change="setLocalStorage"
                        required>
                 <span class="type-box col-sm-12"
                       :id="'label-' + type.tag"
-                      :class="{'not-selected' : item.type !== type.id && item.type !== ''}">
+                      :class="{'not-selected' : item.type !== type.id && item.type !== ('' || null)}">
                   {{type.name}}
                 </span>
               </label>
@@ -141,7 +140,7 @@ export default {
     return {
       item: this.storedItem || initialItem,
       formErrors: {},
-      infoBox: true
+      infoBox: localStorage.getItem('ADD_INFOBOX') === null ? 1 : parseInt(localStorage.getItem('ADD_INFOBOX'))
     }
   },
   mounted () {
@@ -172,6 +171,10 @@ export default {
     }
   },
   methods: {
+    closeInfoBox () {
+      this.infoBox = 0
+      localStorage.setItem('ADD_INFOBOX', this.infoBox)
+    },
     setLocalStorage () {
       localStorage.setItem('ITEM', JSON.stringify({...this.item}))
     },
