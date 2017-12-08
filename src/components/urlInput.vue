@@ -58,7 +58,13 @@ export default {
     ])
   },
   methods: {
-    ...mapActions(['setItem', 'setErrors', 'fetchDevices', 'clearItem']),
+    ...mapActions([
+      'setItem',
+      'setErrors',
+      'fetchItem',
+      'fetchDevices',
+      'clearItem'
+    ]),
     submit () {
       if (this.url.length) {
         this.checkUrl()
@@ -68,28 +74,12 @@ export default {
     },
     checkUrl (url) {
       this.$store.commit('SET_URL', this.url)
-
-      this.instance.get('/pending/check', {params: {url: this.url}, timeout: 3000})
-      .then((response) => {
-        let check = response.data
-        if (check.exists) {
-          let item = response.data.item
-          let status = {reusable: true, live: true}
-
-          this.setItem({item: item, status: status})
-
-          this.$router.push({path: `/suggest/${item.uuid}`})
-        } else if (check.partial) {
-          console.log('partial')
+      this.$store.dispatch('fetchItem', {url: this.url}).then(() => {
+        if (this.item.status.live) {
+          this.$router.push({path: `/suggest/${this.item.uuid}`})
         } else {
-          this.fetchDevices()
           this.$router.push({name: 'add-item'})
         }
-      })
-      .catch(err => {
-        this.setErrors(err)
-        this.clearItem()
-        console.log(err)
       })
     }
   }

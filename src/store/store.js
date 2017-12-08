@@ -74,6 +74,7 @@ export default new Vuex.Store({
         timestamp: item.timestamp,
         title: item.title,
         url: item.url,
+        uuid: item.uuid,
         description: item.description,
         device: {...item.device},
         banner: {
