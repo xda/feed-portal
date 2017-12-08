@@ -115,9 +115,31 @@ export default new Vuex.Store({
     fetchDevices ({state, commit, dispatch}) {
       state.instance.get('/device/list').then(response => {
         commit('SET_DEVICES', response.data)
-      }).catch(err => {
+      }).catch((err) => {
         console.log(err)
         dispatch('setErrors', err)
+      })
+    },
+    fetchItem ({state, commit, dispatch}, params) {
+      return state.instance.get('/pending/check', {params: params, timeout: 3000})
+      .then((response) => {
+        let check = response.data
+        if (check.exists && !check.partial) {
+          dispatch('setItem',
+            {
+              item: check.item,
+              status: {reusable: true, live: true}
+            }
+          )
+        } else if (check.exists && check.partial) {
+          dispatch('setItem', {item: check.item, status: {partial: true}})
+        } else {
+          dispatch('fetchDevices')
+        }
+      }).catch((err) => {
+        dispatch('setErrors', err)
+        dispatch('clearItem')
+        console.log(err)
       })
     },
     saveItem ({commit, dispatch, state}, item) {

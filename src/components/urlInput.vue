@@ -79,6 +79,8 @@ export default {
           this.setItem({item: item, status: status})
 
           this.$router.push({path: `/suggest/${item.uuid}`})
+        } else if (check.partial) {
+          console.log('partial')
         } else {
           this.fetchDevices()
           this.$router.push({name: 'add-item'})
