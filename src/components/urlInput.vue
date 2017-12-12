@@ -75,7 +75,7 @@ export default {
     checkUrl (url) {
       this.$store.commit('SET_URL', this.url)
       this.fetchItem({ url: this.url }).then(() => {
-        if (this.item.status.live) {
+        if (this.item.status.exists && !this.item.status.partial) {
           this.$router.push({path: `/suggest/${this.item.uuid}`})
         } else {
           this.$router.push({name: 'add-item'})

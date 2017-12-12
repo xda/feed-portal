@@ -25,6 +25,8 @@ export const initialItem = {
   banner: {},
   version: '',
   status: {
+    exists: false,
+    partial: false,
     live: false,
     reusable: false
   },
@@ -49,7 +51,7 @@ export default new Vuex.Store({
       { name: 'App', tag: 'app', id: 9 },
       { name: 'Video', tag: 'video', id: 10 }
     ],
-    devices: JSON.parse(localStorage.getItem('DEVICES')) || [],
+    devices: localStorage.getItem('DEVICES') || [],
     errors: {},
     thanks: 'Thanks buddy',
     user: {
@@ -87,6 +89,7 @@ export default new Vuex.Store({
     },
     SET_DEVICES (state, devices) {
       state.devices = devices
+      localStorage.setItem('DEVICES', devices)
     },
     SET_URL (state, url) {
       state.item.url = url
@@ -125,15 +128,19 @@ export default new Vuex.Store({
       return state.instance.get('/pending/check', {params: params, timeout: 3000})
       .then((response) => {
         let check = response.data
-        if (check.exists && !check.partial) {
+        if (check.exists) {
           dispatch('setItem',
             {
               item: check.item,
-              status: {reusable: true, live: true}
+              status: {
+                exists: check.exists,
+                partial: check.partial,
+                reusable: check.reusable,
+                live: check.live
+              }
             }
           )
-        } else if (check.exists && check.partial) {
-          dispatch('setItem', {item: check.item, status: {partial: true}})
+          console.log(check)
         } else {
           dispatch('fetchDevices')
         }
