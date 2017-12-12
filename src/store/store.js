@@ -28,6 +28,7 @@ export const initialItem = {
     live: false,
     reusable: false
   },
+  devices: [],
   checked: false
 }
 
@@ -73,6 +74,7 @@ export default new Vuex.Store({
         timestamp: item.timestamp,
         title: item.title,
         url: item.url,
+        uuid: item.uuid,
         description: item.description,
         device: {...item.device},
         banner: {
@@ -84,11 +86,7 @@ export default new Vuex.Store({
       }
     },
     SET_DEVICES (state, devices) {
-      let array = []
-      devices.map((d) => {
-        array.push({name: d.name, model: d.model})
-      })
-      state.devices = array
+      state.devices = devices
     },
     SET_URL (state, url) {
       state.item.url = url
@@ -115,8 +113,35 @@ export default new Vuex.Store({
       commit('LOGIN_STATUS', false)
       commit('SET_INSTANCE', null)
     },
-    fetchDevices ({commit}, devices) {
-      commit('SET_DEVICES', devices)
+    fetchDevices ({state, commit, dispatch}) {
+      state.instance.get('/device/list').then(response => {
+        commit('SET_DEVICES', response.data)
+      }).catch((err) => {
+        console.log(err)
+        dispatch('setErrors', err)
+      })
+    },
+    fetchItem ({state, commit, dispatch}, params) {
+      return state.instance.get('/pending/check', {params: params, timeout: 3000})
+      .then((response) => {
+        let check = response.data
+        if (check.exists && !check.partial) {
+          dispatch('setItem',
+            {
+              item: check.item,
+              status: {reusable: true, live: true}
+            }
+          )
+        } else if (check.exists && check.partial) {
+          dispatch('setItem', {item: check.item, status: {partial: true}})
+        } else {
+          dispatch('fetchDevices')
+        }
+      }).catch((err) => {
+        dispatch('setErrors', err)
+        dispatch('clearItem')
+        console.log(err)
+      })
     },
     saveItem ({commit, dispatch, state}, item) {
       let fd = new FormData()

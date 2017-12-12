@@ -139,7 +139,7 @@ const initialItem = {
 export default {
   data () {
     return {
-      item: JSON.parse(localStorage.getItem('ITEM')) || initialItem,
+      item: this.storedItem || initialItem,
       formErrors: {},
       infoBox: true
     }
@@ -158,6 +158,9 @@ export default {
     }
   },
   computed: {
+    storedItem () {
+      return JSON.parse(localStorage.getItem('ITEM'))
+    },
     url () {
       return this.$store.getters.item.url
     },
