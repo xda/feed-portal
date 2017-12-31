@@ -36,6 +36,7 @@ export const initialItem = {
 
 export default new Vuex.Store({
   state: {
+    loading: false,
     instance: null,
     item: JSON.parse(localStorage.getItem('ITEM')) || {...initialItem},
     types: [
@@ -59,6 +60,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    TOGGLE_LOADING (state, bool) {
+      state.loading = bool
+    },
     SET_INSTANCE (state, token) {
       state.instance = axios.create({
         baseURL: process.env.BASE_URL + '/',
@@ -125,6 +129,7 @@ export default new Vuex.Store({
       })
     },
     fetchItem ({state, commit, dispatch}, params) {
+      dispatch('setErrors', [])
       return state.instance.get('/pending/check', {params: params, timeout: 3000})
       .then((response) => {
         let check = response.data
@@ -140,7 +145,6 @@ export default new Vuex.Store({
               }
             }
           )
-          console.log(check)
         } else {
           dispatch('fetchDevices')
         }
@@ -215,6 +219,7 @@ export default new Vuex.Store({
   },
   getters: {
     instance: state => state.instance,
+    loading: state => state.loading,
     item: state => state.item,
     types: state => state.types,
     errors: state => state.errors,

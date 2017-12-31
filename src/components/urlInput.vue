@@ -18,9 +18,10 @@
     <div class="input-group">
       <input type="text" id="url" v-model="url"  @keyup.enter="submit" required>
       <label for="url">Enter URL</label>
-      <button class="btn btn-orange" @click.prevent="submit">
-        Add
-      </button>
+      <submit-button :classes="'btn-orange'"
+                     :text="'Add'"
+                     @click.prevent="submit">
+      </submit-button>
     </div>
     <div class="errors" v-if="lengthError">
       {{ lengthError }}
@@ -39,6 +40,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import submitButton from './submitButton'
 export default {
   data () {
     return {
@@ -47,6 +49,9 @@ export default {
       infoBox: localStorage.getItem('URL_INFOBOX') === null ? 1 : parseInt(localStorage.getItem('URL_INFOBOX'))
     }
   },
+  components: {
+    submitButton
+  },
   beforeMount () {
     this.clearItem()
   },
@@ -54,7 +59,8 @@ export default {
     ...mapGetters([
       'item',
       'errors',
-      'instance'
+      'instance',
+      'loading'
     ])
   },
   methods: {
@@ -74,12 +80,18 @@ export default {
     },
     checkUrl (url) {
       this.$store.commit('SET_URL', this.url)
+      this.$store.commit('TOGGLE_LOADING', true)
+
       this.fetchItem({ url: this.url }).then(() => {
-        if (this.item.status.exists && !this.item.status.partial) {
-          this.$router.push({path: `/suggest/${this.item.uuid}`})
-        } else {
-          this.$router.push({name: 'add-item'})
+        if (!Object.keys(this.errors).length) {
+          if (this.item.status.exists && !this.item.status.partial) {
+            this.$router.push({path: `/suggest/${this.item.uuid}`})
+          } else {
+            this.$router.push({name: 'add-item'})
+          }
         }
+      }).then(() => {
+        this.$store.commit('TOGGLE_LOADING', false)
       })
     },
     closeInfoBox () {
