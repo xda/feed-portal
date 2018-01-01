@@ -142,7 +142,7 @@ const initialItem = {
 export default {
   data () {
     return {
-      item: this.storedItem || initialItem,
+      item: JSON.parse(localStorage.getItem('ITEM')) || initialItem,
       formErrors: {},
       infoBox: localStorage.getItem('ADD_INFOBOX') === null ? 1 : parseInt(localStorage.getItem('ADD_INFOBOX'))
     }
@@ -155,8 +155,6 @@ export default {
     if (this.url) {
       this.item.url = this.url
     }
-    console.log(JSON.parse(localStorage.getItem('ITEM')).deviceSpecific)
-    console.log(this.item.deviceSpecific)
   },
   watch: {
     'item.deviceSpecific': function () {
@@ -166,9 +164,6 @@ export default {
     }
   },
   computed: {
-    storedItem () {
-      return JSON.parse(localStorage.getItem('ITEM'))
-    },
     ...mapGetters([
       'url',
       'types',

@@ -52,9 +52,6 @@ export default {
   components: {
     submitButton
   },
-  beforeMount () {
-    this.clearItem()
-  },
   computed: {
     ...mapGetters([
       'item',
@@ -79,7 +76,7 @@ export default {
       }
     },
     checkUrl (url) {
-      this.$store.dispatch('clearItem')
+      this.clearItem()
       this.$store.commit('SET_URL', this.url)
       this.$store.commit('TOGGLE_LOADING', true)
 
