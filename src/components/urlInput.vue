@@ -79,6 +79,7 @@ export default {
       }
     },
     checkUrl (url) {
+      this.$store.dispatch('clearItem')
       this.$store.commit('SET_URL', this.url)
       this.$store.commit('TOGGLE_LOADING', true)
 

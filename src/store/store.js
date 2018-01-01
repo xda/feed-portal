@@ -38,6 +38,7 @@ export default new Vuex.Store({
   state: {
     loading: false,
     instance: null,
+    redirect: window.location.hash.substring(0, 13) === '#access_token',
     item: JSON.parse(localStorage.getItem('ITEM')) || {...initialItem},
     types: [
       { name: 'Article', tag: 'article', id: 0 },
@@ -52,7 +53,7 @@ export default new Vuex.Store({
       { name: 'App', tag: 'app', id: 9 },
       { name: 'Video', tag: 'video', id: 10 }
     ],
-    devices: localStorage.getItem('DEVICES') || [],
+    devices: JSON.parse(localStorage.getItem('DEVICES')) || [],
     errors: {},
     thanks: 'Thanks buddy',
     user: {
@@ -60,6 +61,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    CLEAR_REDIRECT (state) {
+      // because window location lookup isn't reactive :(
+      state.redirect = false
+    },
     TOGGLE_LOADING (state, bool) {
       state.loading = bool
     },
@@ -83,6 +88,7 @@ export default new Vuex.Store({
         uuid: item.uuid,
         description: item.description,
         device: {...item.device},
+        deviceSpecific: !!item.device,
         banner: {
           source: '',
           img: item.full_image
@@ -90,10 +96,11 @@ export default new Vuex.Store({
         version: item.latest_version,
         status: status
       }
+      localStorage.setItem('ITEM', JSON.stringify({...state.item}))
     },
     SET_DEVICES (state, devices) {
       state.devices = devices
-      localStorage.setItem('DEVICES', devices)
+      localStorage.setItem('DEVICES', JSON.stringify(devices))
     },
     SET_URL (state, url) {
       state.item.url = url
@@ -197,7 +204,8 @@ export default new Vuex.Store({
       commit('UPDATE_VERSION', version)
     },
     clearItem ({commit}) {
-      commit('SET_ITEM', {item: initialItem, status: initialItem.status})
+      commit('SET_ITEM', { item: initialItem, status: initialItem.status })
+      localStorage.removeItem('ITEM')
     },
     voteForIt ({commit, dispatch, state}, url) {
       let fd = new FormData()
@@ -219,8 +227,10 @@ export default new Vuex.Store({
   },
   getters: {
     instance: state => state.instance,
+    redirect: state => state.redirect,
     loading: state => state.loading,
     item: state => state.item,
+    url: state => state.item.url,
     types: state => state.types,
     errors: state => state.errors,
     devices: state => state.devices,

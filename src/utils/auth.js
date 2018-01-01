@@ -12,7 +12,6 @@ export function login () {
 export function logout () {
   localStorage.removeItem('USER_ACCESS_TOKEN')
   store.dispatch('logout')
-  window.location = '/'
 }
 
 export function getParam (param) {

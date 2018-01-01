@@ -111,10 +111,10 @@
           </div>
         </div>
         <div class="end-lg" id="submit-button">
-          <button class="btn btn-orange"
-                  @click.prevent="submit">
-            Submit
-          </button>
+          <submit-button :classes="'btn-orange'"
+                         :text="'Submit'"
+                         @click.prevent="submit">
+          </submit-button>
         </div>
       </div>
     </div>
@@ -122,6 +122,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import submitButton from './submitButton'
+
 const initialItem = {
   url: '',
   deviceSpecific: false,
@@ -135,6 +138,7 @@ const initialItem = {
     file: ''
   }
 }
+
 export default {
   data () {
     return {
@@ -143,11 +147,16 @@ export default {
       infoBox: localStorage.getItem('ADD_INFOBOX') === null ? 1 : parseInt(localStorage.getItem('ADD_INFOBOX'))
     }
   },
+  components: {
+    submitButton
+  },
   mounted () {
     this.removeImage()
     if (this.url) {
       this.item.url = this.url
     }
+    console.log(JSON.parse(localStorage.getItem('ITEM')).deviceSpecific)
+    console.log(this.item.deviceSpecific)
   },
   watch: {
     'item.deviceSpecific': function () {
@@ -160,15 +169,11 @@ export default {
     storedItem () {
       return JSON.parse(localStorage.getItem('ITEM'))
     },
-    url () {
-      return this.$store.getters.item.url
-    },
-    types () {
-      return this.$store.getters.types
-    },
-    devices () {
-      return this.$store.getters.devices
-    }
+    ...mapGetters([
+      'url',
+      'types',
+      'devices'
+    ])
   },
   methods: {
     closeInfoBox () {

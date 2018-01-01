@@ -5,7 +5,7 @@
         <img src="./assets/icons/aQ.png" alt="feed-icon" class="feed-icon">
         <h1 class="orange-light header">xda</h1><h1 class="paper header">feed</h1>
       </router-link>
-      <div class="login-wrapper" @click.prevent="handleLogin" v-if='!isLoggedIn'>
+      <div class="login-wrapper" @click.prevent="handleLogin" v-if='!canSubmit'>
         <i class="material-icons grey-lightest">lock_outline</i>
         <span class="grey-lightest continuum login">
           Login
@@ -76,6 +76,12 @@ export default {
   computed: {
     isLoggedIn () {
       return this.$store.getters.user.isLoggedIn
+    },
+    redirect () {
+      return this.$store.getters.redirect
+    },
+    canSubmit () {
+      return this.isLoggedIn || this.redirect
     }
   },
   beforeMount () {
@@ -97,6 +103,7 @@ export default {
       login()
     },
     handleLogout () {
+      this.$store.commit('CLEAR_REDIRECT')
       logout()
     }
   }

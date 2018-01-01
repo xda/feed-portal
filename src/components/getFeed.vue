@@ -2,9 +2,7 @@
   <div id="get-feed">
       <h3><i class="material-icons orange">add_circle_outline</i> Suggest feed content</h3>
       <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-        <span v-if="isLoggedIn">
-          <url-input></url-input>
-        </span>
+        <url-input v-if="canSubmit"></url-input>
         <div v-else>
           <h6><a class="link" @click="handleLogin">Login</a>,
             then add a link to something you want to see in XDA Feed
@@ -114,6 +112,12 @@ export default {
   computed: {
     isLoggedIn () {
       return this.$store.getters.user.isLoggedIn
+    },
+    redirect () {
+      return this.$store.getters.redirect
+    },
+    canSubmit () {
+      return this.isLoggedIn || this.redirect
     }
   },
   methods: {
