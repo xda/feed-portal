@@ -27,10 +27,9 @@
             <span id="vote">Help get this item approved in feed with a vote!</span>
           </div>
           <div class="col-xs-2 end-xs">
-            <button class="btn btn-small btn-orange"
-                    @click="vote">
-            vote
-          </button>
+            <submit-button :classes="'btn-small btn-orange'" :text="'vote'"
+                    @click.native="vote">
+	          </submit-button>
         </div>
       </div>
 
@@ -63,7 +62,7 @@
               {{item.device.name || 'any' | capitalize }}
             </div>
           </div>
-          <div class="detail-wrap">
+          <div class="detail-wrap" v-if="item.description">
             <span class="grey-lightest input-title">Description</span>
             <div class="detail">
               {{item.description}}
@@ -97,10 +96,10 @@
                 </div>
                 <div class="col-lg-2 col-offset-4 col-xs-12">
                   <div id="submit-button">
-                    <button class="btn btn-small btn-orange"
+                    <submit-button :classes="'btn-small btn-orange'"
+                            :text="'submit'"
                             @click.prevent="submit">
-                      Submit
-                    </button>
+                    </submit-button>
                   </div>
                 </div>
               </div>
@@ -113,13 +112,14 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-
+import { mapActions } from 'vuex'
 import urlInput from './urlInput'
+import submitButton from './submitButton'
 
 export default {
   components: {
-    urlInput
+    urlInput,
+    submitButton
   },
   data () {
     return {
@@ -182,19 +182,24 @@ export default {
       return Object.keys(errors).length === 0
     },
     vote () {
+      this.$store.commit('TOGGLE_LOADING', true)
       this.voteForIt(this.item.url).then(() => {
         if (this.checkNetworkErrors()) {
+          this.$store.commit('TOGGLE_LOADING', false)
           this.$router.push({name: 'thanks'})
         }
       })
     },
     submit () {
+      this.$store.commit('TOGGLE_LOADING', true)
       if (this.validate()) {
         this.updateVersion(this.version).then(() => {
           this.saveItem(this.item).then(() => {
+            this.$store.commit('TOGGLE_LOADING', false)
             this.$router.push({name: 'thanks'})
           }).catch(() => {
             this.updateVersion(this.oldVersion)
+            this.$store.commit('TOGGLE_LOADING', false)
           })
         })
       }

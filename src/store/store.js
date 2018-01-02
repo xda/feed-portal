@@ -211,7 +211,7 @@ export default new Vuex.Store({
       let fd = new FormData()
       fd.append('url', url)
       state.instance.post('/pending/vote', fd).then((response) => {
-        let thanksMessage = `Thank you fors voting for ${state.item.title},
+        let thanksMessage = `Thank you for voting for ${state.item.title},
                              the more votes it gets the more likely it is to
                              go live.
                              Keep an eye out for it in the XDA Feed app!`

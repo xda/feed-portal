@@ -11,6 +11,8 @@
 export default {
   props: ['classes', 'text'],
   computed: {
+    // loading gets set on components that are about to do something with api requests
+    // e.g. url input add button click
     loading () {
       return this.$store.getters.loading
     }

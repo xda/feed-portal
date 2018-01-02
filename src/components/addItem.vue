@@ -113,7 +113,7 @@
         <div class="end-lg" id="submit-button">
           <submit-button :classes="'btn-orange'"
                          :text="'Submit'"
-                         @click.prevent="submit">
+                         @click.native="submit">
           </submit-button>
         </div>
       </div>
@@ -217,8 +217,10 @@ export default {
       this.item.banner = {source: '', img: '', file: ''}
     },
     submit () {
+      this.$store.commit('TOGGLE_LOADING', true)
       if (this.validate()) {
         this.$store.dispatch('saveItem', this.item).then(() => {
+          this.$store.commit('TOGGLE_LOADING', false)
           this.$router.push({name: 'thanks'})
         })
       }

@@ -20,7 +20,7 @@
       <label for="url">Enter URL</label>
       <submit-button :classes="'btn-orange'"
                      :text="'Add'"
-                     @click.prevent="submit">
+                     @click.native="submit">
       </submit-button>
     </div>
     <div class="errors" v-if="lengthError">
