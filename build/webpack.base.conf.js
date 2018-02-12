@@ -2,6 +2,7 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+var webpack = require('webpack')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -18,6 +19,13 @@ module.exports = {
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
+  plugins: [
+    new webpack.EnvironmentPlugin({
+      // Default for dev/staging
+      CONVERT_TOKEN_CLIENT_ID: config.dev.env.DEV_CONVERT_TOKEN_CLIENT_ID,
+      CONVERT_TOKEN_CLIENT_SECRET: config.dev.env.DEV_CONVERT_TOKEN_CLIENT_SECRET
+    })
+  ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
