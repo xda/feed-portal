@@ -5,8 +5,9 @@ module.exports = {
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../../django-feed/usp/templates/index.html'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
+    // `I think this?`
+    assetsRoot: path.resolve('http://storage.googleapis.com/feed-static/static', '../dist'),
+    assetsSubDirectory: 'static',``
     assetsPublicPath: '/',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
@@ -41,6 +42,7 @@ module.exports = {
   staging:{
     env: require('./staging.env'),
     index: path.resolve(__dirname, '../../django-feed/usp/templates/index.html'),
+    // also change this root path to whatever your staging is
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
