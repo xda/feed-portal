@@ -41,7 +41,7 @@
             {{ item.timestamp | prettyDate }}
           </span>
         </div>
-        <img :src="item.banner.img || '../../static/images/xda_500.png'" id="banner" class="shadow-2dp">
+        <img :src="item.banner.img || '/static/images/xda_500.png'" id="banner" class="shadow-2dp">
       </div>
 
 

@@ -34,7 +34,7 @@
     <footer class="row">
       <div class="col-xs-12 center-xs start-sm col-sm-5">
         <div>
-          <img src="../static/images/xdalogo-dark.png" alt="xda-logo" id="xda-logo">
+          <img src="/static/images/xdalogo-dark.png" alt="xda-logo" id="xda-logo">
         </div>
 
         <div id="footer-text" class="grey-lightest">
