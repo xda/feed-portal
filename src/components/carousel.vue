@@ -25,11 +25,11 @@ export default {
   data () {
     return {
       slides: [
-        '/static/images/feed2.png',
-        '/static/images/feed3.png',
-        '/static/images/feed4.png',
-        '/static/images/feed5.png',
-        '/static/images/feed6.png'
+        require('../assets/images/feed2.png'),
+        require('../assets/images/feed3.png'),
+        require('../assets/images/feed4.png'),
+        require('../assets/images/feed5.png'),
+        require('../assets/images/feed6.png')
       ],
       currentIndex: 1,
       timer: null
