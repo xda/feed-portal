@@ -7,7 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, '../../django-feed/usp/templates/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: 'http://storage.googleapis.com/feed-static/static/',
+    assetsPublicPath: process.env.STATIC_URL || '/',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -43,7 +43,7 @@ module.exports = {
     index: path.resolve(__dirname, '../../django-feed/usp/templates/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: process.env.STATIC_URL || '/',
     productionSourceMap: true,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
@@ -54,7 +54,7 @@ module.exports = {
     index: path.resolve(__dirname, '../../django-feed/usp/templates/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: process.env.STATIC_URL || '/',
     productionSourceMap: true,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
