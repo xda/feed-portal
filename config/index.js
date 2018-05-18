@@ -26,7 +26,6 @@ module.exports = {
     port: 8085,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
     proxyTable: {},
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
@@ -43,7 +42,6 @@ module.exports = {
     index: path.resolve(__dirname, '../../django-feed/usp/templates/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: process.env.STATIC_URL || '/',
     productionSourceMap: true,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
@@ -54,7 +52,6 @@ module.exports = {
     index: path.resolve(__dirname, '../../django-feed/usp/templates/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: process.env.STATIC_URL || '/',
     productionSourceMap: true,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
